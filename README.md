@@ -18,7 +18,7 @@ Skill do **Gabinete do Desembargador João Luiz de Azevedo Lessa — Câmara Cri
 
 Scripts (`scripts/`): `cnj.py`, `dosimetria.py`, `prescricao.py`, `montar_minuta.py`,
 `verificar_minuta.py`, `gerar_versoes.py` (com conversor DOCX→RTF nativo),
-`conferir_citacoes.py`, `inventario_votos.py`, `regimento.py`, `gerar_mapa_regimento.py`, `saj_sg5.ps1`.
+`conferir_citacoes.py`, `inventario_votos.py`, `regimento.py`, `gerar_mapa_regimento.py`, `saj_sg5.ps1`, `testar_acesso.ps1`.
 
 ### Antes do primeiro uso
 

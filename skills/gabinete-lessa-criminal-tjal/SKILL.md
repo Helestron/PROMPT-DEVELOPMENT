@@ -43,7 +43,7 @@ Scripts (`scripts/`): `cnj.py` (número CNJ), `dosimetria.py`, `prescricao.py`,
 `gerar_versoes.py` (limpa .docx/.rtf sob portão), `conferir_citacoes.py` (citações × ledger),
 `inventario_votos.py` (pasta compartilhada, somente leitura), `regimento.py` (texto vigente de
 artigo do RITJAL, busca por termo e fila de conferência regimental da minuta), `saj_sg5.ps1`
-(automação do SG5).
+(automação do SG5), `testar_acesso.ps1` (teste de acesso somente leitura ao SG5).
 Python 3 com `python-docx` (`pip install python-docx`); PowerShell 5.1 no Windows.
 
 ## 1. Execução, entrada e limites
@@ -124,6 +124,28 @@ bloqueio de assinatura e de credencial) estão no `saj_sg5.ps1` e independem do 
    **lotação errada insere documento em gabinete alheio, o que é irreversível**.
 4. Informe uma vez que o usuário pode criar `scripts/PARAR.txt` a qualquer momento para
    suspender toda a automação.
+
+#### 0.1 Teste de acesso (somente leitura) — "teste o acesso", primeira execução, troca de máquina
+
+**Onde roda**: na **máquina do gabinete** em que o SG5 e o Chrome estão abertos (Claude Desktop
+ou `claude` no terminal dessa máquina, com as ferramentas do Chrome). Sessão em nuvem não
+alcança nem o SG5 (aplicativo Windows local) nem a sessão autenticada do Chrome, e o domínio
+`www2.tjal.jus.br` pode estar fora da política de rede do ambiente — nesse caso, diga isso ao
+usuário em poucas linhas e não relate o teste como feito.
+
+1. **e-SAJ de 2º grau** (ferramentas do Chrome, sem clicar em nada que altere dados): abrir
+   `https://www2.tjal.jus.br/cposg5/open.do?gateway=true`; conferir com `get_page_text` que não
+   há tela de login e que o usuário aparece identificado; pesquisar um processo indicado pelo
+   usuário (ou o primeiro do lote) e confirmar que a capa abre e que o link da pasta digital
+   existe; registrar em `config.esaj.rotas_validadas` a URL de pesquisa e o link da pasta, com
+   a data. Sucesso = capa aberta com usuário autenticado e link de pasta presente.
+2. **SAJ/SG5**: `powershell -ExecutionPolicy Bypass -File scripts\testar_acesso.ps1` — localiza
+   processo e janela do SG5, lista modais pendentes, captura a tela principal e confere a
+   lotação; grava `_teste_acesso.json` e a captura. Leia a captura para preencher
+   `gabinete.lotacao_esperada_regex` e `usuario_saj` (Rodada de Descoberta). Sucesso =
+   `sg5_aberto: true` e lotação do gabinete do Des. João Luiz de Azevedo Lessa visível.
+3. Relate no chat duas linhas (e-SAJ e SG5: ok / falha + motivo literal) e anote no caderno de
+   bordo. Nenhum teste de acesso emite, insere, finaliza ou movimenta documento.
 
 ### FASE 1 — Autos (antes de qualquer análise)
 
@@ -363,6 +385,10 @@ se executa.
 
 ## 9. Registro de alterações
 
+- **01/10/2026 (3.ª entrada) — Teste de acesso.** Item 0.1 da Fase 0 e script
+  `testar_acesso.ps1` (somente leitura) para testar o e-SAJ de 2º grau e o SG5 na máquina do
+  gabinete; registrado que sessão em nuvem não alcança o SG5 local nem a sessão autenticada do
+  Chrome.
 - **01/10/2026 (2.ª entrada) — e-SAJ de 2º grau e Regimento Interno.** Por indicação do
   usuário: (1) a entrada do e-SAJ de 2º grau passa a ser
   `https://www2.tjal.jus.br/cposg5/open.do?gateway=true` (Fase 0, Fase 1,
