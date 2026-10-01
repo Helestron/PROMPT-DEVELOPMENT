@@ -53,14 +53,14 @@ Regras de uso: (1) o mapa orienta; o integral autoriza — antes de citar, rode
 `python scripts/regimento.py <artigo>` e registre no ledger com `tipo: "regimento"`; (2) nova
 emenda regimental → `python scripts/extrair_regimento.py <PDF consolidado>`, depois
 `python scripts/gerar_mapa_regimento.py`, e reconferir as entradas do ledger; (3) casos omissos:
-RISTF e RISTJ, nessa ordem (art. 392); (4) divergência de interpretação regimental:
-pronunciamento prévio do Pleno (art. 389).
+RISTF e RISTJ, nessa ordem (art. 392); (4) divergência de interpretação regimental ou ausência
+de previsão interna: pronunciamento prévio do Pleno, pedido antes do voto (art. 389).
 """)
 
 S.append("## 1. Competência\n")
 S.append(bloco("Art. 2º (estrutura)", tr(2), "uma única Câmara Criminal no Tribunal."))
 S.append(bloco("Art. 48 (Câmara Criminal)", v(48),
-  "classes do gabinete na Câmara: recursos criminais e do Júri (II); HC quando o **coator** for uma das autoridades do art. 43, IX, f — v.g., juiz de direito —, ou quando houver iminente perigo de consumar-se a violência (III); desaforamento (VI); recursos infracionais do ECA (VII); conflitos de competência criminais de 1º grau (VIII); Conselho de Justificação (I); extinção de medida de segurança (IV)."))
+  "classes do gabinete na Câmara: recursos criminais e do Júri (II); HC quando o **coator** for uma das autoridades do art. 43, IX, f — v.g., juiz de direito —, ou quando houver iminente perigo de consumar-se a violência (III); desaforamento (VI); recursos infracionais do ECA (VII); conflitos de competência criminais de 1º grau (VIII); Conselho de Justificação (I); extinção de medida de segurança (IV). HC por prisão civil é das Câmaras Cíveis (art. 47, IV)."))
 S.append(bloco("Art. 43, IX, alíneas d, f, l, m e p (Pleno)",
   " … ".join([tr(43, r"d\) os conflitos de atribuição", r"e\) as ações de Reclamação"),
               tr(43, r"f\) os habeas corpus", r"g\) os habeas data"),
@@ -90,7 +90,7 @@ S.append(bloco("Art. 320 (recursos criminais)", v(320)))
 S.append("## 3. Habeas corpus e demais originárias criminais\n")
 for n in (189, 190, 191, 192, 193, 194):
     S.append(bloco(f"Art. {n}", v(n)))
-S.append("*Uso no gabinete:* indeferimento liminar só nas hipóteses do art. 192, parágrafo único; HC prejudicado pela cessação da coação (art. 192, caput); PGJ em dois dias (art. 191); agravo contra a liminar em quinze dias (art. 190); empate favorece o paciente (art. 193). O HC independe de pauta, salvo requerimento de inclusão (art. 121, VI).\n\n")
+S.append("*Uso no gabinete:* indeferimento liminar só nas hipóteses do art. 192, parágrafo único; HC prejudicado pela cessação da coação (art. 192, caput); oitiva da PGJ (art. 191 — “em dois dias”, prazo que admite leitura como da PGJ, em harmonia com o Decreto-Lei n.º 552/1969, ou do relator; conferir); agravo contra a liminar em quinze dias (art. 190); empate favorece o paciente (art. 193). O HC independe de pauta, salvo requerimento de inclusão (art. 121, VI).\n\n")
 for n in (196, 199, 213, 216, 217, 218, 220, 221, 241, 243):
     S.append(bloco(f"Art. {n}", v(n)))
 
@@ -139,7 +139,7 @@ for n in (164, 165, 166):
 S.append(bloco("Art. 167, III e parágrafo único", tr(167, r"III - se mais")))
 for n in (172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 184, 185, 186, 187):
     S.append(bloco(f"Art. {n}", v(n)))
-S.append("*Uso no gabinete:* matéria não submetida às partes, ainda que cognoscível de ofício, leva à suspensão e manifestação em cinco dias (art. 161) — a minuta marca o ponto em vermelho e propõe o caminho; voto-vista sempre escrito (art. 174), em dez dias prorrogáveis por mais dez (art. 173); vencido o Desembargador — inclusive só quanto ao fundamento determinante (art. 180) —, os fundamentos do voto vencido em **72 horas** (art. 179); ementa e voto divergentes → prevalece o voto (art. 185), por isso a Fase 4 (controle de completude e revisão adversarial) confere a congruência entre ambos.\n\n")
+S.append("*Uso no gabinete:* matéria surgida nos debates ou na vista sem prévia oportunidade de manifestação, ainda que cognoscível de ofício, leva à suspensão e à manifestação das partes em cinco dias, salvo manifestação na própria sessão (art. 161, caput e §§ 3º e 5º); antes da sessão, o contraditório prévio vem do art. 10 do CPC, por analogia — a minuta marca o ponto em vermelho e propõe o caminho; voto-vista sempre escrito (art. 174), em dez dias prorrogáveis por mais dez (art. 173); vencido o Desembargador — inclusive só quanto ao fundamento determinante (art. 180) —, os fundamentos do voto vencido em **72 horas** (art. 179); ementa e voto divergentes → prevalece o voto (art. 185), por isso a Fase 4 (controle de completude e revisão adversarial) confere a congruência entre ambos.\n\n")
 
 S.append("## 10. Plantão e urgências fora do expediente\n")
 S.append(bloco("Art. 75, § 2º", tr(75, r"§2º", r"§3º")))

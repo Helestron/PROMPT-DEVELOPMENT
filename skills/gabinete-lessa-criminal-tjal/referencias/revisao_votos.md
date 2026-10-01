@@ -56,8 +56,8 @@ nota anterior perde validade e a revisão se refaz sobre a diferença) e **INALT
 número CNJ (validado pelo dígito), relator, tipo de peça e sessão. Ordem de trabalho: (1) prazos
 regimentais correndo contra o gabinete — fundamentos de voto vencido (72 horas, art. 179), voto
 de referendo de liminar concessiva na próxima sessão (art. 63, § 4º), vista (dez dias, art. 173),
-revisão (dez dias, art. 50); (2) sessão mais próxima; (3) dentro dela, HC, réu preso, prescrição
-próxima (arts. 74 e 148). Lote padrão: até 10 votos, salvo indicação do usuário. Votos do
+revisão (dez dias, art. 50); (2) sessão mais próxima; (3) dentro dela, HC e réu preso
+(arts. 74 e 148) e, por critério do gabinete, prescrição próxima. Lote padrão: até 10 votos, salvo indicação do usuário. Votos do
 próprio gabinete são excluídos do Modo B.
 
 ## R2. Autos
@@ -92,7 +92,7 @@ e só então confronte com o voto. Pontos de confronto obrigatórios:
 | Prova | A valoração corresponde ao que está nas fls.? Depoimento citado diz o que o voto afirma? |
 | Dosimetria | Rodar `dosimetria.py` com os critérios do voto: a conta fecha? Há bis in idem, fração sem fundamento, reformatio in pejus (art. 617 do CPP)? |
 | Precedentes | Aderência a precedentes vinculantes (art. 927 do CPC, aplicado por analogia — art. 3º do CPP) e à orientação da própria Câmara; distinção ou superação fundamentadas? |
-| Dispositivo | Congruente com a fundamentação? Quantum, regime, substituição e providências (prisão, comunicação) coerentes? Efeito extensivo considerado (art. 580)? |
+| Dispositivo | Congruente com a fundamentação? Quantum, regime, substituição e providências (prisão, comunicação) coerentes? Efeito extensivo considerado (art. 580 do CPP)? |
 | Ementa | Reflete a tese e o resultado (divergindo, prevalece o voto — RITJAL, art. 185)? Segue o padrão adotado pelo Tribunal (conferir a recomendação do CNJ sobre ementas)? |
 | Casos gêmeos | Há processo análogo já julgado pela Câmara ou pelo Desembargador com solução diversa? |
 
@@ -143,9 +143,10 @@ Tipos do portão (`verificar_minuta.py --tipo …`) entre parênteses.
   (art. 173); o pedido de vista é ato do Desembargador em sessão (nível C). Se, na vista,
   surgir matéria não debatida pelas partes, os autos vão ao relator para a providência do
   art. 161 (§ 5º).
-- **Fundamentos do voto vencido** (`voto_vencido`): **72 horas** a partir do julgamento
-  (art. 179), integrando o acórdão para todos os fins, inclusive prequestionamento; a
-  publicação das conclusões aguarda a juntada (§ 1º). Prioridade máxima do lote.
+- **Fundamentos do voto vencido** (`voto_vencido`): **72 horas** (art. 179; o Regimento não
+  fixa o termo inicial — conte do julgamento, por cautela), integrando o acórdão para todos os
+  fins, inclusive prequestionamento; a publicação das conclusões aguarda a juntada, salvo se
+  decorrido o prazo (§ 1º). Prioridade máxima do lote.
 - **Embargos infringentes**: o voto vencido favorável ao réu delimita os embargos (art. 337,
   parágrafo único); redija-o com essa consciência.
 

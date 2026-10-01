@@ -70,13 +70,17 @@ anteriores dos arts. 93 e 99), apenas para consulta histórica. Mapa temático c
    status `PENDENTE`). Confira a **pertinência** (o artigo diz o que a minuta afirma?), mude o
    status para `VERIFIED` ou `REJECTED` e só então rode `conferir_citacoes.py`.
 3. **Remissões externas do Regimento**: o RITJAL remete à Lei n.º 6.564/2005 (Código de
-   Organização Judiciária — composição, quórum e eleição das Câmaras, arts. 2º, 6º e 16), a
+   Organização Judiciária) quanto ao quantitativo de Desembargadores (art. 2º), à composição e ao
+   quórum mínimo das Câmaras (art. 6º) e à eleição de sua presidência (art. 16) — o quórum da
+   Câmara Criminal está no próprio Regimento (art. 141) —, a
    Resoluções do TJAL (lavratura de acórdãos — art. 181; sessões virtuais — art. 152; plantão —
    art. 75) e ao Código de Normas da CGJ/AL (RESE com mais de um réu — arts. 322 e 327). O
    Código de Normas está no skill (`referencias/cgj_normas_integral.txt`; arts. 797 e 798); a Lei
    n.º 6.564/2005 e as Resoluções não estão — cite-as apenas depois de obtido o texto oficial.
-4. **Casos omissos**: RISTF e RISTJ, nessa ordem (art. 392); dúvida de interpretação
-   regimental: pronunciamento prévio do Pleno (art. 389).
+4. **Casos omissos e dúvidas**: aplicam-se, no que couber, o RISTF e o RISTJ, nessa ordem
+   (art. 392); havendo divergência de interpretação regimental ou ausência de previsão interna,
+   qualquer Desembargador pode, antes de votar, pedir o pronunciamento prévio do Pleno (art. 389,
+   I e II).
 5. **Atualização**: nova emenda → `python scripts/extrair_regimento.py <PDF consolidado>`
    (requer `pip install pdfplumber`), depois `python scripts/gerar_mapa_regimento.py`, e
    reconferir as entradas `regimento` do ledger com mais de 30 dias.

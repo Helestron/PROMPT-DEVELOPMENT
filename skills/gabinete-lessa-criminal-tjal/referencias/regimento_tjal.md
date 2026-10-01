@@ -13,8 +13,8 @@ Regras de uso: (1) o mapa orienta; o integral autoriza — antes de citar, rode
 `python scripts/regimento.py <artigo>` e registre no ledger com `tipo: "regimento"`; (2) nova
 emenda regimental → `python scripts/extrair_regimento.py <PDF consolidado>`, depois
 `python scripts/gerar_mapa_regimento.py`, e reconferir as entradas do ledger; (3) casos omissos:
-RISTF e RISTJ, nessa ordem (art. 392); (4) divergência de interpretação regimental:
-pronunciamento prévio do Pleno (art. 389).
+RISTF e RISTJ, nessa ordem (art. 392); (4) divergência de interpretação regimental ou ausência
+de previsão interna: pronunciamento prévio do Pleno, pedido antes do voto (art. 389).
 
 ## 1. Competência
 
@@ -29,7 +29,7 @@ pronunciamento prévio do Pleno (art. 389).
 
 > Art. 48. Compete à Câmara Criminal: I - julgar, originariamente, os processos oriundos do Conselho de Justificação da Polícia Militar do Estado e relativos a oficiais da mesma Corporação; II - julgar os recursos das sentenças e decisões dos(as) Juízes(as) criminais e do Tribunal do Júri; III - julgar os pedidos de habeas corpus quando o coator for alguma das autoridades descritas na alínea ‘f’, do inciso IX, do art. 43 deste Regimento, ou quando houver iminente perigo de consumar-se a violência antes que o(a) Juiz(íza) de Direito competente possa conhecer da espécie. IV - ordenar o exame acerca do pedido de extinção da medida de segurança, contido no Código de Processo Penal; V - promover a restauração de autos relativos a feitos submetidos ao seu julgamento; VI - julgar os pedidos de desaforamento; VII - julgar os recursos contra decisões proferidas pelos(as) Juízes(as) das Varas da Infância e da Juventude, em matéria de natureza infracional; VIII - os conflitos de competência entre Magistrados(as) de 1º grau em matéria criminal; e IX - executar, no que couber, as suas decisões.
 
-*Uso no gabinete:* classes do gabinete na Câmara: recursos criminais e do Júri (II); HC quando o **coator** for uma das autoridades do art. 43, IX, f — v.g., juiz de direito —, ou quando houver iminente perigo de consumar-se a violência (III); desaforamento (VI); recursos infracionais do ECA (VII); conflitos de competência criminais de 1º grau (VIII); Conselho de Justificação (I); extinção de medida de segurança (IV).
+*Uso no gabinete:* classes do gabinete na Câmara: recursos criminais e do Júri (II); HC quando o **coator** for uma das autoridades do art. 43, IX, f — v.g., juiz de direito —, ou quando houver iminente perigo de consumar-se a violência (III); desaforamento (VI); recursos infracionais do ECA (VII); conflitos de competência criminais de 1º grau (VIII); Conselho de Justificação (I); extinção de medida de segurança (IV). HC por prisão civil é das Câmaras Cíveis (art. 47, IV).
 
 
 **Art. 43, IX, alíneas d, f, l, m e p (Pleno)**
@@ -124,7 +124,7 @@ pronunciamento prévio do Pleno (art. 389).
 > Art. 194. A decisão concessiva de habeas corpus será imediatamente comunicada, preferencialmente de forma eletrônica, às autoridades a quem couber cumpri-la, sem prejuízo da remessa de cópia autenticada do acórdão. Parágrafo único. A comunicação mediante ofício, telegrama ou via internet, bem como o salvo-conduto, em caso de ameaça de violência ou coação, será firmada pelo(a) Relator(a) do acórdão ou decisão.
 
 
-*Uso no gabinete:* indeferimento liminar só nas hipóteses do art. 192, parágrafo único; HC prejudicado pela cessação da coação (art. 192, caput); PGJ em dois dias (art. 191); agravo contra a liminar em quinze dias (art. 190); empate favorece o paciente (art. 193). O HC independe de pauta, salvo requerimento de inclusão (art. 121, VI).
+*Uso no gabinete:* indeferimento liminar só nas hipóteses do art. 192, parágrafo único; HC prejudicado pela cessação da coação (art. 192, caput); oitiva da PGJ (art. 191 — “em dois dias”, prazo que admite leitura como da PGJ, em harmonia com o Decreto-Lei n.º 552/1969, ou do relator; conferir); agravo contra a liminar em quinze dias (art. 190); empate favorece o paciente (art. 193). O HC independe de pauta, salvo requerimento de inclusão (art. 121, VI).
 
 
 **Art. 196**
@@ -561,7 +561,7 @@ pronunciamento prévio do Pleno (art. 389).
 > Art. 187. Em caso de julgamento por acórdão, considera-se, para efeito de contagem de prazo processual, a publicação das conclusões do julgado, sendo vedado, para esse fim, utilizar como parâmetro a divulgação da ata do respectivo julgamento. §1º Após a publicação, a Secretaria certificará a data da disponibilização e da publicação das conclusões do acórdão, para fins de contagem do prazo recursal, sendo-lhe vedado efetuar correções ou modificações nos textos que lhe forem eletronicamente enviados pelo Gabinete do(a) Relator(a), ressalvado o disposto neste Regimento. §2º Publicadas as conclusões, os autos somente sairão da Secretaria durante o prazo para interposição do recurso cabível, nos casos previstos em lei.
 
 
-*Uso no gabinete:* matéria não submetida às partes, ainda que cognoscível de ofício, leva à suspensão e manifestação em cinco dias (art. 161) — a minuta marca o ponto em vermelho e propõe o caminho; voto-vista sempre escrito (art. 174), em dez dias prorrogáveis por mais dez (art. 173); vencido o Desembargador — inclusive só quanto ao fundamento determinante (art. 180) —, os fundamentos do voto vencido em **72 horas** (art. 179); ementa e voto divergentes → prevalece o voto (art. 185), por isso a Fase 4 (controle de completude e revisão adversarial) confere a congruência entre ambos.
+*Uso no gabinete:* matéria surgida nos debates ou na vista sem prévia oportunidade de manifestação, ainda que cognoscível de ofício, leva à suspensão e à manifestação das partes em cinco dias, salvo manifestação na própria sessão (art. 161, caput e §§ 3º e 5º); antes da sessão, o contraditório prévio vem do art. 10 do CPC, por analogia — a minuta marca o ponto em vermelho e propõe o caminho; voto-vista sempre escrito (art. 174), em dez dias prorrogáveis por mais dez (art. 173); vencido o Desembargador — inclusive só quanto ao fundamento determinante (art. 180) —, os fundamentos do voto vencido em **72 horas** (art. 179); ementa e voto divergentes → prevalece o voto (art. 185), por isso a Fase 4 (controle de completude e revisão adversarial) confere a congruência entre ambos.
 
 
 ## 10. Plantão e urgências fora do expediente

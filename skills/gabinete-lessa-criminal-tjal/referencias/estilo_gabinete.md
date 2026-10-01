@@ -13,7 +13,7 @@ mensuráveis; as demais são da revisão adversarial.
 | Peça | Estrutura | Fecho do relatório | Última linha |
 |---|---|---|---|
 | Despacho | DESPACHO → comando(s) | — | Publicações e intimações via DJEN |
-| Decisão monocrática (liminar em HC, não conhecimento, prejudicialidade, extinção da punibilidade, demais hipóteses regimentais) | DECISÃO MONOCRÁTICA → relatório → fundamentação → dispositivo → comandos à Secretaria | Brevemente relatado, passo a decidir. | Publicações e intimações via DJEN |
+| Decisão monocrática (liminar; prejudicialidade; desprovimento nas hipóteses do art. 62 do RITJAL; indeferimento liminar de HC e de embargos de declaração; deserção e desistência; extinção da punibilidade; demais hipóteses expressas — SKILL.md, Fase 2, item 2) | DECISÃO MONOCRÁTICA → relatório → fundamentação → dispositivo → comandos à Secretaria | Brevemente relatado, passo a decidir. | Publicações e intimações via DJEN |
 | Relatório (apelação com revisor) | RELATÓRIO → eventos | É o relatório. (seguido, quando houver revisor, de "À douta revisão.") | — |
 | Voto do relator | RELATÓRIO → eventos → É o relatório. → VOTO → admissibilidade → questões de ofício → preliminares → mérito → dosimetria → consectários → dispositivo | É o relatório. | É como voto. |
 | Voto de referendo de liminar concessiva (RITJAL, art. 63, §§ 3º a 5º) — tipo `referendo` | VOTO (REFERENDO DE LIMINAR) → síntese da decisão referendada (fls.) → razões para mantê-la → proposta de referendo | — | É como voto. |
@@ -70,12 +70,15 @@ de peças e ementas, precedentes em série, digressão teórica, fórmulas de es
 argumento, prova ou questão. Parágrafo que possa ser retirado sem deixar tese sem resposta deve
 ser retirado.
 
-f. **Contraditório sobre fundamento novo** (art. 10 do CPC, por analogia; RITJAL, art. 161):
-matéria não debatida pelas partes, **ainda que cognoscível de ofício**, exige oportunidade de
-manifestação — cinco dias, pelo Regimento. Na minuta, marque o ponto em vermelho e indique o
-caminho (despacho prévio de manifestação ou suscitação na sessão). A cautela só cede diante de
-constrangimento ilegal à liberdade que não admita espera (v.g., concessão de HC de ofício para
-soltura), hipótese em que a urgência é registrada na anotada.
+f. **Contraditório sobre fundamento novo**: matéria não debatida pelas partes, **ainda que
+cognoscível de ofício**, exige oportunidade de manifestação. Antes da sessão, o fundamento é o
+art. 10 do CPC, por analogia (art. 3º do CPP) — despacho prévio de manifestação; surgida a
+matéria nos debates ou na vista, o RITJAL manda suspender o julgamento e abrir cinco dias às
+partes, salvo manifestação na própria sessão (art. 161, caput e §§ 3º e 5º), e o relator que
+discorde submete a questão ao órgão (§ 6º). Na minuta, marque o ponto em vermelho e indique o
+caminho. A cautela só cede diante de constrangimento ilegal à liberdade que não admita espera
+(v.g., concessão de HC de ofício para soltura), hipótese em que a urgência é registrada na
+anotada.
 
 ## 4. Dispositivo
 
@@ -93,12 +96,18 @@ nunca dois-pontos), simples e sucintos. Não se manda a Secretaria contar prazo 
 que os autos já mostram: a contagem e a leitura são do gabinete.
 
 c-1. **Deveres regimentais da Secretaria** não precisam de comando, salvo urgência que justifique
-reforço: comunicação imediata da concessão de HC às autoridades (RITJAL, art. 194); expedição de
-alvará de soltura no BNMP (art. 319 — em decisão que solta, admite-se o comando expresso, pela
-urgência); comunicação da decisão do RESE e do agravo em execução ao juízo de origem, com cópia
-do acórdão (arts. 323, § 2º, e 330); inclusão em mesa do processo com liminar concessiva para
-referendo (art. 63, § 4º); vista ao Ministério Público no MS após as informações (art. 199).
-Contrarrazões nos embargos infringentes são abertas pela Secretaria (art. 338).
+reforço: expedição de alvará de soltura no BNMP (RITJAL, art. 319 — em decisão que solta,
+admite-se o comando expresso, pela urgência); comunicação da decisão do RESE e do agravo em
+execução ao juízo de origem, com cópia do acórdão (arts. 323, § 2º, e 330); inclusão em mesa do
+processo com liminar concessiva para referendo (art. 63, § 4º); vista ao Ministério Público no MS
+após as informações (art. 199). Contrarrazões nos embargos infringentes são abertas pela
+Secretaria (art. 338).
+
+c-2. **Comunicação da ordem de HC é do relator**: a decisão concessiva é comunicada de imediato,
+preferencialmente por meio eletrônico, às autoridades que devam cumpri-la, e a comunicação e o
+salvo-conduto (no HC preventivo) são **firmados pelo relator** (art. 194 e parágrafo único). A
+minuta concessiva traz, por isso, a ordem expressa de comunicação imediata — ou a fórmula de que
+a decisão servirá como ofício — e, sendo o caso, o salvo-conduto.
 
 d. Decisões e despachos encerram-se em "Publicações e intimações via DJEN", sem "publique-se",
 "intime-se" ou "cumpra-se"; votos, em "É como voto.".

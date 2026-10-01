@@ -15,14 +15,14 @@ mapa em `referencias/regimento_tjal.md`; consulta com `python scripts/regimento.
 | Classe | Lei (conferir) | RITJAL | Órgão | Ato típico do gabinete |
 |---|---|---|---|---|
 | Apelação criminal | arts. 593 a 603 e 609 a 618 do CPP | arts. 48, II; 324 a 327; 49 e 50 (revisor) | Câmara Criminal | despacho de vista à PGJ (art. 324); relatório e remessa ao revisor (art. 325); voto; ementa; não conhecida e processada como RESE → baixa para retratação em dez dias (art. 326) |
-| Recurso em sentido estrito | arts. 581 a 592 do CPP | arts. 321 a 323; 149 (julgado antes das apelações) | Câmara Criminal (salvo lista de jurados: Presidente) | despacho de vista à PGJ e inclusão em pauta (art. 323); voto; ementa; conferir sequencial (art. 322; CGJ/AL, arts. 797 e 798) |
+| Recurso em sentido estrito | arts. 581 a 592 do CPP | arts. 321 a 323; 327; 149 (julgado antes das apelações) | Câmara Criminal (salvo inclusão ou exclusão de jurado na lista geral: Presidente do Tribunal — art. 321) | despacho de vista à PGJ e inclusão em pauta (art. 323); voto; ementa; conferir sequencial (arts. 322 e 327; CGJ/AL, arts. 797 e 798) |
 | Agravo em execução | art. 197 da LEP | arts. 328 a 330 (prazo de cinco dias; rito do RESE; sem efeito suspensivo, salvo desinternação) | Câmara Criminal | vista à PGJ e pedido de dia (art. 329, §§ 3º e 4º); voto |
-| Habeas corpus | art. 5º, LXVIII, da CF; arts. 647 a 667 do CPP | arts. 48, III; 189 a 195; 63, §§ 3º a 5º (referendo); 121, VI (independe de pauta); 43, IX, f | Câmara Criminal, quando o **coator** for autoridade do art. 43, IX, f (v.g., juiz de direito) ou houver iminente perigo (art. 48, III); Pleno, quando o **paciente** for uma dessas autoridades (art. 43, IX, f) | decisão liminar; **voto de referendo** se concessiva; despacho de informações e vista à PGJ (dois dias — art. 191); indeferimento liminar (art. 192, parágrafo único); prejudicialidade (art. 192); voto; ementa |
-| Mandado de segurança criminal | Lei n.º 12.016/2009 | arts. 114; 196 a 199 | Câmara Criminal | liminar (art. 196); voto |
-| Embargos de declaração | arts. 619 e 620 do CPP | arts. 333 a 336; 109; 121, V | relator do acórdão | voto (em mesa, sem revisão — art. 334); decisão monocrática se opostos contra decisão monocrática (art. 335); tempestividade sempre expressa |
+| Habeas corpus | art. 5º, LXVIII, da CF; arts. 647 a 667 do CPP | arts. 48, III; 189 a 195; 63, §§ 3º a 5º (referendo); 121, VI (independe de pauta); 43, IX, f; 47, IV | Câmara Criminal, quando o **coator** for autoridade do art. 43, IX, f (v.g., juiz de direito) ou houver iminente perigo (art. 48, III); Pleno, quando o **paciente** for uma dessas autoridades (art. 43, IX, f); Câmaras Cíveis, na prisão civil (art. 47, IV) | decisão liminar; **voto de referendo** se concessiva; despacho de informações (art. 662 do CPP) e oitiva da PGJ (art. 191); indeferimento liminar (art. 192, parágrafo único); prejudicialidade (art. 192); voto; ementa |
+| Mandado de segurança criminal | Lei n.º 12.016/2009 | arts. 114; 196 a 199; 46, III; 43, IX, g | distribuído a integrante da Câmara Criminal quando o ato for de natureza criminal (art. 114); atenção ao art. 46, III (Seção Especializada Cível, se o coator for juiz de direito) e ao art. 43, IX, g (Pleno, atos do próprio Tribunal, do PGJ e outros) — confirme o órgão julgador com a Secretaria | liminar (art. 196; contra ato de relator, referendo no Pleno — art. 197); voto |
+| Embargos de declaração | arts. 619 e 620 do CPP | arts. 333 a 336; 109; 121, V | o relator do acórdão apresenta em mesa (arts. 109 e 334); contra acórdão, julga o colegiado (art. 335, parágrafo único); contra decisão monocrática, o relator (art. 335, caput) | voto (em mesa, sem revisão — art. 334); indeferimento liminar, com agravo em cinco dias (art. 334, parágrafo único); decisão monocrática se opostos contra decisão monocrática (art. 335); tempestividade sempre expressa |
 | Embargos infringentes e de nulidade | art. 609, parágrafo único, do CPP | arts. 337 a 339; 111; 164; 43, IX, m | admissibilidade: relator do acórdão embargado (art. 338); julgamento: Pleno (art. 43, IX, m), com novo relator integrante da Câmara Criminal (art. 339) — confirme com a Secretaria a prática adotada e registre no caderno de bordo | decisão de admissibilidade (art. 338); voto (limitado à divergência — art. 337, parágrafo único) |
 | Revisão criminal | arts. 621 a 631 do CPP | arts. 43, IX, l; 112; 215 a 219 | Pleno | relatório; despacho sobre provas (art. 217); voto — vedada a relatoria e a revisão a quem relatou ou revisou o acórdão atacado (art. 112) |
-| Desaforamento | arts. 427 e 428 do CPP | arts. 48, VI; 220 a 222 | Câmara Criminal (preferência) | despacho de informações (dez dias) e vista à PGJ (cinco dias); voto |
+| Desaforamento | arts. 427 e 428 do CPP | arts. 48, VI; 220 a 222 | Câmara Criminal (preferência) | informações do juiz em dez dias, se o pedido não partiu dele (art. 220); parecer da PGJ em cinco dias, se o pedido não partiu do MP (art. 221); pedido do MP ou do juiz → dez dias ao réu para responder (art. 221, parágrafo único); voto |
 | Carta testemunhável | arts. 639 a 646 do CPP | arts. 331 e 332 | Câmara Criminal | vista à PGJ; voto (pode julgar o mérito do recurso se instruída — art. 332) |
 | Correição parcial | — | arts. 241 a 243 | Câmara Criminal (matéria criminal) | liminar (art. 243); voto |
 | Conflito de competência criminal (1º grau) | arts. 113 a 117 do CPP | arts. 48, VIII; 121, I; 227 a 231 | Câmara Criminal | voto (independe de pauta) |
@@ -61,9 +61,10 @@ modelo do SG5.
    ilegalidade flagrante (concessão de HC de ofício — art. 654, § 2º, do CPP); abolitio
    criminis e lei posterior mais benéfica; ANPP em processos sem trânsito (conferir o estado
    atual da jurisprudência do STF). Matéria que as partes não tiveram oportunidade de debater,
-   ainda que cognoscível de ofício, atrai o art. 161 do RITJAL (suspensão e manifestação em
-   cinco dias): marque-a em vermelho na anotada e indique o caminho — despacho prévio de
-   manifestação ou suscitação na sessão.
+   ainda que cognoscível de ofício, exige contraditório: antes da sessão, despacho prévio de
+   manifestação (art. 10 do CPC, por analogia); surgida nos debates ou na vista, suspensão e
+   cinco dias às partes, salvo manifestação na própria sessão (RITJAL, art. 161, caput e §§ 3º
+   e 5º). Marque-a em vermelho na anotada e indique o caminho.
 4. **Preliminares** arguidas, uma a uma (art. 563 do CPP: sem prejuízo, não há nulidade;
    arts. 564, 571 e 572: momento e preclusão das relativas).
 5. **Mérito**: materialidade; autoria; tipicidade (objetiva e subjetiva); ilicitude;
@@ -136,17 +137,24 @@ STF e do STJ. Prescrição consumada → a minuta a reconhece de ofício, antes 
      referendada, cessam os efeitos e restabelece-se o ato impugnado (§ 5º). **Minute junto a
      decisão e o voto de referendo** (tipo `referendo`), registre na lista de trabalho a sessão
      prevista e alerte o usuário.
-   - Comunicação imediata da concessão às autoridades (art. 194) e alvará de soltura no BNMP
-     pela Secretaria (art. 319); fiança, se for o caso, processada pelo relator (art. 195).
+   - Comunicação imediata da concessão às autoridades que devam cumpri-la, firmada pelo relator,
+     assim como o salvo-conduto no HC preventivo (art. 194 e parágrafo único) — a minuta traz a
+     ordem expressa; alvará de soltura no BNMP pela Secretaria (art. 319); fiança, se for o
+     caso, processada pelo relator (art. 195).
+   - O § 3º do art. 63 alcança as decisões concessivas proferidas em feitos da competência da
+     Câmara Criminal; confirme com a Secretaria a prática do referendo e registre-a no caderno
+     de bordo.
    - Contra a decisão liminar cabe agravo em quinze dias (art. 190).
-4. Instrução: informações da autoridade coatora (art. 662 do CPP) e parecer da PGJ em dois dias
-   (art. 191); o relator pode nomear advogado ao impetrante leigo e interrogar o paciente
-   (art. 189, I e II).
+4. Instrução: informações da autoridade coatora (art. 662 do CPP) e oitiva da PGJ (art. 191 —
+   o texto, "ouvido o(a) Procurador(a)-Geral de Justiça, em dois dias", admite ler o prazo como
+   da PGJ, em harmonia com o art. 1º do Decreto-Lei n.º 552/1969, ou como do relator; conferir);
+   o relator pode nomear advogado ao impetrante leigo e interrogar o paciente (art. 189, I e
+   II).
 5. Mérito da prisão preventiva: pressupostos e requisitos (arts. 312 e 313 do CPP);
    fundamentação concreta e contemporânea (art. 312, § 2º; art. 315, § 2º); vedação de
    decretação de ofício (art. 311); revisão nonagesimal (art. 316, parágrafo único — conferir
    alcance segundo o STF); excesso de prazo pela razoabilidade, à luz da complexidade e da
-   atuação da defesa; medidas cautelares diversas (art. 319); condições pessoais favoráveis não
+   atuação da defesa; medidas cautelares diversas (art. 319 do CPP); condições pessoais favoráveis não
    bastam isoladamente; prisão domiciliar (arts. 318 e 318-A).
 6. **Prejudicialidade**: cessada a coação, o HC é julgado prejudicado, podendo o Tribunal
    declarar a ilegalidade (art. 192, caput); fato superveniente com fls.
@@ -182,17 +190,17 @@ e alcance).
 | Pauta publicada antes da sessão | cinco dias úteis, no mínimo | arts. 70 e 120 |
 | Sessão ordinária da Câmara Criminal | quartas-feiras | art. 128, VI |
 | Referendo de decisão concessiva | primeira sessão subsequente à assinatura, sob pena de decaimento | art. 63, §§ 3º a 5º |
-| Parecer da PGJ no HC | dois dias | art. 191 |
+| Oitiva da PGJ no HC | dois dias (leitura do art. 191 em harmonia com o Decreto-Lei n.º 552/1969, art. 1º — conferir) | art. 191 |
 | Agravo contra liminar em HC | quinze dias | art. 190 |
 | Agravo contra indeferimento liminar de embargos de declaração | cinco dias | art. 334, parágrafo único |
 | Embargos infringentes e de nulidade | dez dias; contrarrazões em dez dias | arts. 337 e 338 |
 | Agravo em execução | cinco dias | art. 328 |
-| Pedido de vista | dez dias, prorrogáveis por mais dez; voto-vista sempre escrito | arts. 173 e 174 |
-| Fundamentos do voto vencido | 72 horas | art. 179 |
+| Pedido de vista | dez dias, prorrogáveis por mais dez mediante comunicação ao Presidente; voto-vista sempre escrito | arts. 173 e 174 |
+| Fundamentos do voto vencido | 72 horas (termo inicial não fixado; conte do julgamento, por cautela) | art. 179 |
 | Assinatura do acórdão pelo relator | dez dias do encerramento da sessão | art. 182, § 3º |
-| Matéria nova não submetida às partes | suspensão e manifestação em cinco dias | art. 161 |
+| Matéria nova surgida nos debates ou na vista | suspensão e manifestação em cinco dias, salvo manifestação na própria sessão | art. 161, caput e §§ 3º e 5º |
 | Apelação processada como RESE | retratação no 1º grau em dez dias | art. 326 |
-| Desaforamento | informações em dez dias; PGJ em cinco dias | arts. 220 e 221 |
+| Desaforamento | informações do juiz em dez dias (se o pedido não partiu dele); PGJ em cinco dias (se o pedido não partiu do MP); resposta do réu em dez dias (pedido do MP ou do juiz) | arts. 220 e 221 |
 | Arguição de suspeição do relator | quinze dias da publicação da distribuição | art. 246 |
 
 Prioridades: demandas criminais e, entre elas, réus presos; idosos e doentes graves; HC e MS

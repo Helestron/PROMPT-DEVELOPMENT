@@ -159,9 +159,11 @@ Para cada processo, a partir da entrada `cposg5/open.do?gateway=true`, capa e mo
 tabela de `esaj_autos.md`, item 1. Salve em `_autos/<numero>/`, extraia o texto (pdftotext; OCR
 se necessário) e numere pelas fls. da pasta. Registre: papel do gabinete (relator/revisor),
 situação de pauta, réu preso, petições posteriores à conclusão, prevenção (RITJAL, arts. 95 e
-103) e eventual impedimento do Desembargador (v.g., revisão criminal de acórdão que relatou ou
-revisou — art. 112). Achado de impedimento ou suspeição é alerta imediato, com minuta de
-despacho em vermelho (a declaração é nível C). Falha após novas tentativas com sessão renovada:
+103), eventual impedimento ou suspeição do Desembargador e a vedação do art. 112 (quem relatou
+ou revisou o acórdão atacado não relata nem revisa a revisão criminal, mas dela participa como
+vogal). Indício de impedimento ou suspeição é alerta imediato, com minuta de despacho em
+vermelho (a declaração é nível C); revisão criminal recebida em desacordo com o art. 112 é
+alerta para redistribuição ou substituição do revisor. Falha após novas tentativas com sessão renovada:
 registre, informe e siga. Só avance quando todos estiverem baixados ou com falha registrada.
 
 ### FASE 2 — Análise integral (um a um)
@@ -173,15 +175,20 @@ registre, informe e siga. Só avance quando todos estiverem baixados ou com falh
 2. **Escolha do ato** (preferência pela solução definitiva sempre que madura):
    - processo pronto para julgamento colegiado → **relatório e voto** (e ementa), ou só
      **relatório** com "À douta revisão." quando houver revisor (RITJAL, arts. 325 e 49);
-   - hipótese regimental de decisão do relator → **decisão monocrática**, somente nos casos do
-     RITJAL: recurso prejudicado ou desprovimento de recurso contrário a súmula do STF, do STJ
-     ou do TJAL, a repetitivo, a IRDR ou a IAC (art. 62); nas originárias, só extinção sem
-     mérito ou previsão legal (art. 62, parágrafo único) — no HC, indeferimento liminar
-     (art. 192, parágrafo único) e prejudicialidade (art. 192, caput, c/c o art. 62, parágrafo
-     único); desistência e deserção
-     (art. 61, VIII); embargos de declaração contra decisão monocrática (art. 335); liminar
-     (arts. 189, III, 196 e 243); extinção da punibilidade na ação penal originária (art. 213).
-     Fora dessas hipóteses, o ato é **voto**;
+   - hipótese de decisão do relator expressamente prevista → **decisão monocrática**: recurso
+     prejudicado ou desprovimento de recurso contrário a súmula do STF, do STJ ou do TJAL, a
+     repetitivo, a IRDR ou a IAC (RITJAL, art. 62); nas originárias, só extinção sem mérito ou
+     previsão legal (art. 62, parágrafo único) — no HC, indeferimento liminar (art. 192,
+     parágrafo único) e prejudicialidade (art. 192, caput, c/c o art. 62, parágrafo único);
+     desistência e deserção (art. 61, VIII); fiança (arts. 61, XII, e 195); arquivamento de
+     inquérito originário a pedido da PGJ (art. 61, XVI); embargos de declaração contra decisão
+     monocrática (art. 335) e indeferimento liminar de embargos de declaração (art. 334,
+     parágrafo único); admissibilidade dos embargos infringentes pelo relator do acórdão
+     embargado (art. 338); liminar (arts. 189, III, 196 e 243); provas na revisão criminal
+     (art. 217); extinção da punibilidade na ação penal originária (art. 213). Não conhecimento
+     monocrático de recurso inadmissível fora dessas hipóteses não está no art. 62: só com base
+     legal expressa (art. 932, III, do CPC, c/c o art. 3º do CPP — conferir a orientação do STJ
+     e a prática da Câmara) e marcado em vermelho. Fora das hipóteses, o ato é **voto**;
    - **liminar concessiva** em feito da Câmara Criminal → decisão **e voto de referendo**
      (tipo `referendo`): o processo vai em mesa na primeira sessão subsequente à assinatura e,
      sem referendo, a liminar perde efeito (art. 63, §§ 3º a 5º); alerte o usuário;
@@ -409,10 +416,10 @@ se executa.
   hipóteses de decisão monocrática (arts. 62, 192 e outros); **referendo obrigatório da liminar
   concessiva** e o novo tipo de minuta `referendo` (art. 63, §§ 3º a 5º); revisor (arts. 49 e 50);
   vista e voto-vista escrito (arts. 173 e 174); **fundamentos do voto vencido em 72 horas** e o
-  tipo `voto_vencido` (arts. 179 e 180); declaração de voto (arts. 167 e 176); matéria não
+  tipo `voto_vencido` (arts. 179 e 180); declaração de voto (arts. 167, parágrafo único, e 176); matéria não
   debatida (art. 161); ementa × voto (art. 185); prioridades, pauta e sessões (arts. 70, 74, 120,
   121, 128, 148, 149); intrajus como fonte do Modo B (arts. 73 e 123); deveres regimentais da
-  Secretaria que dispensam comando (arts. 194, 319, 323 e 330); prazos regimentais
+  Secretaria que dispensam comando (arts. 319, 323, § 2º, e 330); prazos regimentais
   (`criminal_2grau.md`, item 8); matriz de operações com base regimental e novos itens de nível B
   (pedido de dia, apresentação em mesa, devolução de vista, baixa para retratação) e de nível C
   (pedir vista, declarar suspeição). O Código de Normas da CGJ/AL voltou ao skill apenas como
