@@ -17,8 +17,9 @@ sistema exibe. Somente leitura — nenhum documento é criado nesta rodada.
 3. Filas de trabalho do gabinete: nomes exatos de "conclusos", "em elaboração", "aguardando
    assinatura" e demais filas existentes → `saj_sg5.filas`.
 4. Emissão de documentos → "Consulta de Modelos": códigos de **categoria** e de **modelo** de
-   despacho, decisão monocrática, relatório, voto, ementa e voto de vogal → `categorias` e
-   `modelos`. Prefira sempre o código: digitar nome falha por acentuação.
+   despacho, decisão monocrática, relatório, voto, ementa, voto de vogal, voto-vista, voto
+   vencido e voto de referendo → `categorias` e `modelos`. Prefira sempre o código: digitar nome
+   falha por acentuação.
 5. Painel de propriedades do documento (F8 no PG5; confirme no SG5): campo *Movimentação* —
    códigos e descrições disponíveis para cada ato → `movimentacoes_tpu`, conferidos com a TPU/CNJ.
 6. Grave cada achado no caderno de bordo com a captura correspondente. Só então execute um
@@ -26,14 +27,15 @@ sistema exibe. Somente leitura — nenhum documento é criado nesta rodada.
 
 ## 2. Matriz de operações (aplicada pelo `saj_sg5.ps1 -Operacao` e pelo SKILL.md)
 
-| Nível | Regra | Operações |
+| Nível | Regra | Operações (rótulo para `-Operacao` entre parênteses) |
 |---|---|---|
-| **A — automático** | executa sem perguntar, dentro do lote | consultar filas e processos; abrir processo e pasta; emitir documento pelo modelo do gabinete; editar; colar a versão limpa; salvar; **finalizar sem assinar** (envio à fila de assinatura do Desembargador); mover entre filas internas do gabinete; anotar pendência interna |
-| **B — com autorização de lote** | exige ordem expressa do usuário no chat, registrada em `scripts/autorizacao_nivel_b.json` (texto literal, operações, processos, validade) | lançar movimentação visível nos autos; remessa ao revisor (RITJAL, art. 325); pedido de dia para julgamento pelo relator ou pelo revisor (arts. 49, II, e 61, XIV); vista à Procuradoria-Geral de Justiça (arts. 323, 324, 329, § 3º, e 331, parágrafo único); pedido de inclusão em pauta e retirada de pauta; apresentação em mesa de feito que independe de pauta (arts. 61, XV, e 121); devolução de autos após vista (art. 173, § 2º); baixa para juízo de retratação (art. 326); encaminhamento à Secretaria; conversão em diligência (art. 178); redistribuição interna de tarefa no gabinete |
-| **C — vedado** | nunca, ainda que o usuário peça | assinar (inclusive "Assinar e Liberar" e a assinatura do acórdão — arts. 61, XVII, 182 e 184); liberar nos autos; registrar voto em sessão ou em plataforma virtual (art. 152); pedir vista em sessão (art. 173); declarar suspeição ou impedimento (arts. 20 e 245); excluir ou cancelar documento (sobretudo alheio); alterar cadastro de partes; redistribuir processo; baixar ou arquivar; certificar trânsito; digitar senha, PIN ou token |
+| **A — automático** | executa sem perguntar, dentro do lote | consultar filas e processos (`consultar`); abrir processo e pasta (`abrir_processo`); emitir documento pelo modelo do gabinete (`emitir_documento`); editar (`editar`); colar a versão limpa (`colar_minuta`); salvar (`salvar`); **finalizar sem assinar**, com envio à fila de assinatura do Desembargador (`finalizar_sem_assinar`); mover entre filas internas do gabinete (`mover_fila_interna`); anotar pendência interna (`anotar_pendencia_interna`) |
+| **B — com autorização de lote** | exige ordem expressa do usuário no chat, registrada em `scripts/autorizacao_nivel_b.json` (texto literal, operações, processos, validade) | lançar movimentação visível nos autos (`lancar_movimentacao_nos_autos`); remessa ao revisor — RITJAL, art. 325 (`remessa_revisor`); pedido de dia pelo relator ou pelo revisor — arts. 49, II, e 61, XIV (`pedido_dia_julgamento`); vista à Procuradoria-Geral de Justiça — arts. 323, 324, 329, § 3º, e 331, parágrafo único (`vista_pgj`); pedido de inclusão em pauta (`pedido_inclusao_pauta`) e retirada de pauta (`retirada_pauta`); apresentação em mesa de feito que independe de pauta — arts. 61, XV, e 121 (`apresentacao_em_mesa`); devolução de autos após vista — art. 173, § 2º (`devolucao_vista`); baixa para juízo de retratação — art. 326 (`baixa_juizo_retratacao`); encaminhamento à Secretaria (`encaminhar_secretaria`); conversão em diligência — art. 178 (`conversao_diligencia`); redistribuição interna de tarefa no gabinete (`redistribuicao_interna_gabinete`) |
+| **C — vedado** | nunca, ainda que o usuário peça | assinar, inclusive o acórdão — arts. 61, XVII, 182 e 184 (`assinar`); assinar e liberar (`assinar_e_liberar`); liberar nos autos (`liberar_nos_autos`); registrar voto em sessão ou em plataforma virtual — art. 152 (`registrar_voto_sessao`); pedir vista em sessão — art. 173 (`pedir_vista_sessao`); declarar suspeição ou impedimento — arts. 20 e 245 (`declarar_suspeicao_impedimento`); excluir documento (`excluir_documento`) ou cancelar documento alheio (`cancelar_documento_alheio`); alterar cadastro de partes (`alterar_cadastro_partes`); redistribuir processo (`redistribuir_processo`); baixar ou arquivar (`baixar_ou_arquivar`); certificar trânsito (`certificar_transito`); digitar senha, PIN ou token (`digitar_credencial`) |
 
-Por que o nível C é intransponível: assinatura e voto em sessão são atos pessoais do magistrado
-(art. 93, IX, da CF; assinatura eletrônica com certificado, Lei n.º 11.419/2006) e dependem de
+Por que o nível C é intransponível: assinatura, voto em sessão, pedido de vista e declaração de
+suspeição são atos pessoais do magistrado — a assinatura, eletrônica e baseada em certificado
+digital (Lei n.º 11.419/2006, art. 1º, § 2º, III; RITJAL, arts. 67 e 184) — e dependem de
 credencial que a automação não pode manusear; exclusão, redistribuição e baixa produzem efeitos
 que a fila de assinatura não permite revisar. A finalização sem assinatura é a salvaguarda do
 desenho: o documento fica na fila do Desembargador, revisável e removível.
@@ -43,7 +45,7 @@ texto literal da ordem):
 
 ```json
 {"concedida_em": "2026-10-01T10:00:00", "valida_ate": "2026-10-01T23:59:00",
- "texto_literal": "Autorizo remeter ao revisor os processos 1, 2 e 3 deste lote.",
+ "texto_literal": "Autorizo a remessa ao revisor da apelação 0700123-83.2024.8.02.0001.",
  "operacoes": ["remessa_revisor"],
  "processos": ["0700123-83.2024.8.02.0001"]}
 ```
@@ -127,9 +129,8 @@ Sequências regimentais típicas do gabinete (cada passo, uma operação autoriz
 - **Vista**: devolução em até dez dias, prorrogáveis por mais dez (art. 173), com o voto-vista
   escrito juntado (art. 174).
 
-Remessa ao revisor (art. 613, I, do CPP), vista à PGJ, pedido de inclusão em pauta, conversão em
-diligência, encaminhamento à Secretaria: sempre com `-Operacao <rótulo> -NumeroProcesso <número>`
-em **todas** as chamadas do roteiro, para que a matriz e o log alcancem cada clique. Antes do
+Em **todas** as chamadas desses roteiros, use `-Operacao <rótulo da matriz> -NumeroProcesso
+<número>`, para que a matriz e o log alcancem cada clique. Antes do
 clique final, captura e conferência do processo, da operação e do destinatário; depois, captura
 da confirmação e registro na lista de trabalho.
 

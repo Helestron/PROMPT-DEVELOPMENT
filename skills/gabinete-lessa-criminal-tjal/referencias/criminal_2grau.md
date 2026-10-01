@@ -17,17 +17,17 @@ mapa em `referencias/regimento_tjal.md`; consulta com `python scripts/regimento.
 | Apelação criminal | arts. 593 a 603 e 609 a 618 do CPP | arts. 48, II; 324 a 327; 49 e 50 (revisor) | Câmara Criminal | despacho de vista à PGJ (art. 324); relatório e remessa ao revisor (art. 325); voto; ementa; não conhecida e processada como RESE → baixa para retratação em dez dias (art. 326) |
 | Recurso em sentido estrito | arts. 581 a 592 do CPP | arts. 321 a 323; 149 (julgado antes das apelações) | Câmara Criminal (salvo lista de jurados: Presidente) | despacho de vista à PGJ e inclusão em pauta (art. 323); voto; ementa; conferir sequencial (art. 322; CGJ/AL, arts. 797 e 798) |
 | Agravo em execução | art. 197 da LEP | arts. 328 a 330 (prazo de cinco dias; rito do RESE; sem efeito suspensivo, salvo desinternação) | Câmara Criminal | vista à PGJ e pedido de dia (art. 329, §§ 3º e 4º); voto |
-| Habeas corpus | art. 5º, LXVIII, da CF; arts. 647 a 667 do CPP | arts. 48, III; 189 a 195; 63, §§ 3º a 5º (referendo); 121, VI (independe de pauta); 43, IX, f (Pleno, conforme o paciente) | Câmara Criminal ou Pleno | decisão liminar; **voto de referendo** se concessiva; despacho de informações e vista à PGJ (dois dias — art. 191); indeferimento liminar (art. 192, parágrafo único); prejudicialidade (art. 192); voto; ementa |
+| Habeas corpus | art. 5º, LXVIII, da CF; arts. 647 a 667 do CPP | arts. 48, III; 189 a 195; 63, §§ 3º a 5º (referendo); 121, VI (independe de pauta); 43, IX, f | Câmara Criminal, quando o **coator** for autoridade do art. 43, IX, f (v.g., juiz de direito) ou houver iminente perigo (art. 48, III); Pleno, quando o **paciente** for uma dessas autoridades (art. 43, IX, f) | decisão liminar; **voto de referendo** se concessiva; despacho de informações e vista à PGJ (dois dias — art. 191); indeferimento liminar (art. 192, parágrafo único); prejudicialidade (art. 192); voto; ementa |
 | Mandado de segurança criminal | Lei n.º 12.016/2009 | arts. 114; 196 a 199 | Câmara Criminal | liminar (art. 196); voto |
 | Embargos de declaração | arts. 619 e 620 do CPP | arts. 333 a 336; 109; 121, V | relator do acórdão | voto (em mesa, sem revisão — art. 334); decisão monocrática se opostos contra decisão monocrática (art. 335); tempestividade sempre expressa |
-| Embargos infringentes e de nulidade | art. 609, parágrafo único, do CPP | arts. 337 a 339; 111; 164; 43, IX, m | admissibilidade: relator do acórdão embargado; julgamento: Pleno, com novo relator da Câmara Criminal | decisão de admissibilidade (art. 338); voto (limitado à divergência — art. 337, parágrafo único) |
+| Embargos infringentes e de nulidade | art. 609, parágrafo único, do CPP | arts. 337 a 339; 111; 164; 43, IX, m | admissibilidade: relator do acórdão embargado (art. 338); julgamento: Pleno (art. 43, IX, m), com novo relator integrante da Câmara Criminal (art. 339) — confirme com a Secretaria a prática adotada e registre no caderno de bordo | decisão de admissibilidade (art. 338); voto (limitado à divergência — art. 337, parágrafo único) |
 | Revisão criminal | arts. 621 a 631 do CPP | arts. 43, IX, l; 112; 215 a 219 | Pleno | relatório; despacho sobre provas (art. 217); voto — vedada a relatoria e a revisão a quem relatou ou revisou o acórdão atacado (art. 112) |
 | Desaforamento | arts. 427 e 428 do CPP | arts. 48, VI; 220 a 222 | Câmara Criminal (preferência) | despacho de informações (dez dias) e vista à PGJ (cinco dias); voto |
 | Carta testemunhável | arts. 639 a 646 do CPP | arts. 331 e 332 | Câmara Criminal | vista à PGJ; voto (pode julgar o mérito do recurso se instruída — art. 332) |
 | Correição parcial | — | arts. 241 a 243 | Câmara Criminal (matéria criminal) | liminar (art. 243); voto |
 | Conflito de competência criminal (1º grau) | arts. 113 a 117 do CPP | arts. 48, VIII; 121, I; 227 a 231 | Câmara Criminal | voto (independe de pauta) |
 | Recursos infracionais (ECA) | Lei n.º 8.069/1990 | art. 48, VII | Câmara Criminal | voto |
-| Ação penal originária | Lei n.º 8.038/1990 (conferir) | arts. 204 a 214 | conforme Constituição Estadual e Lei n.º 6.564/2005 (conferir) | atos de instrução; relatório; extinção da punibilidade monocrática após a PGJ (art. 213) |
+| Ação penal originária | Lei n.º 8.038/1990, arts. 1º a 12, aplicáveis aos tribunais de justiça pela Lei n.º 8.658/1993 (conferir) | arts. 204 a 214 | conforme Constituição Estadual e Lei n.º 6.564/2005 (conferir) | atos de instrução; relatório; extinção da punibilidade monocrática após a PGJ (art. 213) |
 
 **Papel do gabinete em cada processo** — identifique antes de tudo:
 
@@ -45,8 +45,8 @@ mapa em `referencias/regimento_tjal.md`; consulta com `python scripts/regimento.
   pedir vista (arts. 173 e 174) — Modo B.
 
 **Atenção à competência do Pleno**: revisão criminal (art. 43, IX, l), embargos infringentes
-contra decisões da Câmara Criminal (art. 43, IX, m) e HC cujo paciente esteja entre as
-autoridades do art. 43, IX, f. Nesses feitos, o voto é proferido no Pleno; ajuste o cabeçalho e o
+contra decisões da Câmara Criminal (art. 43, IX, m) e HC cujo **paciente** esteja entre as
+autoridades do art. 43, IX, f (sendo uma delas o **coator**, o HC é da Câmara — art. 48, III). Nesses feitos, o voto é proferido no Pleno; ajuste o cabeçalho e o
 modelo do SG5.
 
 ## 2. Ordem lógica da análise (relator)
@@ -121,8 +121,10 @@ STF e do STJ. Prescrição consumada → a minuta a reconhece de ofício, antes 
 
 ## 5. Habeas corpus — roteiro específico
 
-1. Ato coator e autoridade coatora identificados; **competência** — Câmara Criminal (art. 48,
-   III) ou Pleno, conforme o paciente (art. 43, IX, f); prevenção (arts. 95 e 103).
+1. Ato coator e autoridade coatora identificados; **competência** — Câmara Criminal quando o
+   coator for autoridade do art. 43, IX, f (v.g., juiz de direito) ou houver iminente perigo de
+   consumar-se a violência (art. 48, III); Pleno quando o paciente for uma dessas autoridades
+   (art. 43, IX, f); prevenção (arts. 95 e 103).
 2. **Indeferimento liminar** (art. 192, parágrafo único): pedido manifestamente incabível,
    incompetência manifesta do Tribunal ou reiteração de outro com os mesmos fundamentos —
    verifique no e-SAJ os HCs anteriores do mesmo paciente. Demais hipóteses de cabimento (HC

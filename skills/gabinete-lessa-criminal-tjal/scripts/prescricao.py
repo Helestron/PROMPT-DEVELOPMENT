@@ -107,6 +107,11 @@ def calcular(e: dict) -> dict:
     pontos += e.get("marcos", [])
     pontos.append({"evento": "data de referência", "data": e.get("data_referencia", date.today().isoformat())})
 
+    datas = [date.fromisoformat(x["data"]) for x in pontos]
+    if any(b < a for a, b in zip(datas, datas[1:])):
+        raise ValueError("datas fora de ordem: informe o fato, os marcos do art. 117 e a data de referência "
+                         "em ordem cronológica")
+
     intervalos, prescreveu = [], False
     fato = date.fromisoformat(e["data_fato"]) if e.get("data_fato") else None
     for a, b in zip(pontos, pontos[1:]):

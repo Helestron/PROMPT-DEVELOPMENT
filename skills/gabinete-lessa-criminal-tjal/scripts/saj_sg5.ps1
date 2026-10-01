@@ -226,15 +226,21 @@ switch ($Modo) {
     else { $linhas | Select-Object -First 400 }
   }
   'Clique' {
-    if ($Nome -match $VEDADOS) { throw "BLOQUEADO: '$Nome' corresponde a controle vedado (assinatura/liberacao/credencial). Teto da Fase 3 = finalizar sem assinar." }
-    $raiz = Get-ElementoRaiz $Janela
+    if ($Nome -match $VEDADOS) { throw "BLOQUEADO: '$Nome' corresponde a controle vedado (assinatura/liberacao/credencial). Teto = finalizar sem assinar." }
+    $p = Get-JanelaSaj $Janela
+    $raiz = [System.Windows.Automation.AutomationElement]::FromHandle($p.Handle)
     $el = Find-Controle $raiz $Nome
+    # A busca admite correspondencia parcial: o nome REAL do controle encontrado tambem passa pelo bloqueio.
+    if ($el.Current.Name -match $VEDADOS) { throw "BLOQUEADO: o controle encontrado ('$($el.Current.Name)') e vedado." }
+    Registrar @{ janela = $p.Titulo; controle = $el.Current.Name }
+    if ($Ensaio) { Write-Output ("ENSAIO: clique em '{0}' nao executado" -f $el.Current.Name); break }
     $inv = $null
     if ($el.TryGetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern, [ref]$inv)) { $inv.Invoke() }
     else {
       $sel = $null
       if ($el.TryGetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern, [ref]$sel)) { $sel.Select() }
       else {
+        Ativar-EGarantirFoco $p.Handle
         $pt = $el.GetClickablePoint()
         [Win32Saj]::SetCursorPos([int]$pt.X, [int]$pt.Y) | Out-Null; Start-Sleep -Milliseconds 200
         [Win32Saj]::mouse_event(2,0,0,0,0); [Win32Saj]::mouse_event(4,0,0,0,0)
@@ -244,12 +250,21 @@ switch ($Modo) {
   }
   'Texto' {
     if ($Valor -match '^\s*$') { throw 'Valor vazio.' }
-    $raiz = Get-ElementoRaiz $Janela
+    if ($Valor -match $VEDADOS) { throw 'BLOQUEADO: texto contem termo vedado (credencial/assinatura).' }
+    $p = Get-JanelaSaj $Janela
+    $raiz = [System.Windows.Automation.AutomationElement]::FromHandle($p.Handle)
     $el = Find-Controle $raiz $Nome
+    if ($el.Current.Name -match $VEDADOS) { throw "BLOQUEADO: o campo encontrado ('$($el.Current.Name)') e vedado." }
+    Registrar @{ janela = $p.Titulo; campo = $el.Current.Name; caracteres = $Valor.Length }
+    if ($Ensaio) { Write-Output ("ENSAIO: texto em '{0}' nao inserido" -f $el.Current.Name); break }
     $vp = $null
     if ($el.TryGetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern, [ref]$vp)) { $vp.SetValue($Valor) }
-    else { $el.SetFocus(); Start-Sleep -Milliseconds 300; [System.Windows.Forms.SendKeys]::SendWait($Valor) }
-    Write-Output "Texto inserido em '$Nome'"
+    else {
+      $el.SetFocus(); Start-Sleep -Milliseconds 300
+      Ativar-EGarantirFoco $p.Handle
+      [System.Windows.Forms.SendKeys]::SendWait($Valor)
+    }
+    Write-Output "Texto inserido em '$($el.Current.Name)'"
   }
   'Teclas' {
     if ($Teclas -match $VEDADOS) { throw 'BLOQUEADO: sequência vedada.' }

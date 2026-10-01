@@ -53,16 +53,18 @@ conferido por amostragem antes de virar `VERIFIED`.
 
 ## 3. Dispositivos regimentais — Regimento Interno do TJAL
 
-Texto vigente **disponível no skill**: `referencias/ritjal_integral.txt` (fornecido pelo gabinete
-em 01/10/2026 — Regimento aprovado pelo Pleno em 20/08/2024, com as Emendas n.º 17/2025, 18/2026
-e 19/2026). Mapa temático com transcrições: `referencias/regimento_tjal.md`.
+Texto vigente **disponível no skill**: `referencias/ritjal_integral.txt`, extraído do PDF
+consolidado fornecido pelo gabinete em 01/10/2026 (Regimento aprovado pelo Pleno em 20/08/2024,
+com as Emendas n.º 17/2025, 18/2026 e 19/2026). O PDF marca o texto revogado **por tachado**; a
+extração (`scripts/extrair_regimento.py`) o exclui do texto vigente e o guarda em
+`referencias/ritjal_revogados.txt` (antigos parágrafos únicos dos arts. 32 e 63 e redações
+anteriores dos arts. 93 e 99), apenas para consulta histórica. Mapa temático com transcrições:
+`referencias/regimento_tjal.md`.
 
 1. **Consulta e transcrição por script**, nunca de memória:
-   `python scripts/regimento.py 62 63 192` devolve o texto vigente de cada artigo.
-   Atenção: o texto integral traz, para os artigos emendados, a redação anterior e a nova
-   (v.g., arts. 93 e 99; parágrafos dos arts. 32 e 63). O script adota a redação marcada
-   "(Alterado/Incluído pela Emenda …)" e avisa quando o artigo tem dispositivo emendado; nesse
-   caso, cite o parágrafo marcado.
+   `python scripts/regimento.py 62 63 192` devolve o texto vigente de cada artigo. A anotação
+   "(Incluído/Alterado pela Emenda …)" que acompanha os dispositivos emendados é do PDF e não
+   integra a citação; o script avisa quando ela está presente.
 2. **Portão regimental**: `python scripts/regimento.py --fila Minuta_….docx` lista os artigos do
    RITJAL citados na minuta, com o texto vigente, no esquema do ledger (`tipo: "regimento"`,
    status `PENDENTE`). Confira a **pertinência** (o artigo diz o que a minuta afirma?), mude o
@@ -70,13 +72,14 @@ e 19/2026). Mapa temático com transcrições: `referencias/regimento_tjal.md`.
 3. **Remissões externas do Regimento**: o RITJAL remete à Lei n.º 6.564/2005 (Código de
    Organização Judiciária — composição, quórum e eleição das Câmaras, arts. 2º, 6º e 16), a
    Resoluções do TJAL (lavratura de acórdãos — art. 181; sessões virtuais — art. 152; plantão —
-   art. 75) e ao Código de Normas da CGJ/AL (RESE com mais de um réu — arts. 322 e 327; ver
-   `referencias/cgj_normas_integral.txt`, arts. 797 e 798). Esses atos não estão no skill:
-   cite-os apenas depois de obtido o texto oficial.
+   art. 75) e ao Código de Normas da CGJ/AL (RESE com mais de um réu — arts. 322 e 327). O
+   Código de Normas está no skill (`referencias/cgj_normas_integral.txt`; arts. 797 e 798); a Lei
+   n.º 6.564/2005 e as Resoluções não estão — cite-as apenas depois de obtido o texto oficial.
 4. **Casos omissos**: RISTF e RISTJ, nessa ordem (art. 392); dúvida de interpretação
    regimental: pronunciamento prévio do Pleno (art. 389).
-5. **Atualização**: nova emenda → substituir `ritjal_integral.txt` pelo texto oficial,
-   regenerar o mapa e reconferir as entradas `regimento` do ledger com mais de 30 dias.
+5. **Atualização**: nova emenda → `python scripts/extrair_regimento.py <PDF consolidado>`
+   (requer `pip install pdfplumber`), depois `python scripts/gerar_mapa_regimento.py`, e
+   reconferir as entradas `regimento` do ledger com mais de 30 dias.
 
 **Jurisprudência do TJAL**: repositórios oficiais são o DJe e a Revista do TJAL (art. 299); o
 Tribunal mantém banco de precedentes e de teses de IRDR e IAC (arts. 297 e 298) e relação de
@@ -100,7 +103,7 @@ posição da Terceira Seção, se houver.
 
 **Precedentes qualificados** (súmula vinculante, repercussão geral, recursos repetitivos,
 IAC, IRDR do TJAL): analise sempre a adequação do caso; na minuta, só se trata do tema quando
-aplicado ou invocado por parte (estilo, item 5.a). Suspensão nacional determinada em tema
+aplicado ou invocado por parte (`estilo_gabinete.md`, item 6.a). Suspensão nacional determinada em tema
 afetado alcança o processo? Decidir feito suspenso é risco de nulidade.
 
 **Prevalência**: divergência entre o STJ/STF e o entendimento da Câmara ou do próprio

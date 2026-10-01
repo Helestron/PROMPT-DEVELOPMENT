@@ -12,11 +12,13 @@ https://www2.tjal.jus.br/cposg5/open.do?gateway=true
 URL**, na sessão autenticada do Chrome. O parâmetro `gateway=true` indica o acesso pela porta de
 usuário interno; na primeira execução, confirme e registre no caderno de bordo o que ela libera
 em relação à consulta pública (`/cposg5/open.do` sem o parâmetro) — em especial a pasta digital
-e os feitos em segredo de justiça — e não troque de entrada no meio do lote. Rotas do 1º grau (`/cpopg/`) foram **validadas em execução real** no skill de
-origem (`lote-minutas-esaj`, 08–09/2026). As rotas internas do 2º grau a partir da entrada
-(URL de pesquisa e link da pasta digital) devem ser registradas em
-`config/gabinete.json > esaj.rotas_validadas` na primeira execução, com a data — descubra-as na
-própria página, nunca as monte de memória.
+e os feitos em segredo de justiça — e não troque de entrada no meio do lote.
+
+As rotas do 1º grau (`/cpopg/`) foram **validadas em execução real** no skill de origem
+(`lote-minutas-esaj`, 08–09/2026). As rotas internas do 2º grau a partir da entrada (URL de
+pesquisa e link da pasta digital) devem ser registradas em `config/gabinete.json >
+esaj.rotas_validadas` na primeira execução, com a data — descubra-as na própria página, nunca as
+monte de memória.
 
 ## 1. O que baixar em cada classe
 
@@ -62,22 +64,34 @@ As movimentações são o mapa da fase: leia-as antes dos autos.
 
 ## 3. Download da pasta digital — rota programática
 
-Na sessão autenticada (Chrome), via `javascript_tool`:
+Na sessão autenticada (Chrome), via `javascript_tool`. **1º grau — rota validada:**
 
 ```js
-// 0. descobrir o link da pasta a partir da própria página do processo (2º grau ou origem)
-const links = [...document.querySelectorAll('a')].map(a => a.href)
-      .filter(h => /pasta|abrirPasta/i.test(h));
-// 1º grau (validado): ticket por fetch
-//   const u = (await (await fetch('/cpopg/abrirPastaDigital.do?processo.codigo='+cd
-//            +'&acessibilidade=true',{credentials:'include'})).text()).trim();
-// 2º grau: siga o link descoberto (ou o equivalente /cposg5/... registrado em rotas_validadas)
-const h = await (await fetch(u, {credentials:'include'})).text();
-// 2. parâmetros de cada peça no HTML do visualizador (componente comum da pasta digital)
+// cd = processo.codigo, extraído da URL show.do da capa
+// 1. ticket: o endpoint devolve, como texto, a URL do visualizador da pasta
+const u = (await (await fetch('/cpopg/abrirPastaDigital.do?processo.codigo=' + cd
+        + '&acessibilidade=true', {credentials: 'include'})).text()).trim();
+// 2. parâmetros de cada peça, extraídos do HTML do visualizador
+const h = await (await fetch(u, {credentials: 'include'})).text();
 const params = [...h.matchAll(/"parametros":"((?:[^"\\]|\\.)*)"/g)]
-      .map(m => JSON.parse('"'+m[1]+'"'));
+        .map(m => JSON.parse('"' + m[1] + '"'));
 // 3. download peça a peça
-const blob = await (await fetch('/pastadigital/getPDF.do?'+p, {credentials:'include'})).blob();
+for (const p of params) {
+  const blob = await (await fetch('/pastadigital/getPDF.do?' + p, {credentials: 'include'})).blob();
+  // salvar o blob (ver "Resiliência")
+}
+```
+
+**2º grau — descobrir e registrar** (a pasta digital é componente comum da Softplan, e os passos
+2 e 3 tendem a ser idênticos; o passo 1 deve ser confirmado):
+
+```js
+// na página do processo aberta a partir da entrada gateway
+const links = [...document.querySelectorAll('a')].map(a => a.href)
+        .filter(h => /pasta|abrirPasta/i.test(h));
+// abra o link encontrado (ou o equivalente /cposg5/... de rotas_validadas.pasta_2grau);
+// se devolver a URL do visualizador como texto, siga o passo 1 acima; se devolver o próprio
+// visualizador, aplique diretamente os passos 2 e 3. Registre a rota confirmada.
 ```
 
 **Rotas mortas no 1º grau** (não insista): `salvarDocumentoPreparado.do` (HTTP 500) e
@@ -95,7 +109,7 @@ parâmetro de sessão trafega pela saída. Rodando localmente (Claude Code), sal
 "Continuar" → aguardar "O documento foi gerado" → "Salvar o documento". O visualizador costuma
 ficar inutilizável para automação de interface após o primeiro uso na sessão.
 
-**Mídias** (interrogatório, depoimentos em audiência gravada): registre a existência, a fls. e o
+**Mídias** (interrogatório, depoimentos em audiência gravada): registre a existência, as fls. e o
 link; não é possível transcrevê-las sem acesso ao arquivo. Se a prova oral decisiva estiver só em
 mídia, a minuta marca em vermelho `[Conferir: depoimento em mídia de fls. X não transcrito]`.
 

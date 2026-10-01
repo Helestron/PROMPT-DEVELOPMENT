@@ -6,7 +6,9 @@ ledger de verificações (_verificacoes.json). Citação sem entrada VERIFIED é
 bloqueante; citação de entrada REJECTED também.
 
 Uso:
-    python conferir_citacoes.py arquivo.(docx|rtf|odt|doc|pdf|txt) --ledger _verificacoes.json
+    python conferir_citacoes.py arquivo.(docx|rtf|odt|pdf|txt|doc) --ledger _verificacoes.json
+        (.docx, .rtf, .odt e .txt são lidos sem dependências externas; .pdf usa pdftotext ou
+         pdfplumber; .doc exige LibreOffice ou conversão prévia para .docx)
     python conferir_citacoes.py arquivo --listar [--saida fila.json]
         (--listar: só extrai e gera a fila de verificação, com entradas PENDENTE no esquema
          do ledger — usado na revisão de votos de outros gabinetes e na Fase 2-B)
@@ -51,13 +53,96 @@ DIPLOMAS = [
     (r"Resolu[çc][ãa]o\s+(CNJ|TJAL)\s+n\.?\s*º?\s*([\d\.]+)\s*/\s*(\d{4})", "RES"),
 ]
 NUMS = r"\d+(?:\.\d{3})*(?:-[A-Z])?"
-ART = re.compile(rf"\barts?\.\s*({NUMS}(?:\s*(?:,|e|a)\s*{NUMS})*)(.{{0,90}}?)\b(?:d[oa]s?|dest[ea])\s+", re.S)
+ART = re.compile(rf"\barts?\.\s*({NUMS}(?:\s*(?:,|e|a)\s*{NUMS})*)(.{{0,90}}?)\b(?:d[oa]s?|dest[ea])\s+",
+                 re.S | re.I)
+# Destinos RTF que não contêm texto do documento (tabelas de fontes, cores, estilos, metadados,
+# imagens, cabeçalhos e rodapés).
+RTF_IGNORAR = {"fonttbl", "colortbl", "stylesheet", "info", "pict", "object", "header", "footer",
+               "headerl", "headerr", "headerf", "footerl", "footerr", "footerf", "listtable",
+               "listoverridetable", "rsidtbl", "generator", "xmlnstbl", "datastore", "themedata",
+               "colorschememapping", "latentstyles", "pgdsctbl", "filetbl", "revtbl", "fldinst"}
+RTF_TOKEN = re.compile(r"\\([a-z]{1,32})(-?\d{1,10})? ?|\\'([0-9a-f]{2})|\\([^a-z])|([{}])|([^\\{}]+)", re.I)
+
+
+def rtf_para_texto(rtf: str) -> str:
+    """Extrai o texto de um RTF sem dependências externas (parágrafos, tabulações, acentos em
+    \\'hh e \\uN, campos de fonte, cores e metadados ignorados)."""
+    pilha, ignorar, uc, pular = [], False, 1, 0
+    saida = []
+    for m in RTF_TOKEN.finditer(rtf):
+        palavra, arg, hexa, simbolo, chave, texto = m.groups()
+        if chave == "{":
+            pilha.append((ignorar, uc))
+            continue
+        if chave == "}":
+            if pilha:
+                ignorar, uc = pilha.pop()
+            continue
+        if pular and (texto or hexa or simbolo):
+            if texto:
+                consumir = min(pular, len(texto))
+                texto, pular = texto[consumir:], pular - consumir
+                if not texto:
+                    continue
+            else:
+                pular -= 1
+                continue
+        if simbolo:
+            if simbolo == "*":
+                ignorar = True
+            elif not ignorar and simbolo in "\\{}":
+                saida.append(simbolo)
+            elif not ignorar and simbolo == "~":
+                saida.append("\u00a0")
+            elif not ignorar and simbolo == "_":
+                saida.append("-")
+            continue
+        if hexa:
+            if not ignorar:
+                saida.append(bytes([int(hexa, 16)]).decode("cp1252", errors="replace"))
+            continue
+        if palavra:
+            palavra = palavra.lower()
+            if palavra in RTF_IGNORAR:
+                ignorar = True
+            elif palavra == "uc" and arg:
+                uc = int(arg)
+            elif palavra == "u" and arg:
+                if not ignorar:
+                    n = int(arg)
+                    saida.append(chr(n + 65536 if n < 0 else n))
+                pular = uc
+            elif not ignorar and palavra in ("par", "line", "sect", "page"):
+                saida.append("\n")
+            elif not ignorar and palavra == "tab":
+                saida.append("\t")
+            elif not ignorar and palavra in ("emdash", "endash"):
+                saida.append("—" if palavra == "emdash" else "–")
+            continue
+        if texto and not ignorar:
+            saida.append(texto.replace("\r", "").replace("\n", ""))
+    # pares substitutos (caracteres fora do plano básico) gravados como dois \uN
+    return "".join(saida).encode("utf-16", "surrogatepass").decode("utf-16", errors="replace")
+
+
+def odt_para_texto(arq: Path) -> str:
+    import html
+    import zipfile
+    xml = zipfile.ZipFile(arq).read("content.xml").decode("utf-8")
+    xml = re.sub(r"<text:s(?: text:c=\"(\d+)\")?/>", lambda m: " " * int(m.group(1) or 1), xml)
+    xml = re.sub(r"<text:tab/>", "\t", xml)
+    xml = re.sub(r"<text:line-break/>|</text:p>|</text:h>", "\n", xml)
+    return html.unescape(re.sub(r"<[^>]+>", "", xml))
 
 
 def texto_de(arq: Path) -> str:
     suf = arq.suffix.lower()
     if suf == ".txt":
         return arq.read_text(encoding="utf-8", errors="replace")
+    if suf == ".rtf":
+        return rtf_para_texto(arq.read_bytes().decode("latin-1"))
+    if suf == ".odt":
+        return odt_para_texto(arq)
     if suf == ".docx":
         # Runs em vermelho são apontamentos internos da versão anotada (ressalva, conferências)
         # e não integram o texto que irá aos autos: ficam fora da conferência.
@@ -68,10 +153,17 @@ def texto_de(arq: Path) -> str:
             return c is not None and c.type is not None and c.rgb is not None and str(c.rgb).upper() == "FF0000"
         return "\n".join("".join(r.text for r in p.runs if not vermelho(r)) for p in Document(arq).paragraphs)
     if suf == ".pdf":
-        return subprocess.run(["pdftotext", "-layout", str(arq), "-"], capture_output=True, text=True).stdout
+        if shutil.which("pdftotext"):
+            return subprocess.run(["pdftotext", "-layout", str(arq), "-"], capture_output=True, text=True).stdout
+        try:
+            import pdfplumber
+        except ImportError:
+            raise RuntimeError("Sem leitor de PDF: instale o Poppler (pdftotext) ou `pip install pdfplumber`.")
+        with pdfplumber.open(arq) as pdf:
+            return "\n".join(p.extract_text() or "" for p in pdf.pages)
     soffice = shutil.which("soffice") or shutil.which("libreoffice")
     if not soffice:
-        raise RuntimeError(f"Sem conversor para {suf}: instale LibreOffice ou converta para .docx")
+        raise RuntimeError(f"Sem conversor para {suf}: salve o arquivo como .docx (Word) ou instale o LibreOffice.")
     with tempfile.TemporaryDirectory() as d:
         subprocess.run([soffice, "--headless", "--convert-to", "txt:Text (encoded):UTF8", "--outdir", d, str(arq)],
                        check=True, capture_output=True, timeout=180)

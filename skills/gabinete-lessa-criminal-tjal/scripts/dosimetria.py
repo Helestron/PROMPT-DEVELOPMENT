@@ -17,7 +17,7 @@ Entrada: JSON (arquivo ou stdin) no formato abaixo. Penas em dias (1 ano = 360 d
   "fase1": {"criterio": "1/8_intervalo" | "1/6_minimo" | "fixo",
             "desfavoraveis": 2, "acrescimo_fixo": "0a"},
   "fase2": {"agravantes": 1, "atenuantes": 0, "fracao": "1/6",
-            "sumula231": true},
+            "modo": "sucessivo" | "somado", "sumula231": true},
   "fase3": [{"tipo": "diminuicao", "fracao": "2/3", "fundamento": "art. 33, § 4º"},
             {"tipo": "aumento", "fracao": "1/6", "fundamento": "art. 40, VI"}],
   "afirmado": {"pena_final": "1a8m", "multa_final": 166},
@@ -92,18 +92,30 @@ def calcular(e: dict) -> dict:
     base = min(pmin + passo * n, pmax)
     memoria.append(f"1ª fase: mínima {fmt(pmin)}; {n} circunstância(s) desfavorável(is); {desc}; pena-base {fmt(base)}")
 
-    # 2ª fase — arts. 61 a 66 (compensação simples: diferença entre agravantes e atenuantes)
+    # 2ª fase — arts. 61 a 66 (compensação simples: diferença entre agravantes e atenuantes).
+    # "sucessivo": cada fração incide sobre a pena já ajustada; "somado": as frações se somam e
+    # incidem uma vez sobre a pena-base. Use o modo que a decisão declarar.
     f2 = e.get("fase2", {})
     ag, at = int(f2.get("agravantes", 0)), int(f2.get("atenuantes", 0))
     fr2 = fr(f2.get("fracao", "1/6"))
+    modo = f2.get("modo", "sucessivo")
+    if modo not in ("sucessivo", "somado"):
+        raise ValueError(f"modo da 2ª fase desconhecido: {modo!r} (use sucessivo ou somado)")
     saldo = ag - at
-    inter = base * (1 + fr2) ** saldo if saldo >= 0 else base * (1 - fr2) ** (-saldo)
+
+    def segunda_fase(valor):
+        if modo == "somado":
+            return valor * (1 + fr2 * saldo)
+        return valor * (1 + fr2) ** saldo if saldo >= 0 else valor * (1 - fr2) ** (-saldo)
+
+    inter = segunda_fase(base)
     nota = ""
     if f2.get("sumula231", True) and inter < pmin:
         inter, nota = pmin, " (limitada ao mínimo legal — Súmula 231/STJ, conferir vigência)"
     if inter > pmax:
         inter, nota = pmax, " (limitada ao máximo legal)"
-    memoria.append(f"2ª fase: {ag} agravante(s), {at} atenuante(s), fração {fr2} por saldo; pena intermediária {fmt(inter)}{nota}")
+    memoria.append(f"2ª fase: {ag} agravante(s), {at} atenuante(s), fração {fr2} por unidade de saldo "
+                   f"(modo {modo}); pena intermediária {fmt(inter)}{nota}")
 
     # 3ª fase — causas de aumento e diminuição, em cascata (art. 68 do CP)
     pena = inter
@@ -121,7 +133,7 @@ def calcular(e: dict) -> dict:
         mmin, mmax = Fraction(e["multa_min"]), Fraction(e["multa_max"])
         posicao = (base - pmin) / intervalo if intervalo else Fraction(0)
         mb = mmin + (mmax - mmin) * posicao
-        mi = mb * (1 + fr2) ** saldo if saldo >= 0 else mb * (1 - fr2) ** (-saldo)
+        mi = segunda_fase(mb)
         if f2.get("sumula231", True):
             mi = max(mi, mmin)
         mi = min(mi, mmax)

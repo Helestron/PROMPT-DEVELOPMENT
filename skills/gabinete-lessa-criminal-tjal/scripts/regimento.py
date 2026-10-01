@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Consulta ao Regimento Interno do TJAL (referencias/ritjal_integral.txt).
 
-O texto integral traz, para os artigos emendados, a redação anterior e a nova. A regra aplicada
-aqui: entre as ocorrências do mesmo artigo, prevalece a última marcada por "(Alterado/Alterada/
-Incluído/Redação dada ... Emenda ...)"; não havendo marca, a última ocorrência. Dentro de um mesmo
-bloco, parágrafos repetidos (o anterior e o incluído por emenda) são sinalizados.
+O texto integral é o **vigente**: o que o PDF consolidado do Tribunal traz tachado (revogado) foi
+excluído na extração (`extrair_regimento.py`) e está em `referencias/ritjal_revogados.txt`, só
+para consulta histórica. Dispositivos incluídos ou alterados por emenda conservam a anotação
+"(Incluído/Alterado pela Emenda …)". Regra de segurança mantida: se o mesmo artigo aparecer mais
+de uma vez (extração de versão antiga do PDF), prevalece a ocorrência marcada por emenda; não
+havendo marca, a última.
 
 Uso:
     python regimento.py 62                  texto vigente do art. 62
@@ -13,6 +15,7 @@ Uso:
     python regimento.py --fila minuta.docx  artigos do RITJAL citados na minuta, com o texto
                                             vigente, no esquema do ledger (status PENDENTE: a
                                             pertinência é juízo de quem revisa)
+    python regimento.py --revogados         texto revogado (tachado no PDF), para consulta histórica
 """
 import json
 import re
@@ -20,6 +23,8 @@ import sys
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent.parent / "referencias" / "ritjal_integral.txt"
+REVOGADOS = BASE.with_name("ritjal_revogados.txt")
+HIFEN_FINAL = re.compile(r"[\w)]-$")
 INICIO = re.compile(r"^Art\.\s*(\d+)\s*[º°o]?\s*\.?\s*-?\s*(.*)$")
 MARCA = re.compile(r"\((?:Alterad[oa]|Incluíd[oa]|Redação dada)[^)]*Emenda[^)]*\)", re.I)
 VERSAO = "RITJAL aprovado em 20/08/2024, com as Emendas n.º 17/2025, 18/2026 e 19/2026"
@@ -45,9 +50,21 @@ def carregar(caminho=BASE):
             atual["linhas"].append(linha.strip())
     artigos = {}
     for b in blocos:
-        texto = re.sub(r"\s+", " ", " ".join(x for x in b["linhas"] if x)).strip()
-        artigos.setdefault(b["numero"], []).append(texto)
+        artigos.setdefault(b["numero"], []).append(unir(b["linhas"]))
     return artigos
+
+
+def unir(linhas):
+    """Une as linhas do PDF: hífen real de fim de linha ("Procurador(a)-" + "Geral") é mantido e
+    a palavra se cola à seguinte; nas demais quebras, um espaço. O Regimento não usa hifenização
+    silábica automática, de modo que todo hífen final é parte da palavra."""
+    texto = ""
+    for linha in (x for x in linhas if x):
+        if texto and HIFEN_FINAL.search(texto):
+            texto += linha
+        else:
+            texto += (" " if texto else "") + linha
+    return re.sub(r"\s+", " ", texto).strip()
 
 
 def vigente(ocorrencias):
@@ -56,9 +73,9 @@ def vigente(ocorrencias):
     avisos = []
     if len(ocorrencias) > 1:
         avisos.append(f"{len(ocorrencias)} redações no texto; adotada a {'marcada por emenda' if marcadas else 'última'}")
-    elif MARCA.search(escolhido):
-        avisos.append("o artigo contém dispositivos incluídos/alterados por emenda; se houver parágrafo "
-                      "repetido (anterior e emendado), prevalece o marcado")
+    if MARCA.search(escolhido):
+        avisos.append("contém dispositivo incluído ou alterado por emenda (anotação entre parênteses no "
+                      "texto); a anotação não integra a citação")
     return escolhido, avisos
 
 
@@ -114,6 +131,9 @@ def main(argv):
         print(json.dumps(buscar(" ".join(argv[1:])), ensure_ascii=False, indent=2)); return 0
     if argv[0] == "--fila":
         print(json.dumps(fila(argv[1]), ensure_ascii=False, indent=2)); return 0
+    if argv[0] == "--revogados":
+        print(REVOGADOS.read_text(encoding="utf-8") if REVOGADOS.exists() else "Arquivo de revogados ausente.")
+        return 0
     r = consultar([a for a in argv if a.isdigit()])
     print(json.dumps(r, ensure_ascii=False, indent=2))
     return 1 if any("erro" in x for x in r) else 0

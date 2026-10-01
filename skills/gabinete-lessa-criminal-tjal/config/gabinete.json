@@ -12,15 +12,19 @@
     "sessao_ordinaria_camara_criminal": "quartas-feiras (RITJAL, art. 128, VI); sessões virtuais conforme art. 152 e Resolução do TJAL"
   },
   "regimento": {
-    "texto_integral": "referencias/ritjal_integral.txt",
+    "texto_integral": "referencias/ritjal_integral.txt (somente texto vigente)",
+    "texto_revogado": "referencias/ritjal_revogados.txt (tachado no PDF; consulta histórica)",
     "versao": "RITJAL aprovado pelo Pleno em 20/08/2024, com as Emendas n.º 17 (19/08/2025), 18 (27/01/2026) e 19 (10/02/2026)",
     "recebido_em": "2026-10-01",
-    "consulta": "python scripts/regimento.py <artigo> | --buscar <termo> | --fila <minuta>"
+    "consulta": "python scripts/regimento.py <artigo> | --buscar <termo> | --fila <minuta> | --revogados",
+    "atualizacao": "python scripts/extrair_regimento.py <PDF consolidado> && python scripts/gerar_mapa_regimento.py"
   },
   "pastas": {
     "trabalho": "A_CONFIRMAR (ex.: C:\\Gabinete\\Lote)",
     "modelos_gabinete": "A_CONFIRMAR (ex.: C:\\Gabinete\\Modelos)",
-    "votos_compartilhados": ["A_CONFIRMAR (ex.: G:\\Drives compartilhados\\Camara Criminal\\Votos; material de pauta recebido via intrajus — RITJAL, arts. 73 e 123)"],
+    "votos_compartilhados": [
+      "A_CONFIRMAR (ex.: G:\\Drives compartilhados\\Camara Criminal\\Votos; material de pauta recebido via intrajus — RITJAL, arts. 73 e 123)"
+    ],
     "saida_revisao": "A_CONFIRMAR (pasta própria do gabinete; nunca a compartilhada)"
   },
   "esaj": {
@@ -41,28 +45,85 @@
     "processo_regex": "sajsg5*",
     "janela_regex": "Sistema de Automa|SAJ",
     "executavel": "A_CONFIRMAR",
-    "categorias": {"despacho": null, "decisao_monocratica": null, "relatorio": null, "voto": null, "ementa": null},
-    "modelos": {"despacho": null, "decisao_monocratica": null, "relatorio": null, "voto": null, "ementa": null,
-                "voto_vogal": null, "voto_vista": null, "voto_vencido": null, "referendo": null},
-    "filas": {"conclusos": "A_CONFIRMAR", "em_elaboracao": "A_CONFIRMAR", "aguardando_assinatura": "A_CONFIRMAR"},
+    "categorias": {
+      "despacho": null,
+      "decisao_monocratica": null,
+      "relatorio": null,
+      "voto": null,
+      "ementa": null
+    },
+    "modelos": {
+      "despacho": null,
+      "decisao_monocratica": null,
+      "relatorio": null,
+      "voto": null,
+      "ementa": null,
+      "voto_vogal": null,
+      "voto_vista": null,
+      "voto_vencido": null,
+      "referendo": null
+    },
+    "filas": {
+      "conclusos": "A_CONFIRMAR",
+      "em_elaboracao": "A_CONFIRMAR",
+      "aguardando_assinatura": "A_CONFIRMAR"
+    },
     "movimentacoes_tpu": {
       "_aviso": "Códigos preenchidos somente após conferência no campo Movimentação do SG5 e na TPU/CNJ (RITJAL, art. 82).",
-      "provimento": null, "provimento_em_parte": null, "nao_provimento": null, "nao_conhecimento": null,
-      "concessao_hc": null, "concessao_parcial_hc": null, "denegacao_hc": null, "liminar_deferida": null,
-      "liminar_indeferida": null, "decisao_proferida": null, "despacho_mero_expediente": null
+      "provimento": null,
+      "provimento_em_parte": null,
+      "nao_provimento": null,
+      "nao_conhecimento": null,
+      "concessao_hc": null,
+      "concessao_parcial_hc": null,
+      "denegacao_hc": null,
+      "liminar_deferida": null,
+      "liminar_indeferida": null,
+      "decisao_proferida": null,
+      "despacho_mero_expediente": null
     }
   },
   "operacoes": {
-    "nivel_a": ["consultar", "abrir_processo", "emitir_documento", "editar", "colar_minuta", "salvar",
-                "finalizar_sem_assinar", "mover_fila_interna", "anotar_pendencia_interna"],
-    "nivel_b": ["remessa_revisor", "pedido_dia_julgamento", "vista_pgj", "pedido_inclusao_pauta",
-                "apresentacao_em_mesa", "retirada_pauta", "devolucao_vista", "encaminhar_secretaria",
-                "lancar_movimentacao_nos_autos", "conversao_diligencia", "baixa_juizo_retratacao",
-                "redistribuicao_interna_gabinete"],
-    "nivel_c": ["assinar", "assinar_e_liberar", "liberar_nos_autos", "registrar_voto_sessao", "pedir_vista_sessao",
-                "declarar_suspeicao_impedimento", "excluir_documento", "cancelar_documento_alheio",
-                "alterar_cadastro_partes", "redistribuir_processo", "baixar_ou_arquivar", "certificar_transito",
-                "digitar_credencial"]
+    "nivel_a": [
+      "consultar",
+      "abrir_processo",
+      "emitir_documento",
+      "editar",
+      "colar_minuta",
+      "salvar",
+      "finalizar_sem_assinar",
+      "mover_fila_interna",
+      "anotar_pendencia_interna"
+    ],
+    "nivel_b": [
+      "remessa_revisor",
+      "pedido_dia_julgamento",
+      "vista_pgj",
+      "pedido_inclusao_pauta",
+      "apresentacao_em_mesa",
+      "retirada_pauta",
+      "devolucao_vista",
+      "encaminhar_secretaria",
+      "lancar_movimentacao_nos_autos",
+      "conversao_diligencia",
+      "baixa_juizo_retratacao",
+      "redistribuicao_interna_gabinete"
+    ],
+    "nivel_c": [
+      "assinar",
+      "assinar_e_liberar",
+      "liberar_nos_autos",
+      "registrar_voto_sessao",
+      "pedir_vista_sessao",
+      "declarar_suspeicao_impedimento",
+      "excluir_documento",
+      "cancelar_documento_alheio",
+      "alterar_cadastro_partes",
+      "redistribuir_processo",
+      "baixar_ou_arquivar",
+      "certificar_transito",
+      "digitar_credencial"
+    ]
   },
   "formatacao": {
     "fonte": "Times New Roman",
@@ -87,6 +148,10 @@
       "voto": "É o relatório.",
       "relatorio": "É o relatório."
     },
-    "formulas_fixas": ["À douta revisão.", "É como voto.", "É o relatório."]
+    "formulas_fixas": [
+      "À douta revisão.",
+      "É como voto.",
+      "É o relatório."
+    ]
   }
 }

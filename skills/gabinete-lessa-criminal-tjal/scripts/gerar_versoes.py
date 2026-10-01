@@ -10,7 +10,8 @@ Passos:
      (saj_sg5.ps1 -Modo ConverterRtf).
 
 Uso:
-    python gerar_versoes.py Minuta_<numero>_<ato>.docx --tipo voto|voto_vogal|decisao|despacho|ementa
+    python gerar_versoes.py Minuta_<numero>_<ato>.docx --tipo despacho|decisao|relatorio|voto|
+                            voto_vogal|voto_vista|voto_vencido|declaracao_voto|referendo|ementa
                             [--motor nativo|soffice]
 Saída: caminho do .rtf aprovado, ou relatório de pendências (código de saída 1).
 """
@@ -43,13 +44,23 @@ def limpar(origem: Path, destino: Path):
 
 
 def _esc(texto: str) -> str:
+    """Escapa texto para RTF: barras e chaves, quebra de linha e tabulação do run, e todo
+    caractere não ASCII como \\uN (com par substituto acima do plano básico)."""
     out = []
     for ch in texto:
         o = ord(ch)
         if ch in "\\{}":
             out.append("\\" + ch)
+        elif ch == "\n":
+            out.append("\\line ")
+        elif ch == "\t":
+            out.append("\\tab ")
         elif o < 128:
             out.append(ch)
+        elif o > 0xFFFF:
+            for u in ch.encode("utf-16-be").hex(" ", 2).split():
+                v = int(u, 16)
+                out.append(f"\\u{v - 65536 if v >= 32768 else v}?")
         else:
             out.append(f"\\u{o if o < 32768 else o - 65536}?")
     return "".join(out)
@@ -117,6 +128,9 @@ def main(argv):
         print(__doc__); return 2
     origem = Path(argv[0])
     tipo = argv[argv.index("--tipo") + 1] if "--tipo" in argv else "decisao"
+    if tipo not in verificar_minuta.TIPOS or tipo == "nota_revisao":
+        print(f"Tipo inválido para versão limpa: {tipo!r} (a nota de revisão é interna e não vai ao SAJ).")
+        return 2
     # A versão anotada também passa pelo portão (presença de ressalva, advertência e cor).
     rel_anot = verificar_minuta.verificar(origem, tipo, "anotada")
     limpa = origem.with_name(origem.stem + "_LIMPA.docx")

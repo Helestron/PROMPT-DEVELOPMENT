@@ -1,23 +1,26 @@
 # Regimento Interno do TJAL — mapa de uso do gabinete
 
-**Estado: PREENCHIDO** a partir do texto oficial fornecido pelo gabinete em 01/10/2026
-(`referencias/ritjal_integral.txt`): Regimento aprovado pelo Pleno em 20/08/2024, com as Emendas
-n.º 17 (19/08/2025), 18 (27/01/2026) e 19 (10/02/2026). As transcrições abaixo foram **extraídas
-automaticamente** do texto integral pela regra de vigência de `scripts/regimento.py` (prevalece a
-redação marcada por emenda); as linhas "Uso no gabinete" são orientação do skill, não texto
-regimental.
+**Estado: PREENCHIDO** a partir do PDF consolidado fornecido pelo gabinete em 01/10/2026:
+Regimento aprovado pelo Pleno em 20/08/2024, com as Emendas n.º 17 (19/08/2025), 18 (27/01/2026)
+e 19 (10/02/2026). O texto vigente (`referencias/ritjal_integral.txt`) foi extraído por
+`scripts/extrair_regimento.py`, que **exclui o texto tachado (revogado)** no PDF — guardado à parte
+em `referencias/ritjal_revogados.txt` — e preserva os hífens reais. As transcrições abaixo foram
+**geradas automaticamente** a partir desse texto por `scripts/gerar_mapa_regimento.py`; as
+anotações "(Incluído/Alterado pela Emenda …)" são do próprio PDF e não integram a citação; as
+linhas "Uso no gabinete" são orientação do skill, não texto regimental.
 
 Regras de uso: (1) o mapa orienta; o integral autoriza — antes de citar, rode
 `python scripts/regimento.py <artigo>` e registre no ledger com `tipo: "regimento"`; (2) nova
-emenda regimental → substituir `ritjal_integral.txt`, regenerar este mapa e reconferir as
-entradas do ledger; (3) casos omissos: RISTF e RISTJ, nessa ordem (art. 392); (4) divergência de
-interpretação regimental: pronunciamento prévio do Pleno (art. 389).
+emenda regimental → `python scripts/extrair_regimento.py <PDF consolidado>`, depois
+`python scripts/gerar_mapa_regimento.py`, e reconferir as entradas do ledger; (3) casos omissos:
+RISTF e RISTJ, nessa ordem (art. 392); (4) divergência de interpretação regimental:
+pronunciamento prévio do Pleno (art. 389).
 
 ## 1. Competência
 
 **Art. 2º (estrutura)**
 
-> Art.2º O Tribunal de Justiça do Estado de Alagoas, com sede na Capital do Estado e jurisdição em todo o território estadual, tem o seu quantitativo de Desembargadores(as) definido pela Lei nº 6.564, de 5 de janeiro de 2005 Código de Organização Judiciária do Estado de Alagoas e funciona em Plenário, em Seção Especializada Cível e em Câmaras isoladas, sendo quatro cíveis e uma criminal.
+> Art.2º O Tribunal de Justiça do Estado de Alagoas, com sede na Capital do Estado e jurisdição em todo o território estadual, tem o seu quantitativo de Desembargadores(as) definido pela Lei nº 6.564, de 5 de janeiro de 2005 - Código de Organização Judiciária do Estado de Alagoas e funciona em Plenário, em Seção Especializada Cível e em Câmaras isoladas, sendo quatro cíveis e uma criminal.
 
 *Uso no gabinete:* uma única Câmara Criminal no Tribunal.
 
@@ -26,14 +29,14 @@ interpretação regimental: pronunciamento prévio do Pleno (art. 389).
 
 > Art. 48. Compete à Câmara Criminal: I - julgar, originariamente, os processos oriundos do Conselho de Justificação da Polícia Militar do Estado e relativos a oficiais da mesma Corporação; II - julgar os recursos das sentenças e decisões dos(as) Juízes(as) criminais e do Tribunal do Júri; III - julgar os pedidos de habeas corpus quando o coator for alguma das autoridades descritas na alínea ‘f’, do inciso IX, do art. 43 deste Regimento, ou quando houver iminente perigo de consumar-se a violência antes que o(a) Juiz(íza) de Direito competente possa conhecer da espécie. IV - ordenar o exame acerca do pedido de extinção da medida de segurança, contido no Código de Processo Penal; V - promover a restauração de autos relativos a feitos submetidos ao seu julgamento; VI - julgar os pedidos de desaforamento; VII - julgar os recursos contra decisões proferidas pelos(as) Juízes(as) das Varas da Infância e da Juventude, em matéria de natureza infracional; VIII - os conflitos de competência entre Magistrados(as) de 1º grau em matéria criminal; e IX - executar, no que couber, as suas decisões.
 
-*Uso no gabinete:* classes do gabinete na Câmara: recursos criminais e do Júri (II), HC (III), desaforamento (VI), recursos infracionais do ECA (VII), conflitos de competência criminais de 1º grau (VIII), Conselho de Justificação (I), extinção de medida de segurança (IV).
+*Uso no gabinete:* classes do gabinete na Câmara: recursos criminais e do Júri (II); HC quando o **coator** for uma das autoridades do art. 43, IX, f — v.g., juiz de direito —, ou quando houver iminente perigo de consumar-se a violência (III); desaforamento (VI); recursos infracionais do ECA (VII); conflitos de competência criminais de 1º grau (VIII); Conselho de Justificação (I); extinção de medida de segurança (IV).
 
 
 **Art. 43, IX, alíneas d, f, l, m e p (Pleno)**
 
 > d) os conflitos de atribuição e os conflitos de competência entre Desembargadores(as) e entre órgãos do Tribunal de Justiça de Alagoas … f) os habeas corpus, quando o(a) paciente for Juiz(íza) de Direito, Membro do Ministério Público Estadual, Procurador(a) de Estado, Defensor(a) Público(a) Estadual, Prefeito(a) Municipal, Secretário(a) de Estado, Deputado(a) Estadual e o(a) Procurador(a)-Geral do Estado … l) as revisões criminais; m) os embargos infringentes que forem opostos, quando couber, às decisões da Câmara Criminal … p) os agravos dos atos do(a) Presidente(as) do Tribunal de Justiça ou dos(as) Relatores(as), quando da competência do Tribunal Pleno
 
-*Uso no gabinete:* revisão criminal e embargos infringentes contra decisões da Câmara Criminal são julgados pelo Pleno; HC com paciente das autoridades da alínea f é do Pleno — conferir antes de minutar.
+*Uso no gabinete:* revisão criminal e embargos infringentes contra decisões da Câmara Criminal são julgados pelo Pleno; HC cujo **paciente** seja uma das autoridades da alínea f é do Pleno (se a autoridade for o coator, o HC é da Câmara — art. 48, III) — conferir antes de minutar.
 
 
 **Art. 114 (mandado de segurança criminal)**
@@ -60,7 +63,7 @@ interpretação regimental: pronunciamento prévio do Pleno (art. 389).
 
 **Art. 61, incisos I, II, VIII, IX, XII, XIV, XV, XVI, XVII e XVIII**
 
-> I - ordenar e dirigir os processos que lhes forem distribuídos, e neles proferir os atos jurisdicionais necessários … II - determinar às autoridades judiciárias e administrativas providências relativas ao andamento e à instrução do processo, bem assim à execução de seus comandos, exceto se forem de competência do Pleno, da Seção Especializada Cível, das Câmaras Isoladas ou de seus(suas) Presidentes(as) … VIII - julgar as desistências ou as deserções dos recursos … IX - processar e apresentar para julgamento os agravos internos e os embargos de declaração opostos aos acórdãos que houver lavrado, salvo se não estiver mais integrando o órgão julgador, hipótese na qual os recursos serão julgados pelo(a) Relator(a) subsequente … XII - conceder fiança … XIV - pedir dia para julgamento dos feitos nos quais estiver habilitado(a) a proferir voto … XV - apresentar em mesa, para julgamento, os feitos que independam de pauta, nos termos da legislação de regência … XVI - determinar o arquivamento de inquérito, quando o(a) Procurador(a)Geral de Justiça o requerer … XVII - lavrar os acórdãos nos feitos, quando outro não for designado, assinálos digitalmente e determinar sua publicação … XVIII- delegar ao(à) Chefe de Gabinete respectivo, a prática de atos de mero expediente, sem conteúdo decisório, necessários ao regular trâmite processual
+> I - ordenar e dirigir os processos que lhes forem distribuídos, e neles proferir os atos jurisdicionais necessários … II - determinar às autoridades judiciárias e administrativas providências relativas ao andamento e à instrução do processo, bem assim à execução de seus comandos, exceto se forem de competência do Pleno, da Seção Especializada Cível, das Câmaras Isoladas ou de seus(suas) Presidentes(as) … VIII - julgar as desistências ou as deserções dos recursos … IX - processar e apresentar para julgamento os agravos internos e os embargos de declaração opostos aos acórdãos que houver lavrado, salvo se não estiver mais integrando o órgão julgador, hipótese na qual os recursos serão julgados pelo(a) Relator(a) subsequente … XII - conceder fiança … XIV - pedir dia para julgamento dos feitos nos quais estiver habilitado(a) a proferir voto … XV - apresentar em mesa, para julgamento, os feitos que independam de pauta, nos termos da legislação de regência … XVI - determinar o arquivamento de inquérito, quando o(a) Procurador(a)-Geral de Justiça o requerer … XVII - lavrar os acórdãos nos feitos, quando outro não for designado, assiná-los digitalmente e determinar sua publicação … XVIII- delegar ao(à) Chefe de Gabinete respectivo, a prática de atos de mero expediente, sem conteúdo decisório, necessários ao regular trâmite processual
 
 *Uso no gabinete:* o inciso XVIII permite delegar ao Chefe de Gabinete atos de mero expediente; a assinatura continua sendo de pessoa, nunca da automação.
 
@@ -74,7 +77,7 @@ interpretação regimental: pronunciamento prévio do Pleno (art. 389).
 
 **Art. 63 (urgência, liminar e referendo na Câmara Criminal)**
 
-> Art. 63. Os pedidos de urgência formulados em dia de expediente forense, sendo que fora do horário de funcionamento do Tribunal, serão apreciados pelo(a) correspondente Desembargador(a) Relator(a). Parágrafo único. Estando impossibilitado de apreciar o pedido, este será analisado pelo(a) Presidente(a) do órgão julgador ou, se este(a) também estiver impossibilitado(a), a apreciação caberá ao(à) Presidente(a) do Tribunal de Justiça. § 1º Estando impossibilitado de apreciar o pedido, este será analisado pelo Presidente do órgão julgador ou, se este também estiver impossibilitado, a apreciação caberá ao Presidente do Tribunal de Justiça. (Incluído pela Emenda Regimental nº 17, de 19 de agosto de 2025) § 2° A decisão liminar proferida, monocraticamente, pelo Relator a quem for distribuído o pedido produzirá efeitos imediatos. (Incluído pela Emenda Regimental nº 17, de 19 de agosto de 2025) § 3º Devem ser submetidas à imediata apreciação do órgão colegiado as decisões concessivas proferidas em feitos da competência da Câmara Criminal. (Incluído pela Emenda Regimental nº 17, de 19 de agosto de 2025) § 4º Na hipótese descrita no § 3º, a respectiva Secretaria incluirá, automaticamente, o processo em mesa, independentemente de pauta, na primeira sessão colegiada subsequente à data de assinatura da decisão que conceder a medida de urgência, para sua apreciação pelo órgão julgador, sob pena de decaimento. (Incluído pela Emenda Regimental nº 17, de 19 de agosto de 2025) § 5º Cessarão de imediato os efeitos da decisão concessiva não referendada nos termos do § 4º deste artigo, restabelecendo-se a decisão ou o ato impugnado por seus próprios fundamentos, devendo o resultado ser comunicado às partes e certificado no processo, retornando os autos ao Relator para regular condução do feito e cumprimento do que fora deliberado pelo colegiado. (Incluído pela Emenda Regimental nº 17, de 19 de agosto de 2025)
+> Art. 63. Os pedidos de urgência formulados em dia de expediente forense, sendo que fora do horário de funcionamento do Tribunal, serão apreciados pelo(a) correspondente Desembargador(a) Relator(a). § 1º Estando impossibilitado de apreciar o pedido, este será analisado pelo Presidente do órgão julgador ou, se este também estiver impossibilitado, a apreciação caberá ao Presidente do Tribunal de Justiça. (Incluído pela Emenda Regimental nº 17, de 19 de agosto de 2025) § 2° A decisão liminar proferida, monocraticamente, pelo Relator a quem for distribuído o pedido produzirá efeitos imediatos. (Incluído pela Emenda Regimental nº 17, de 19 de agosto de 2025) § 3º Devem ser submetidas à imediata apreciação do órgão colegiado as decisões concessivas proferidas em feitos da competência da Câmara Criminal. (Incluído pela Emenda Regimental nº 17, de 19 de agosto de 2025) § 4º Na hipótese descrita no § 3º, a respectiva Secretaria incluirá, automaticamente, o processo em mesa, independentemente de pauta, na primeira sessão colegiada subsequente à data de assinatura da decisão que conceder a medida de urgência, para sua apreciação pelo órgão julgador, sob pena de decaimento. (Incluído pela Emenda Regimental nº 17, de 19 de agosto de 2025) § 5º Cessarão de imediato os efeitos da decisão concessiva não referendada nos termos do § 4º deste artigo, restabelecendo-se a decisão ou o ato impugnado por seus próprios fundamentos, devendo o resultado ser comunicado às partes e certificado no processo, retornando os autos ao Relator para regular condução do feito e cumprimento do que fora deliberado pelo colegiado. (Incluído pela Emenda Regimental nº 17, de 19 de agosto de 2025)
 
 *Uso no gabinete:* toda decisão **concessiva** de urgência em feito da Câmara Criminal vai a referendo na primeira sessão subsequente à assinatura (§§ 3º e 4º); sem referendo, cessam os efeitos (§ 5º). Ao minutar liminar concessiva, minute também o voto de referendo (tipo `referendo`) e alerte o prazo.
 
@@ -208,7 +211,7 @@ interpretação regimental: pronunciamento prévio do Pleno (art. 389).
 
 **Art. 329**
 
-> Art. 329. O processamento do agravo far-se-á segundo as normas que regem o recurso em sentido estrito, previsto no Código de Processo Penal. §1º O agravo em execução não terá efeito suspensivo, salvo no caso de decisão que determina a desinternação ou liberação de quem cumpre medida de segurança. §2º O agravo será interposto por petição dirigida ao(à) juiz(íza) da execução, que poderá exercer o juízo de retratação e, caso mantida a decisão, o recurso subirá ao Tribunal nos próprios autos, quando não prejudicar o andamento do processo, nos termos do Código de Processo Penal. §3º No Tribunal, autuado e distribuído o recurso, os autos serão conclusos ao(à) Relator(a) que, se for o caso, determinará sua remessa à Procuradoriageral de Justiça, para oferta de parecer. §4º Retornando, serão eles conclusos ao(à) Relator(a), que pedirá ou designará dia para julgamento.
+> Art. 329. O processamento do agravo far-se-á segundo as normas que regem o recurso em sentido estrito, previsto no Código de Processo Penal. §1º O agravo em execução não terá efeito suspensivo, salvo no caso de decisão que determina a desinternação ou liberação de quem cumpre medida de segurança. §2º O agravo será interposto por petição dirigida ao(à) juiz(íza) da execução, que poderá exercer o juízo de retratação e, caso mantida a decisão, o recurso subirá ao Tribunal nos próprios autos, quando não prejudicar o andamento do processo, nos termos do Código de Processo Penal. §3º No Tribunal, autuado e distribuído o recurso, os autos serão conclusos ao(à) Relator(a) que, se for o caso, determinará sua remessa à Procuradoria-geral de Justiça, para oferta de parecer. §4º Retornando, serão eles conclusos ao(à) Relator(a), que pedirá ou designará dia para julgamento.
 
 
 **Art. 330**
@@ -266,7 +269,7 @@ interpretação regimental: pronunciamento prévio do Pleno (art. 389).
 
 **Art. 49**
 
-> Art. 49. Quando necessário, será Revisor(a) o(a) Desembargador(a) que se seguir ao(à) Relator(a), na ordem decrescente de antiguidade, competindolhe: I - confirmar, completar ou retificar o relatório; II - pedir dia para julgamento dos feitos nos quais estiver habilitado(a) a proferir voto; e III – sugerir ao(à) Relator(a) a realização de diligências. Parágrafo único. Entendendo desnecessária a diligência mencionada no inciso III do caput, o(a) Relator(a) determinará o retorno dos autos ao(à) Revisor(a), que, após seu visto, solicitará dia para julgamento, podendo suscitar a necessidade da realização da diligência, no momento do seu voto no órgão colegiado.
+> Art. 49. Quando necessário, será Revisor(a) o(a) Desembargador(a) que se seguir ao(à) Relator(a), na ordem decrescente de antiguidade, competindo-lhe: I - confirmar, completar ou retificar o relatório; II - pedir dia para julgamento dos feitos nos quais estiver habilitado(a) a proferir voto; e III – sugerir ao(à) Relator(a) a realização de diligências. Parágrafo único. Entendendo desnecessária a diligência mencionada no inciso III do caput, o(a) Relator(a) determinará o retorno dos autos ao(à) Revisor(a), que, após seu visto, solicitará dia para julgamento, podendo suscitar a necessidade da realização da diligência, no momento do seu voto no órgão colegiado.
 
 
 **Art. 50**
@@ -286,7 +289,7 @@ interpretação regimental: pronunciamento prévio do Pleno (art. 389).
 
 **Art. 32**
 
-> Art. 32. O(A) Desembargador(a) Revisor, em demanda criminal, será substituído(a) pelo(a) Desembargador(a) do mesmo órgão judicante que lhe seguir na ordem decrescente de antiguidade. Parágrafo Único. Quando na Câmara Criminal tiver de se proceder à substituição de Revisor(a), em razão de impedimento dos(as) demais membros integrantes, a convocação recairá em Desembargador(a) de Câmara Cível, mediante sorteio. § 1º Quando na Câmara Criminal se tiver de proceder à substituição de Revisor(a), em razão de impedimento dos(as) demais membros(as) integrantes, a convocação recairá em Desembargador(a) de Câmara Cível, por meio de sorteio. (Incluído pela Emenda nº 19, de 10 de fevereiro de 2026) § 2° Havendo impedimento ou suspeição de todos(as) os(as) Desembargadores(as) integrantes da Câmara Criminal em determinado feito, proceder-se-á à distribuição, por meio de sorteio, entre os(as) Desembargadores(as) das Câmaras Cíveis Isoladas e da Seção Especializada Cível, preservando-se a competência material criminal. (Incluído pela Emenda nº 19, de 10 de fevereiro de 2026)
+> Art. 32. O(A) Desembargador(a) Revisor, em demanda criminal, será substituído(a) pelo(a) Desembargador(a) do mesmo órgão judicante que lhe seguir na ordem decrescente de antiguidade. § 1º Quando na Câmara Criminal se tiver de proceder à substituição de Revisor(a), em razão de impedimento dos(as) demais membros(as) integrantes, a convocação recairá em Desembargador(a) de Câmara Cível, por meio de sorteio. (Incluído pela Emenda nº 19, de 10 de fevereiro de 2026) § 2° Havendo impedimento ou suspeição de todos(as) os(as) Desembargadores(as) integrantes da Câmara Criminal em determinado feito, proceder-se-á à distribuição, por meio de sorteio, entre os(as) Desembargadores(as) das Câmaras Cíveis Isoladas e da Seção Especializada Cível, preservando-se a competência material criminal. (Incluído pela Emenda nº 19, de 10 de fevereiro de 2026)
 
 
 **Art. 36**
@@ -558,7 +561,7 @@ interpretação regimental: pronunciamento prévio do Pleno (art. 389).
 > Art. 187. Em caso de julgamento por acórdão, considera-se, para efeito de contagem de prazo processual, a publicação das conclusões do julgado, sendo vedado, para esse fim, utilizar como parâmetro a divulgação da ata do respectivo julgamento. §1º Após a publicação, a Secretaria certificará a data da disponibilização e da publicação das conclusões do acórdão, para fins de contagem do prazo recursal, sendo-lhe vedado efetuar correções ou modificações nos textos que lhe forem eletronicamente enviados pelo Gabinete do(a) Relator(a), ressalvado o disposto neste Regimento. §2º Publicadas as conclusões, os autos somente sairão da Secretaria durante o prazo para interposição do recurso cabível, nos casos previstos em lei.
 
 
-*Uso no gabinete:* matéria não submetida às partes, ainda que cognoscível de ofício, leva à suspensão e manifestação em cinco dias (art. 161) — a minuta marca o ponto em vermelho e propõe o caminho; voto-vista sempre escrito (art. 174), em dez dias prorrogáveis por mais dez (art. 173); vencido o Desembargador — inclusive só quanto ao fundamento determinante (art. 180) —, os fundamentos do voto vencido em **72 horas** (art. 179); ementa e voto divergentes → prevalece o voto (art. 185), por isso o portão confere a congruência entre ambos.
+*Uso no gabinete:* matéria não submetida às partes, ainda que cognoscível de ofício, leva à suspensão e manifestação em cinco dias (art. 161) — a minuta marca o ponto em vermelho e propõe o caminho; voto-vista sempre escrito (art. 174), em dez dias prorrogáveis por mais dez (art. 173); vencido o Desembargador — inclusive só quanto ao fundamento determinante (art. 180) —, os fundamentos do voto vencido em **72 horas** (art. 179); ementa e voto divergentes → prevalece o voto (art. 185), por isso a Fase 4 (controle de completude e revisão adversarial) confere a congruência entre ambos.
 
 
 ## 10. Plantão e urgências fora do expediente

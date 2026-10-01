@@ -8,15 +8,17 @@ description: Assessoria do Gabinete do Des. João Luiz de Azevedo Lessa (Câmara
 Unidade: **Gabinete do Desembargador João Luiz de Azevedo Lessa — Câmara Criminal do Tribunal de
 Justiça do Estado de Alagoas**. Sistemas: **e-SAJ** — 2º grau pela entrada
 `https://www2.tjal.jus.br/cposg5/open.do?gateway=true` e origem pelo `cpopg` — e **SAJ/SG5**
-(cliente do 2º grau). Norma interna: **Regimento Interno do TJAL** (aprovado em 20/08/2024, com as
-Emendas n.º 17/2025, 18/2026 e 19/2026), em texto integral no skill. Configuração em
+(cliente do 2º grau). Norma interna: **Regimento Interno do TJAL (RITJAL)**, aprovado em
+20/08/2024, com as Emendas n.º 17/2025, 18/2026 e 19/2026, em texto vigente no skill (o revogado,
+tachado no PDF consolidado, fica à parte). Configuração em
 `config/gabinete.json` (lotação, usuário, pastas, códigos de modelos, filas e movimentações),
 preenchida pela Rodada de Descoberta — nunca por suposição.
 
 Derivado do skill `lote-minutas-esaj` (8ª Vara Cível de Arapiraca), do qual herda as fases, os
 ledgers, os portões, a técnica de automação validada do SAJ e as salvaguardas; o que era próprio
-do 1º grau cível (banco de peritos, Código de Normas da CGJ, SPU, sentença) foi substituído pelo
-equivalente do 2º grau criminal.
+do 1º grau cível (banco de peritos, SPU, sentença) foi substituído pelo equivalente do 2º grau
+criminal, e o Código de Normas da CGJ/AL permanece só como referência dos arts. 322 e 327 do
+RITJAL.
 
 ## 0. Mapa do skill
 
@@ -32,7 +34,7 @@ Referências (leia a pertinente **antes** da fase correspondente):
 - `referencias/criminal_2grau.md` — roteiro de análise criminal, dosimetria, prescrição, HC, nulidades (Fases 2–3, Modo B).
 - `referencias/conferencia_fontes.md` — ledger, hierarquia de fontes, regimento, vigência (Fase 2-B, Modo B).
 - `referencias/regimento_tjal.md` — mapa regimental do gabinete, com transcrições do texto vigente (competência, relator, revisor, HC, recursos, pauta, sessão, vista, voto vencido, acórdão).
-- `referencias/ritjal_integral.txt` — Regimento Interno do TJAL, texto integral pesquisável (consultar por `scripts/regimento.py`).
+- `referencias/ritjal_integral.txt` — RITJAL, texto vigente pesquisável (consultar por `scripts/regimento.py`); `referencias/ritjal_revogados.txt` — texto revogado (tachado no PDF), só para consulta histórica.
 - `referencias/cgj_normas_integral.txt` — Código de Normas da CGJ/AL, citado pelo Regimento nos arts. 322 e 327 (RESE em sequencial — arts. 797 e 798 do Código).
 - `referencias/estilo_gabinete.md` — padrão de redação das peças (Fase 3).
 - `referencias/revisao_votos.md` — protocolo do Modo B.
@@ -42,9 +44,11 @@ Scripts (`scripts/`): `cnj.py` (número CNJ), `dosimetria.py`, `prescricao.py`,
 `montar_minuta.py` (anotada .docx), `verificar_minuta.py` (portão léxico e de estilo),
 `gerar_versoes.py` (limpa .docx/.rtf sob portão), `conferir_citacoes.py` (citações × ledger),
 `inventario_votos.py` (pasta compartilhada, somente leitura), `regimento.py` (texto vigente de
-artigo do RITJAL, busca por termo e fila de conferência regimental da minuta), `saj_sg5.ps1`
-(automação do SG5), `testar_acesso.ps1` (teste de acesso somente leitura ao SG5).
-Python 3 com `python-docx` (`pip install python-docx`); PowerShell 5.1 no Windows.
+artigo do RITJAL, busca por termo e fila de conferência regimental da minuta),
+`extrair_regimento.py` e `gerar_mapa_regimento.py` (atualização do RITJAL a cada emenda),
+`saj_sg5.ps1` (automação do SG5), `testar_acesso.ps1` (teste de acesso somente leitura ao SG5).
+Python 3 com `python-docx` (`pip install python-docx`; `pdfplumber` só para reextrair o
+Regimento); PowerShell 5.1 no Windows.
 
 ## 1. Execução, entrada e limites
 
@@ -86,8 +90,9 @@ bloqueio de assinatura e de credencial) estão no `saj_sg5.ps1` e independem do 
 - **Matriz de operações** (`saj_sg5_operacoes.md`, item 2): nível A automático; nível B só com
   autorização expressa do usuário no chat, registrada em `scripts/autorizacao_nivel_b.json`
   (texto literal, operações, processos, validade); **nível C nunca** — assinar, assinar e
-  liberar, liberar nos autos, registrar voto em sessão, excluir ou cancelar documento, alterar
-  cadastro, redistribuir, baixar ou arquivar, certificar trânsito. O teto da inserção é o
+  liberar, liberar nos autos, registrar voto em sessão ou na plataforma virtual, pedir vista,
+  declarar suspeição ou impedimento, excluir ou cancelar documento, alterar cadastro,
+  redistribuir, baixar ou arquivar, certificar trânsito. O teto da inserção é o
   documento finalizado **sem assinatura** na fila do Desembargador. Na dúvida sobre o efeito de um
   botão, não clique: capture, registre e pergunte.
 - **Pasta compartilhada de votos: somente leitura.** Nada se grava, move, renomeia ou apaga nela.
@@ -119,7 +124,7 @@ bloqueio de assinatura e de credencial) estão no `saj_sg5.ps1` e independem do 
    **Rodada de Descoberta** (`saj_sg5_operacoes.md`, item 1) antes da Fase 5.
 2. e-SAJ: abra `https://www2.tjal.jus.br/cposg5/open.do?gateway=true` e confira se a sessão está
    autenticada (sem tela de login); toda consulta de 2º grau parte dessa entrada.
-3. SAJ/SG5: `powershell -File scripts/saj_sg5.ps1 -Modo Verificar`; lotação no gabinete do
+3. SAJ/SG5: `powershell -ExecutionPolicy Bypass -File scripts\saj_sg5.ps1 -Modo Verificar`; lotação no gabinete do
    Des. João Luiz de Azevedo Lessa conferida por captura antes do primeiro lançamento —
    **lotação errada insere documento em gabinete alheio, o que é irreversível**.
 4. Informe uma vez que o usuário pode criar `scripts/PARAR.txt` a qualquer momento para
@@ -150,14 +155,14 @@ usuário em poucas linhas e não relate o teste como feito.
 ### FASE 1 — Autos (antes de qualquer análise)
 
 Para cada processo, a partir da entrada `cposg5/open.do?gateway=true`, capa e movimentações e
-**íntegra da pasta digital** do 2º grau e,
-quando necessário, da origem (`cpopg`), conforme a tabela de `esaj_autos.md`, item 1. Salve em
-`_autos/<numero>/`, extraia o texto (pdftotext; OCR se necessário) e numere pelas fls. da pasta.
-Registre: papel do gabinete (relator/revisor), situação de pauta, réu preso, petições posteriores
-à conclusão, prevenção (RITJAL, arts. 95 e 103) e eventual impedimento do Desembargador (v.g.,
-revisão criminal de acórdão que relatou ou revisou — art. 112): achado de impedimento ou
-suspeição é alerta imediato, com minuta de despacho em vermelho (a declaração é nível C). Falha após novas tentativas com sessão renovada: registre, informe e siga.
-Só avance quando todos estiverem baixados ou com falha registrada.
+**íntegra da pasta digital** do 2º grau e, quando necessário, da origem (`cpopg`), conforme a
+tabela de `esaj_autos.md`, item 1. Salve em `_autos/<numero>/`, extraia o texto (pdftotext; OCR
+se necessário) e numere pelas fls. da pasta. Registre: papel do gabinete (relator/revisor),
+situação de pauta, réu preso, petições posteriores à conclusão, prevenção (RITJAL, arts. 95 e
+103) e eventual impedimento do Desembargador (v.g., revisão criminal de acórdão que relatou ou
+revisou — art. 112). Achado de impedimento ou suspeição é alerta imediato, com minuta de
+despacho em vermelho (a declaração é nível C). Falha após novas tentativas com sessão renovada:
+registre, informe e siga. Só avance quando todos estiverem baixados ou com falha registrada.
 
 ### FASE 2 — Análise integral (um a um)
 
@@ -172,7 +177,8 @@ Só avance quando todos estiverem baixados ou com falha registrada.
      RITJAL: recurso prejudicado ou desprovimento de recurso contrário a súmula do STF, do STJ
      ou do TJAL, a repetitivo, a IRDR ou a IAC (art. 62); nas originárias, só extinção sem
      mérito ou previsão legal (art. 62, parágrafo único) — no HC, indeferimento liminar
-     (art. 192, parágrafo único) e prejudicialidade (art. 192); desistência e deserção
+     (art. 192, parágrafo único) e prejudicialidade (art. 192, caput, c/c o art. 62, parágrafo
+     único); desistência e deserção
      (art. 61, VIII); embargos de declaração contra decisão monocrática (art. 335); liminar
      (arts. 189, III, 196 e 243); extinção da punibilidade na ação penal originária (art. 213).
      Fora dessas hipóteses, o ato é **voto**;
@@ -202,11 +208,11 @@ Entre a análise e a redação (procedimento completo em `referencias/conferenci
 
 1. Levante as teses de que a solução depende e analise **sempre** a adequação a precedentes
    qualificados (STF e STJ) e a eventual **suspensão nacional**; registre a conclusão.
-2. Verifique cada citação candidata — precedente, súmula, tema, **dispositivo legal (redação
-   vigente; no direito material, a da data do fato)** e **dispositivo regimental** — este
-   sempre por `python scripts/regimento.py <artigo>`, que aplica a redação emendada — na fonte
-   primária, com trecho literal, no ledger `_verificacoes.json` (`VERIFIED`/`REJECTED`).
-   Delegue a subagentes por tema quando o volume justificar.
+2. Verifique na fonte primária cada citação candidata — precedente, súmula, tema, **dispositivo
+   legal** (redação vigente; no direito material, a da data do fato) e **dispositivo
+   regimental** (sempre por `python scripts/regimento.py <artigo>`, que devolve só o texto
+   vigente) — e registre-a, com trecho literal, no ledger `_verificacoes.json`
+   (`VERIFIED`/`REJECTED`). Delegue a subagentes por tema quando o volume justificar.
 3. Consulte a **jurisprudência da Câmara Criminal do TJAL** e decisões anteriores do próprio
    Desembargador sobre a matéria (coerência e casos gêmeos). Divergência com precedente
    qualificado: prevalece o precedente, com o registro em vermelho na anotada.
@@ -366,7 +372,9 @@ se executa.
 - `Minuta_<numero>_<ato>.docx` (anotada, para o Desembargador) e `Minuta_<numero>_<ato>_LIMPA.rtf`
   (para o SG5); `Revisao_<numero>_<relator>.docx` no Modo B.
 - `Lista_Trabalho_SG5.md`, `_estado.json`, `_verificacoes.json`, `_calculos.json`,
-  `_inventario_revisao.json`, `saj_log.jsonl` (auditoria), `_caderno_bordo.md`.
+  `_inventario_revisao.json`, `_teste_acesso.json`, `saj_log.jsonl` (auditoria),
+  `_caderno_bordo.md`. São documentos de trabalho com dados dos processos: ficam na pasta de
+  trabalho do gabinete, nunca em repositório ou serviço externo.
 
 ## 8. Autodesenvolvimento do skill
 

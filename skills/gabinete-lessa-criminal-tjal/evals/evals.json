@@ -7,8 +7,8 @@
       "expected_output": "Modo A sobre a fila do SG5, com ordenação por urgência criminal, minutas aprovadas nos portões e finalizadas sem assinar.",
       "files": [],
       "expectations": [
-        "Verifica a sessão do e-SAJ e o SAJ/SG5 (saj_sg5.ps1 -Modo Verificar) e a lotação antes do primeiro lançamento",
-        "Ordena o lote por HC com liminar pendente, réu preso, prescrição próxima, prioridade legal e antiguidade",
+        "Verifica a sessão do e-SAJ pela entrada cposg5/open.do?gateway=true e o SAJ/SG5 (saj_sg5.ps1 -Modo Verificar), além da lotação, antes do primeiro lançamento",
+        "Ordena o lote por prazos regimentais correndo (voto vencido, referendo, vista, revisão), HC com liminar pendente, réu preso, prescrição próxima, prioridades do art. 74 do RITJAL e antiguidade",
         "Roda prescricao.py em todos os processos e dosimetria.py nas condenações revistas",
         "Gera versão anotada e limpa, e só insere a limpa aprovada por verificar_minuta.py e conferir_citacoes.py",
         "Finaliza sem assinar e não executa operação de nível B sem autorização registrada"
@@ -23,6 +23,7 @@
         "Usa inventario_votos.py sem gravar, mover ou renomear nada na pasta compartilhada",
         "Baixa os autos pelo e-SAJ antes de opinar sobre cada voto",
         "Confere as citações dos votos com conferir_citacoes.py e ledger",
+        "Aplica os papéis regimentais (revisor, art. 49; vogal; vista, arts. 173 e 174; voto vencido, art. 179) ao definir a posição sugerida",
         "Entrega nota de revisão com posição sugerida (acompanhar, ressalvar, divergir, pedir vista)",
         "Não registra voto em sessão (nível C)"
       ]
@@ -81,6 +82,16 @@
         "Identifica o prazo de 72 horas (RITJAL, art. 179) e prioriza a tarefa",
         "Roda dosimetria.py para sustentar a divergência",
         "A minuta termina em 'É como voto.' e passa no portão com --tipo voto_vencido"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Qual é o prazo de vista na Câmara Criminal e o que diz o Regimento sobre o voto-vista?",
+      "expected_output": "Resposta com o texto vigente dos arts. 173 e 174 do RITJAL obtido por scripts/regimento.py: dez dias, prorrogáveis por mais dez mediante comunicação ao Presidente; voto-vista sempre escrito, ainda que para acompanhar.",
+      "files": [],
+      "expectations": [
+        "Consulta o texto vigente por scripts/regimento.py em vez de responder de memória",
+        "Não cita texto revogado (ritjal_revogados.txt) como vigente"
       ]
     }
   ]

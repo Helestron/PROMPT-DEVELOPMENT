@@ -1,13 +1,24 @@
 __pycache__/
 *.pyc
 .pytest_cache/
-# Artefatos de execução (dados de processos não vão ao repositório)
+
+# Artefatos de execução com dados de processos: ficam na pasta de trabalho do gabinete,
+# nunca no repositório.
 _autos/
 _estado.json
 _verificacoes.json
 _calculos.json
 _inventario_revisao.json
 _dossie_*.json
+_fila_*.json
+_teste_acesso.json
+_teste_sg5_*.png
+_caderno_bordo.md
+Lista_Trabalho_SG5.md
+Minuta_*.docx
+Minuta_*.rtf
+Revisao_*.docx
+minuta_*.txt
 saj_log.jsonl
 autorizacao_nivel_b.json
 PARAR.txt

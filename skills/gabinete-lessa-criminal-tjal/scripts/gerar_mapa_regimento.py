@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Regenera referencias/regimento_tjal.md a partir de referencias/ritjal_integral.txt.
 
-Uso (após substituir o texto integral por nova versão oficial do Regimento):
+Uso (após `extrair_regimento.py` sobre nova versão consolidada do Regimento):
     python gerar_mapa_regimento.py [saida.md]
 Falha (AssertionError) se algum dispositivo do mapa deixar de ser localizado — sinal de que a
 emenda alterou a numeração ou a redação e o mapa precisa de revisão manual.
@@ -40,30 +40,33 @@ def bloco(rotulo, texto, uso=None):
 S = []
 S.append("""# Regimento Interno do TJAL — mapa de uso do gabinete
 
-**Estado: PREENCHIDO** a partir do texto oficial fornecido pelo gabinete em 01/10/2026
-(`referencias/ritjal_integral.txt`): Regimento aprovado pelo Pleno em 20/08/2024, com as Emendas
-n.º 17 (19/08/2025), 18 (27/01/2026) e 19 (10/02/2026). As transcrições abaixo foram **extraídas
-automaticamente** do texto integral pela regra de vigência de `scripts/regimento.py` (prevalece a
-redação marcada por emenda); as linhas "Uso no gabinete" são orientação do skill, não texto
-regimental.
+**Estado: PREENCHIDO** a partir do PDF consolidado fornecido pelo gabinete em 01/10/2026:
+Regimento aprovado pelo Pleno em 20/08/2024, com as Emendas n.º 17 (19/08/2025), 18 (27/01/2026)
+e 19 (10/02/2026). O texto vigente (`referencias/ritjal_integral.txt`) foi extraído por
+`scripts/extrair_regimento.py`, que **exclui o texto tachado (revogado)** no PDF — guardado à parte
+em `referencias/ritjal_revogados.txt` — e preserva os hífens reais. As transcrições abaixo foram
+**geradas automaticamente** a partir desse texto por `scripts/gerar_mapa_regimento.py`; as
+anotações "(Incluído/Alterado pela Emenda …)" são do próprio PDF e não integram a citação; as
+linhas "Uso no gabinete" são orientação do skill, não texto regimental.
 
 Regras de uso: (1) o mapa orienta; o integral autoriza — antes de citar, rode
 `python scripts/regimento.py <artigo>` e registre no ledger com `tipo: "regimento"`; (2) nova
-emenda regimental → substituir `ritjal_integral.txt`, regenerar este mapa e reconferir as
-entradas do ledger; (3) casos omissos: RISTF e RISTJ, nessa ordem (art. 392); (4) divergência de
-interpretação regimental: pronunciamento prévio do Pleno (art. 389).
+emenda regimental → `python scripts/extrair_regimento.py <PDF consolidado>`, depois
+`python scripts/gerar_mapa_regimento.py`, e reconferir as entradas do ledger; (3) casos omissos:
+RISTF e RISTJ, nessa ordem (art. 392); (4) divergência de interpretação regimental:
+pronunciamento prévio do Pleno (art. 389).
 """)
 
 S.append("## 1. Competência\n")
 S.append(bloco("Art. 2º (estrutura)", tr(2), "uma única Câmara Criminal no Tribunal."))
 S.append(bloco("Art. 48 (Câmara Criminal)", v(48),
-  "classes do gabinete na Câmara: recursos criminais e do Júri (II), HC (III), desaforamento (VI), recursos infracionais do ECA (VII), conflitos de competência criminais de 1º grau (VIII), Conselho de Justificação (I), extinção de medida de segurança (IV)."))
+  "classes do gabinete na Câmara: recursos criminais e do Júri (II); HC quando o **coator** for uma das autoridades do art. 43, IX, f — v.g., juiz de direito —, ou quando houver iminente perigo de consumar-se a violência (III); desaforamento (VI); recursos infracionais do ECA (VII); conflitos de competência criminais de 1º grau (VIII); Conselho de Justificação (I); extinção de medida de segurança (IV)."))
 S.append(bloco("Art. 43, IX, alíneas d, f, l, m e p (Pleno)",
   " … ".join([tr(43, r"d\) os conflitos de atribuição", r"e\) as ações de Reclamação"),
               tr(43, r"f\) os habeas corpus", r"g\) os habeas data"),
               tr(43, r"l\) as revisões criminais", r"n\) os pedidos de revisão"),
               tr(43, r"p\) os agravos dos atos", r"q\) os procedimentos")]),
-  "revisão criminal e embargos infringentes contra decisões da Câmara Criminal são julgados pelo Pleno; HC com paciente das autoridades da alínea f é do Pleno — conferir antes de minutar."))
+  "revisão criminal e embargos infringentes contra decisões da Câmara Criminal são julgados pelo Pleno; HC cujo **paciente** seja uma das autoridades da alínea f é do Pleno (se a autoridade for o coator, o HC é da Câmara — art. 48, III) — conferir antes de minutar."))
 S.append(bloco("Art. 114 (mandado de segurança criminal)", tr(114)))
 S.append(bloco("Art. 242 (correição parcial)", tr(242)))
 S.append(bloco("Art. 321 (RESE)", tr(321)))
@@ -136,7 +139,7 @@ for n in (164, 165, 166):
 S.append(bloco("Art. 167, III e parágrafo único", tr(167, r"III - se mais")))
 for n in (172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 184, 185, 186, 187):
     S.append(bloco(f"Art. {n}", v(n)))
-S.append("*Uso no gabinete:* matéria não submetida às partes, ainda que cognoscível de ofício, leva à suspensão e manifestação em cinco dias (art. 161) — a minuta marca o ponto em vermelho e propõe o caminho; voto-vista sempre escrito (art. 174), em dez dias prorrogáveis por mais dez (art. 173); vencido o Desembargador — inclusive só quanto ao fundamento determinante (art. 180) —, os fundamentos do voto vencido em **72 horas** (art. 179); ementa e voto divergentes → prevalece o voto (art. 185), por isso o portão confere a congruência entre ambos.\n\n")
+S.append("*Uso no gabinete:* matéria não submetida às partes, ainda que cognoscível de ofício, leva à suspensão e manifestação em cinco dias (art. 161) — a minuta marca o ponto em vermelho e propõe o caminho; voto-vista sempre escrito (art. 174), em dez dias prorrogáveis por mais dez (art. 173); vencido o Desembargador — inclusive só quanto ao fundamento determinante (art. 180) —, os fundamentos do voto vencido em **72 horas** (art. 179); ementa e voto divergentes → prevalece o voto (art. 185), por isso a Fase 4 (controle de completude e revisão adversarial) confere a congruência entre ambos.\n\n")
 
 S.append("## 10. Plantão e urgências fora do expediente\n")
 S.append(bloco("Art. 75, § 2º", tr(75, r"§2º", r"§3º")))

@@ -1,9 +1,9 @@
-# REGIMENTO INTERNO DO TRIBUNAL DE JUSTIÇA DO ESTADO DE ALAGOAS — TEXTO INTEGRAL PESQUISÁVEL
-# Fonte: PDF fornecido pelo gabinete em 01/10/2026 ('NOVO REGIMENTO INTERNO TJ.AL - 20-08-2024', 94 p.),
-# aprovado pelo Pleno em 20/08/2024, com as Emendas n.º 17 (19/08/2025), 18 (27/01/2026) e 19 (10/02/2026).
-# Extração por pdftotext, sem alteração de conteúdo; removidas apenas as marcas de paginação.
-# ATENÇÃO: artigos alterados aparecem DUAS vezes (redação anterior e nova). Prevalece o texto marcado
-# '(Alterado/Alterada/Incluído pela Emenda ...)'. Use scripts/regimento.py, que aplica essa regra.
+# REGIMENTO INTERNO DO TRIBUNAL DE JUSTIÇA DO ESTADO DE ALAGOAS — TEXTO VIGENTE PESQUISÁVEL
+# Fonte: referencias/ritjal_consolidado_emenda19.pdf (PDF consolidado fornecido pelo gabinete em 01/10/2026, 94 p.). Versão: Regimento aprovado pelo Pleno em 20/08/2024, com as Emendas n.º 17 (19/08/2025), 18 (27/01/2026) e 19 (10/02/2026).
+# Extraído em 2026-10-01 por scripts/extrair_regimento.py: o texto TACHADO no PDF
+# (revogado) foi EXCLUÍDO e está em ritjal_revogados.txt; o texto em azul no PDF (incluído por
+# emenda) está aqui com a respectiva anotação. Quebras de linha do PDF preservadas; marcas de
+# paginação removidas. Consulte por artigo com scripts/regimento.py.
 
 TRIBUNAL DE JUSTIÇA DE ALAGOAS
 Alterado pela Emenda nº 17, de 19 de agosto de 2025.
@@ -38,12 +38,10 @@ Katiane Lamenha Evaristo da Silva
 Chefe de Gabinete
 Margarida Maria do Casal Melo
 Secretária da 1ª Câmara Cível
-
 Luan Soares Leite
 Assessor Judiciário
 Carlos Eduardo Jar e Silva
 Técnico Judiciário
-
 SUMÁRIO
 DISPOSIÇÕES PRELIMINARES
 TÍTULO I - DA ORGANIZAÇÃO E DA COMPETÊNCIA
@@ -82,7 +80,6 @@ Seção I - Das Disposições Gerais
 Seção II - Do Plantão
 Seção III - Do Registro e da Classificação dos Feitos
 Seção IV - Do Preparo
-
 Seção V - Da Distribuição
 Seção VI - Das Atas e das Pautas de Julgamento
 CAPÍTULO II - DAS SESSÕES E DAS AUDIÊNCIAS
@@ -128,7 +125,6 @@ Seção X - Da Proposta de Edição, Revisão e Cancelamento de Enunciado de
 Súmula Vinculante do Supremo Tribunal Federal
 Seção XI - Do Incidente de Resolução de Demandas Repetitivas
 Seção XII - Da Divulgação da Jurisprudência do Tribunal
-
 CAPÍTULO VI - DOS RECURSOS PARA O TRIBUNAL DE JUSTIÇA
 Seção I - Dos Recursos Cíveis
 Subseção I - Da Apelação
@@ -150,15 +146,8 @@ Seção II - Da Execução Contra a Fazenda Pública e da Requisição de
 Pagamento
 TÍTULO III - DAS COMISSÕES
 CAPÍTULO I - NORMAS GERAIS
-CAPÍTULO II - DA COMISSÃO
+CAPÍTULO II - DA COMISSÃO PERMANENTE DE ORGANIZAÇÃO E
 ATUALIZAÇÃO REGIMENTAL
-
-PERMANENTE
-
-DE ORGANIZAÇÃO
-
-E
-
 CAPÍTULO III - DA COMISSÃO DE ORÇAMENTO, PLANEJAMENTO E FINANÇAS
 TÍTULO IV - DA CORREGEDORIA GERAL DA JUSTIÇA
 TÍTULO V – DOS(AS) MAGISTRADOS(AS) EM GERAL
@@ -174,7 +163,6 @@ CAPÍTULO I - DAS EMENDAS AO REGIMENTO INTERNO
 Seção I – Normas Gerais
 Seção II - Da Interpretação Regimental
 CAPÍTULO II - DAS DISPOSIÇÕES FINAIS E TRANSITÓRIAS
-
 DISPOSIÇÕES PRELIMINARES
 Art.1º Este regimento dispõe sobre o funcionamento do Tribunal de Justiça,
 estabelece a competência de seus órgãos, regula a instrução e julgamento dos
@@ -188,7 +176,8 @@ Seção I
 Do Tribunal de Justiça
 Art.2º O Tribunal de Justiça do Estado de Alagoas, com sede na Capital do
 Estado e jurisdição em todo o território estadual, tem o seu quantitativo de
-Desembargadores(as) definido pela Lei nº 6.564, de 5 de janeiro de 2005 Código de Organização Judiciária do Estado de Alagoas e funciona em
+Desembargadores(as) definido pela Lei nº 6.564, de 5 de janeiro de 2005 -
+Código de Organização Judiciária do Estado de Alagoas e funciona em
 Plenário, em Seção Especializada Cível e em Câmaras isoladas, sendo quatro
 cíveis e uma criminal.
 Art.3º A direção do Tribunal de Justiça incumbe ao(à) Presidente(a), ao(à)
@@ -203,12 +192,12 @@ Do Pleno
 Art.5º O Tribunal de Justiça compõe-se da totalidade dos(as)
 Desembargadores(as), funciona em sessão plenária, sendo presidido pelo(as)
 respectivo(a) Presidente(a) e, nos seus impedimentos, sucessivamente,
-
 pelo(a) Vice-Presidente(a) e pelo(a) Desembargador(a) mais antigo(a).
 §1º Para o cálculo de quorum de instauração de julgamento será considerada
 a maioria absoluta, salvo nas ações constitucionais, nas quais será
 considerada a maioria qualificada de dois terços, sendo computado, em
-ambos os casos, o número total de cargos existentes no Tribunal, excetuandose os que se encontrem vagos.
+ambos os casos, o número total de cargos existentes no Tribunal, excetuando-
+se os que se encontrem vagos.
 §2º Aplica-se a fórmula de cálculo do quorum de maioria absoluta para a
 instauração e julgamento de procedimentos administrativos disciplinares
 contra Magistrados(as).
@@ -235,10 +224,10 @@ Lei Complementar nº 35, de 14 de março de 1979 - Lei Orgânica da
 Magistratura Nacional.
 §1º Primeiramente, será realizada a eleição para o cargo de Presidente(a) e,
 após, para o cargo de Vice-Presidente(a), seguida da eleição para o cargo de
-
 Corregedor(a)-Geral da Justiça.
 §2º Se a vaga se der no cargo de Presidente(a) e vier a ser eleito(a) para a
-sucessão membro(a) integrante da mesa diretiva, na mesma sessão eleger-seá o(a) sucessor(a) deste(a).
+sucessão membro(a) integrante da mesa diretiva, na mesma sessão eleger-se-
+á o(a) sucessor(a) deste(a).
 §3º Cada Desembargador(a) poderá manifestar a sua recusa até antes da
 eleição, devendo esta ser apreciada pelo Plenário antes do escrutínio.
 §4º Na hipótese de recusa quanto à aceitação de algum dos cargos de
@@ -278,7 +267,6 @@ seja em razão da ordem de antiguidade.
 Art. 11. Os mandatos do(a) Presidente(a), do(a) Vice-Presidente(a), do(a)
 Corregedor(a)-Geral da Justiça e dos demais membros(as) do Conselho
 Estadual da Magistratura, estender-se-ão até a posse dos(as) respectivos(as)
-
 sucessores(as), se marcada para data excedente do biênio.
 Seção II
 Do Conselho Estadual da Magistratura
@@ -288,7 +276,8 @@ diretivos do Tribunal, e será regida pelas normas contidas na Lei nº 6.564, de
 5 de janeiro de 2005 - Código de Organização Judiciária do Estado de Alagoas
 Art. 13. O período de duração do mandato é de dois anos, sendo vedada a
 reeleição.
-Art. 14. A posse e respectivo exercício do(a) Desembargador(a) eleito(a) darse-ão simultaneamente a daqueles(as) eleitos(as) para cúpula diretiva do
+Art. 14. A posse e respectivo exercício do(a) Desembargador(a) eleito(a) dar-
+se-ão simultaneamente a daqueles(as) eleitos(as) para cúpula diretiva do
 Tribunal de Justiça de Alagoas.
 Art. 15. As substituições dar-se-ão utilizando como parâmetro o critério de
 antiguidade.
@@ -305,7 +294,6 @@ DOS DESEMBARGADORES
 Seção I
 Da Posse e da Antiguidade no Tribunal
 Art. 17. O(A) Magistrado(a), Procurador(a) de Justiça e Advogado(a) tomará
-
 posse no cargo de Desembargador perante o Presidente do Tribunal de
 Justiça, prestando compromisso, nos termos e prazos definidos pela Lei nº
 6.564, de 5 de janeiro de 2005 - Código de Organização Judiciária do Estado
@@ -340,7 +328,6 @@ Magistratura, não se consideram impedidos(as) os(as) Desembargadores(as)
 que nele tenham funcionado.
 Seção III
 Das Licenças e das Férias
-
 Art. 23. Os procedimentos para concessão de licenças e férias serão
 regulamentados por Resolução do Tribunal de Justiça do Estado de Alagoas.
 Art. 24. Durante os períodos de licença e férias, salvo contraindicação
@@ -380,7 +367,6 @@ das atividades, será convocado(a) após aprovação de seu nome pelo Pleno do
 Tribunal de Justiça de Alagoas.
 § 3º Não sendo realizada a indicação prevista no § 2º, a escolha do(a)
 substituto(a) será feita pela Presidência, efetivando-se a convocação após a
-
 aprovação do nome pelo Pleno do Tribunal de Justiça de Alagoas.
 § 4º Não havendo interesse na substituição dentre os(as) integrantes que
 atendam aos requisitos constantes do § 1º, poderão ser convocados(as) os(as)
@@ -424,7 +410,6 @@ Art. 28. No período da substituição, exceto quando o(a) substituído(a) for o
 Vice-Presidente(a), haverá suspensão de distribuição processual para os(a)
 Desembargadores(as) substitutos(as), procedendo-se, posteriormente, à
 devida compensação.
-
 Parágrafo único. Para fins de cumprimento do contido no caput, o respectivo
 gabinete comunicará à unidade responsável pela distribuição de feitos, acerca
 do período de afastamento do(a) Desembargador(a).
@@ -452,10 +437,6 @@ do Tribunal de Justiça de Alagoas puder participar.
 Art. 32. O(A) Desembargador(a) Revisor, em demanda criminal, será
 substituído(a) pelo(a) Desembargador(a) do mesmo órgão judicante que lhe
 seguir na ordem decrescente de antiguidade.
-Parágrafo Único. Quando na Câmara Criminal tiver de se proceder à
-substituição de Revisor(a), em razão de impedimento dos(as) demais
-membros integrantes, a convocação recairá em Desembargador(a) de Câmara
-Cível, mediante sorteio.
 § 1º Quando na Câmara Criminal se tiver de proceder à substituição de
 Revisor(a), em razão de impedimento dos(as) demais membros(as)
 integrantes, a convocação recairá em Desembargador(a) de Câmara Cível, por
@@ -469,7 +450,6 @@ nº 19, de 10 de fevereiro de 2026)
 Art. 33. Constatada, previamente, na forma deste Regimento, eventual
 impossibilidade de comparecimento de Desembargadores(as) à sessão de
 julgamento da Seção Especializada Cível, de modo a comprometer o quorum
-
 de instalação, serão convocados(as) Desembargadores(as) que integrem a
 Câmara Criminal, mediante sorteio a ser realizado com antecedência mínima
 de quarenta e oito horas.
@@ -508,12 +488,12 @@ devendo colocá-los em julgamento no prazo máximo de trinta dias ou para a
 sessão subsequente, no caso de o órgão julgador ser a Seção Especializada
 Cível, sob pena de ser vedada nova convocação.
 §2º Ultrapassado o prazo mencionado no parágrafo anterior, devidamente
-comunicado pela Secretaria à Diretoria Adjunta de Assuntos Judiciários DAAJUC, será realizada a redistribuição automática do feito ao(à)
+comunicado pela Secretaria à Diretoria Adjunta de Assuntos Judiciários -
+DAAJUC, será realizada a redistribuição automática do feito ao(à)
 Desembargador(a) substituído(a).
 §3º Não haverá redistribuição de processo aos(às) Juízes(as) convocados(as),
 salvo vacância do cargo ou situações de urgência devidamente reconhecida
 pelo próprio(a) magistrado(a) convocado(a).
-
 §4º Em nenhuma hipótese serão convocados(as) Magistrados(as) de primeiro
 grau para completar o quorum de instalação, salvo nas exceções legalmente
 estabelecidas.
@@ -554,7 +534,6 @@ aqueles em que tenha produzido relatório ou lançado visto.
 competência diversa da originária, o(a) Desembargador(a) assumirá o acervo
 processual existente na vaga do correspondente órgão de destino,
 permanecendo vinculado(a), no órgão de origem, apenas, aos processos em
-
 que tenha lançado relatório ou pedido vista, bem como às ações originárias
 cuja instrução esteja concluída.
 CAPÍTULO VI
@@ -590,7 +569,6 @@ e) conhecer dos incidentes de falsidade em processos de sua competência.
 VII - decidir sobre:
 a) a criação de unidades jurisdicionais de competência privativa;
 b) a modificação nas competências processuais no primeiro e segundo graus
-
 de jurisdição;
 c) a necessidade de concursos para investidura nos cargos iniciais da carreira
 da magistratura e de servidores(as) do Poder Judiciário;
@@ -601,7 +579,6 @@ servidores(as) apresentados à Presidência da Corte;
 f) o afastamento de Magistrado(a), sem prejuízo de seus vencimentos
 e vantagens, para frequência a cursos ou seminários de aperfeiçoamento e
 estudos, pelo prazo máximo estipulado nas normas de regência;
-
 g) a aquisição de bens imóveis.
 VIII - deliberar sobre:
 a) a permuta de Desembargadores(as) nas Câmaras ou a transferência de uma
@@ -633,7 +610,6 @@ h) os mandados de injunção, quando a elaboração ou iniciativa da norma
 regulamentadora for atribuição do(a) Governador(a), da Assembleia
 Legislativa ou respectiva Mesa Diretora, do Tribunal de Contas ou do próprio
 Tribunal de Justiça;
-
 i) a restauração de autos extraviados, quando a causa estiver na segunda
 instância e o julgamento for de sua competência;
 j) os procedimentos administrativos disciplinares instaurados em desfavor de
@@ -672,7 +648,6 @@ Justiça, em feitos contenciosos ou administrativos; e
 XI - exercer quaisquer outras atribuições conferidas em lei.
 Seção II
 Do Conselho Estadual da Magistratura
-
 Art. 44. O Conselho Estadual da Magistratura, com sede no Tribunal de
 Justiça, é o órgão superior de inspeção e disciplina das atividades judiciárias
 na primeira instância, bem assim de planejamento da organização da
@@ -703,7 +678,6 @@ de Juízo da Infância e da Juventude, bem como as penas de multa aplicadas
 administrativamente nessa esfera;
 IV - julgar os habeas corpus, quando se tratar de prisão civil; e
 V - os conflitos de competência em feitos cíveis que tramitam em primeiro
-
 grau, inclusive os oriundos da Vara da Infância e da Juventude.
 Subseção II
 Da Câmara Criminal
@@ -727,7 +701,8 @@ VIII - os conflitos de competência entre Magistrados(as) de 1º grau em
 matéria criminal; e
 IX - executar, no que couber, as suas decisões.
 Art. 49. Quando necessário, será Revisor(a) o(a) Desembargador(a) que se
-seguir ao(à) Relator(a), na ordem decrescente de antiguidade, competindolhe:
+seguir ao(à) Relator(a), na ordem decrescente de antiguidade, competindo-
+lhe:
 I - confirmar, completar ou retificar o relatório;
 II - pedir dia para julgamento dos feitos nos quais estiver habilitado(a) a
 proferir voto; e
@@ -740,7 +715,6 @@ colegiado.
 Art. 50. Nos casos de revisão, o(a) Revisor(a) deverá se manifestar em até dez
 dias.
 Art. 51. A designação de Revisor(a) poderá ocorrer na própria sessão de
-
 julgamento, nos termos deste Regimento.
 CAPÍTULO VII
 DAS ATRIBUIÇÕES
@@ -776,7 +750,6 @@ X - designar:
 a) Magistrado(a) que deva integrar comissão examinadora de concurso no
 âmbito do Poder Judiciário ou fora dele;
 b) membros(as) de comissões eventualmente formadas para questões
-
 administrativas;
 c) os(as) Magistrados(as) que exercerão as funções de Juízes(as) Auxiliares da
 Presidência;
@@ -786,7 +759,6 @@ Corregedoria-Geral da Justiça;
 e) Desembargador(a) para presidir a audiência de leitura da sentença de
 suspensão condicional da pena, quando concedida pelo Tribunal Pleno.
 XI - expedir:
-
 a) as ordens de pagamento;
 b) a ordem avocatória do feito, nos termos do Código de Processo Penal;
 c) as ordens que não dependerem de acórdão ou não forem de privativa
@@ -820,7 +792,6 @@ judiciário, ou somente encerrar o expediente antes da hora legal, quando
 entender necessário, abrindo, em cada hipótese, as exceções que julgar
 convenientes.
 XIII - fazer publicar:
-
 a) a tabela dos dias em que não haverá expediente forense; e
 b) anualmente, a lista de antiguidade dos(as) Magistrados(as) por ordem
 decrescente na entrância e na carreira.
@@ -855,7 +826,6 @@ no instrumento normativo mencionado no art. 55, caberá:
 a) designar Magistrado(a) de primeiro grau, titulares ou substitutos(as), para
 servir, excepcionalmente, em Comarca, Vara, ou Circunscrição diferente da
 sua; e
-
 b) definir substituto(a) aos(às) Magistrados(as) de primeiro grau quando,
 excepcionalmente, verificar-se falta, impedimento ou outro motivo relevante
 de substituto(a) na ordem prevista em Resolução.
@@ -894,10 +864,8 @@ Parágrafo único. O(A) Presidente da Seção Especializada Cível, nas licença
 faltas e impedimentos, será substituído(a) na forma deste Regimento, e o(a)
 substituto(a) manterá os impedimentos inerentes ao cargo que ocupar
 interinamente, salvo se for o(a) Relator(a) do feito.
-
 Seção V
 Dos(as) Relatores(as)
-
 Art. 61. São atribuições dos(as) Desembargadores(as) Relatores(as):
 I - ordenar e dirigir os processos que lhes forem distribuídos, e neles proferir
 os atos jurisdicionais necessários;
@@ -934,12 +902,12 @@ XIV - pedir dia para julgamento dos feitos nos quais estiver habilitado(a) a
 proferir voto;
 XV - apresentar em mesa, para julgamento, os feitos que independam de
 pauta, nos termos da legislação de regência;
-
-XVI - determinar o arquivamento de inquérito, quando o(a) Procurador(a)Geral de Justiça o requerer;
-XVII - lavrar os acórdãos nos feitos, quando outro não for designado, assinálos digitalmente e determinar sua publicação;
+XVI - determinar o arquivamento de inquérito, quando o(a) Procurador(a)-
+Geral de Justiça o requerer;
+XVII - lavrar os acórdãos nos feitos, quando outro não for designado, assiná-
+los digitalmente e determinar sua publicação;
 XVIII- delegar ao(à) Chefe de Gabinete respectivo, a prática de atos de mero
 expediente, sem conteúdo decisório, necessários ao regular trâmite processual;
-
 XIX - homologar a transação das partes, nos feitos pendentes do seu
 julgamento, inclusive quando a conciliação for alcançada perante o Centro
 Judiciário de Solução de Conflitos e Cidadania - CEJUSC;
@@ -970,15 +938,10 @@ onde houver legislação processual assegurando tal atribuição.
 Art. 63. Os pedidos de urgência formulados em dia de expediente forense,
 sendo que fora do horário de funcionamento do Tribunal, serão apreciados
 pelo(a) correspondente Desembargador(a) Relator(a).
-Parágrafo único. Estando impossibilitado de apreciar o pedido, este será
-analisado pelo(a) Presidente(a) do órgão julgador ou, se este(a) também
-estiver impossibilitado(a), a apreciação caberá ao(à) Presidente(a) do Tribunal
-de Justiça.
 § 1º Estando impossibilitado de apreciar o pedido, este será analisado pelo
 Presidente do órgão julgador ou, se este também estiver impossibilitado, a
 apreciação caberá ao Presidente do Tribunal de Justiça. (Incluído pela Emenda
 Regimental nº 17, de 19 de agosto de 2025)
-
 § 2° A decisão liminar proferida, monocraticamente, pelo Relator a quem for
 distribuído o pedido produzirá efeitos imediatos. (Incluído pela Emenda
 Regimental nº 17, de 19 de agosto de 2025)
@@ -1013,7 +976,6 @@ e o último dia de expediente forense ordinário.
 Art. 66. O Tribunal de Justiça adotará o uso de sistema de processo eletrônico
 na tramitação dos feitos.
 Parágrafo único. Caberá ao Pleno do Tribunal de Justiça a escolha e a
-
 regulamentação, mediante Resolução, do sistema de tramitação de processos
 judiciais, comunicação de atos e transmissão de peças processuais.
 Art. 67. Os atos processuais serão autenticados, conforme o caso, mediante a
@@ -1057,7 +1019,6 @@ pelo menos, à sessão em que os processos tenham de ser julgados.
 Art. 71. Ressalvada a hipótese de manifesta urgência, circunstanciadamente
 demonstrada pelo(a) Presidente(a) do Tribunal de Justiça, ou outro(a)
 Desembargador(a), no ensejo do correspondente encaminhamento, e
-
 mediante aprovação da maioria dos(as) integrantes do colegiado, a
 apreciação de qualquer matéria de índole administrativa, pelo Plenário do
 Tribunal de Justiça, fica condicionada à prévia cientificação, aos(às)
@@ -1085,7 +1046,6 @@ igual ou superior a sessenta anos ou portadora de doença grave, assim
 compreendida qualquer das enumeradas no art. 60, inciso XIV, da Lei nº
 7.713/1988, bem como a pessoa com idade inferior a dezoito anos e
 portador(a) de deficiência física;
-
 III - as ações de habeas corpus e de mandado de segurança;
 IV - os recursos ajuizados em feitos que, em primeiro grau, tramitaram no rito
 sumário; e
@@ -1098,7 +1058,6 @@ Seção II
 Do Plantão
 Art. 75. O plantão judicial de segundo grau, regulamentado em Resolução do
 Tribunal de Justiça, realizar-se-á nas dependências do correspondente
-
 edifício-sede e funcionará presencialmente, nos dias em que não houver
 expediente forense, no horário das 7h30min às 13h30min.
 §1º Após o horário de atendimento presencial, o plantão será realizado em
@@ -1142,11 +1101,11 @@ casos em que constatada a ausência de prejuízo ou do caráter de urgência,
 decidirá o(a) Desembargador(a) Plantonista pelo imediato encaminhamento
 dos autos à distribuição.
 Art. 79. Nos casos de impedimento ou suspeição do(a) Presidente(a) durante
-
 o plantão, caberá ao(à) Vice-Presidente(a) analisar o pedido e, em não sendo
 possível também a atuação desse(a), o processo será redistribuído ao(à)
 decano(a).
-§1º No caso de o(a) Desembargador(a) Plantonista ser o(a) VicePresidente(a), caberá ao(à) Presidente(a) a análise do pedido urgente no
+§1º No caso de o(a) Desembargador(a) Plantonista ser o(a) Vice-
+Presidente(a), caberá ao(à) Presidente(a) a análise do pedido urgente no
 processo em que aquele(a) se declarar suspeito(a) ou impedido(a), cabendo
 ao(à) decano(a) decidir o processo, quando o(a) Presidente(a) também não
 puder atuar no feito.
@@ -1180,7 +1139,6 @@ Art. 85. Caberá ao Grupo Gestor das Tabelas Unificadas ou, na sua ausência, à
 Corregedoria-Geral da Justiça, a administração e gerência da implantação,
 manutenção e aperfeiçoamento das tabelas processuais, conforme as regras
 estabelecidas pelo Conselho Nacional de Justiça.
-
 Seção IV
 Do Preparo
 Art. 86. No ato de interposição do recurso, o(a) recorrente comprovará, nos
@@ -1217,18 +1175,8 @@ independentemente do prazo, ressalvadas as hipóteses de prevenção do(a)
 julgador(a) e demais exceções previstas neste Regimento.
 Parágrafo único. Os feitos distribuídos após o afastamento, mas antes do
 deferimento da licença ou das férias, permanecerão sob a relatoria do(a)
-
 Desembargador(a) sorteado(a), e somente serão redistribuídos na hipótese de
 ser identificada a urgência da medida pleiteada, nos termos deste Regimento.
-Art. 93. Ao(À) Desembargador(a) que se deva aposentar, por implemento de
-idade, não serão distribuídos feitos durante os noventa dias anteriores à
-aposentação, salvo as hipóteses de prevenção do julgador.
-§1º Não concorrerá à distribuição o(a) Desembargador(a) que tiver requerido
-sua aposentadoria, desde a data em que for protocolado seu pedido.
-§2º Na hipótese do § 1º do caput, em não ocorrendo a aposentação pleiteada
-no prazo de sessenta dias, o(a) Desembargador(a) voltará a concorrer à
-distribuição de feitos na forma deste Regimento, promovendo-se a devida
-compensação.
 Art. 93. Ao(À) Desembargador(a) que se deva aposentar, por implemento de
 idade, não serão distribuídos feitos durante os 15 dias anteriores à
 aposentação, salvo as hipóteses de prevenção do julgador. (Alterada pela
@@ -1262,7 +1210,6 @@ para o(a) julgador(a) sucedido(a).
 qualquer das partes ou pelo Ministério Público, até o início do julgamento.
 §4º Prevalece o disposto neste artigo, ainda que a ação, o recurso ou algum
 de seus incidentes tenha sido submetida ao julgamento do Plenário.
-
 Art. 96. Vencido(a) o(a) Relator(a), a prevenção dar-se-á ao
 Desembargador(a) designado(a) para lavrar o acórdão, inclusive se houver
 participado do julgamento em substituição a outro(a) Desembargador(a), sem
@@ -1277,15 +1224,6 @@ afastado(a) da distribuição por motivo de férias ou licença, havendo pedido
 de providências urgentes, serão os autos encaminhados ao(à) Presidente(a)
 do órgão julgador, que devolverá os autos, após apreciar o pedido, para
 distribuição ao(à) Relator(a) prevento(a).
-Art. 99. Em caso de impedimento ou suspeição do(a) Relator(a), proceder-seá à nova distribuição, entre todos(as) os(as) demais Desembargadores(as)
-habilitados(as), ficando sem efeito a anterior, operando-se, oportunamente, a
-compensação.
-§1º A simples declaração de suspeição ou impedimento pelo(a)
-Desembargador(a) a quem o processo for distribuído por sorteio, não acarreta
-a prevenção do órgão julgador.
-§2º A redistribuição decorrente do contido no caput, no caso de a
-distribuição ter sido promovida por prevenção, deve ser realizada entre os(as)
-Desembargadores(as) da Câmara preventa.
 Art. 99. Em caso de impedimento ou suspeição do(a) Relator(a), proceder-se-á
 à nova distribuição entre todos(as) os(as) demais Desembargadores(as)
 habilitados(as), ficando sem efeito a anterior e operando-se, oportunamente,
@@ -1306,7 +1244,6 @@ serão distribuídos, por sorteio, entre os(as) Desembargadores(as) dos demais
 previstas neste Regimento.
 Art. 100. O(A) Relator(a) será substituído(a) em caso de aposentadoria,
 renúncia ou morte:
-
 I – pelo(a) Desembargador(a) nomeado para a sua vaga;
 II – pelo(a) Desembargador(a) Presidente(a) do órgão julgador respectivo,
 para analisar petições e adotar as providências cabíveis nos processos que se
@@ -1315,8 +1252,8 @@ III - por Juiz(íza) convocado(a), nos termos do presente Regimento.
 Art. 101. O(A) Desembargador(a) eleito(a) Presidente(a) do Tribunal ou
 Corregedor(a)-Geral da Justiça continuará vinculado(a) aos processos em que
 tiver lançado o relatório, pedido dia para julgamento, ou com vista dos autos.
-Art. 102. Ao deixar a Presidência do Tribunal de Justiça ou a CorregedoriaGeral da Justiça, o(a) Desembargador(a) receberá os processos daquele(a) que
-
+Art. 102. Ao deixar a Presidência do Tribunal de Justiça ou a Corregedoria-
+Geral da Justiça, o(a) Desembargador(a) receberá os processos daquele(a) que
 passar a ocupar a vaga no respectivo órgão judicante.
 Art. 103. A distribuição de feitos criminais torna preventa a competência
 do(a) Relator(a) para todos os recursos posteriores, tanto na ação, quanto na
@@ -1361,7 +1298,6 @@ proferido decisão ou participado do julgamento colegiado atacado.
 Parágrafo único. O(A) Desembargador(a) que tenha proferido qualquer
 decisão ou participado do julgamento colegiado atacado, poderá participar do
 julgamento na condição de vogal.
-
 Art. 112. Não será distribuída a ação de revisão criminal, nem atuará como
 Revisor(a), o(a) Desembargador(a) que atuou como Relator(a) ou Revisor(a)
 no julgamento colegiado atacado, os(as)quais participarão do julgamento na
@@ -1402,14 +1338,14 @@ Presidente(a), nenhum(a) interessado(a) lhes fizer objeção.
 §1º Havendo objeção, prevalecerá o entendimento da maioria dos(as)
 Desembargadores(as) presentes que tenham participado da sessão relativa à
 ata.
-
 §2º Sendo aprovada, deve a ata ser disponibilizada no Diário da Justiça
 Eletrônico – DJe, no prazo de quarenta e oito horas.
 Art. 119. Contra erro contido em ata, poderá o(a) interessado(a) reclamar,
 até o início da sessão subsequente a da aprovação, em manifestação dirigida
 ao(à) Presidente(a) do respectivo órgão julgador.
 §1º Não se admitirá a reclamação a pretexto de modificar o julgado.
-§2º Se o pedido for julgado procedente, far-se-á retificação da ata, seguindose com a respectiva disponibilização no Diário da Justiça Eletrônico – DJe, no
+§2º Se o pedido for julgado procedente, far-se-á retificação da ata, seguindo-
+se com a respectiva disponibilização no Diário da Justiça Eletrônico – DJe, no
 prazo de quarenta e oito horas.
 Art. 120. Entre a data de publicação da pauta e a da sessão de julgamento
 decorrerá, pelo menos, o prazo de cinco dias úteis, incluindo-se em novo
@@ -1436,7 +1372,6 @@ Seção I
 Das Sessões Ordinárias, Extraordinárias e Solenes
 Art. 124. O(A) Presidente(a) da sessão manterá a disciplina no recinto,
 procedendo-se às medidas necessárias e cabíveis para esse fim.
-
 Art. 125. Os(As) Desembargadores(as) usarão obrigatoriamente, nas sessões
 solenes e de julgamento, trajes formais, de modelo aprovado pelo Tribunal.
 Art. 126. O Tribunal Pleno, a Seção Especializada Cível e as Câmaras isoladas
@@ -1477,7 +1412,6 @@ I - na Primeira Câmara Cível, na segunda segunda-feira de cada mês;
 II - na Segunda Câmara Cível, na segunda segunda-feira de cada mês;
 III - na Terceira Câmara Cível, na terceira segunda-feira de cada mês; e
 IV - na Quarta Câmara Cível, na terceira segunda-feira de cada mês.
-
 §4º Com exceção do(a) Presidente(a) da Câmara, a sessão de julgamento das
 demandas que necessitam da técnica de ampliação de julgamento, prevista
 no art. 942 do Código de Processo Civil, ocorrerão com a participação dos(as)
@@ -1521,7 +1455,6 @@ sucessivamente, em ordem decrescente de antiguidade.
 Parágrafo único. O(A) Juiz(íza) de Direito que for convocado(a) ocupará o
 lugar reservado ao(à) Desembargador(a) substituído(a).
 Art. 133. O(A) membro(a) do Ministério Público ocupará a direita e o(a)
-
 Secretário(a) do órgão à esquerda do(a) respectivo(a) Presidente(a).
 Parágrafo único. Nos órgãos de julgamento poderá funcionar um(a)
 Procurador(a) de Justiça, que deixará de se manifestar oralmente, se assim
@@ -1558,7 +1491,6 @@ Art. 139. O(A) Secretário da audiência lavrará o termo, do qual fará constar
 que nela tiver ocorrido que, depois de lido e achado conforme pelos
 presentes, será assinado eletronicamente pelo(a) Desembargador(a) que
 presidiu o ato.
-
 CAPÍTULO III
 DO JULGAMENTO PELOS ÓRGÃOS COLEGIADOS
 Seção I
@@ -1597,7 +1529,6 @@ Art. 143. Havendo quórum no Plenário, na Seção Especializada Cível, ou nas
 Câmaras isoladas, o(a) Presidente(a) declarará aberta a sessão e obedecerá,
 nos trabalhos, a ordem seguinte:
 I - aprovação da ata da sessão anterior;
-
 II - relatórios, debates e decisões dos processos incluídos na pauta;
 III - os processos que independem de pauta;
 IV - decisões e deliberações administrativas; e
@@ -1638,7 +1569,6 @@ Relator(a), bem como a data de julgamento.
 Art. 151. Poderão as partes ou o(a) Desembargador(a) Relator(a) propor
 preferência para o julgamento de determinado feito, observando-se as
 preferências legais estabelecidas na legislação processual.
-
 Art. 152. Serão admitidas sessões de julgamento por meio eletrônico, com
 lançamento de voto em Plataforma Virtual, observada regulamentação pelo
 Conselho Nacional de Justiça e Resolução deste Tribunal.
@@ -1681,7 +1611,6 @@ igualmente entre os do mesmo grupo, se diversamente entre eles(as) não se
 convencionar.
 §4º Intervindo terceiro, para excluir autor(a) e réu(ré), terá prazo próprio,
 igual ao das partes.
-
 §5º No caso de recursos de corréus(corrés) que não estejam em posição
 antagônicas, se forem representados(as) por Advogados(as) de escritórios de
 advocacia distintos, o prazo será contado em dobro e dividido igualmente
@@ -1726,7 +1655,6 @@ que se encontram devidamente habilitados nos autos e de responsabilidade
 pelo conteúdo do arquivo enviado.
 §5º A Secretária respectiva certificará nos autos o não atendimento das
 exigências previstas nos §§ 3º e 4º do caput.
-
 §6º Iniciada a sessão virtual, os(as) Advogados(as) e Procuradores(as)
 poderão realizar esclarecimentos exclusivamente sobre matéria de fato, por
 meio do sistema de peticionamento eletrônico, os quais serão
@@ -1766,7 +1694,6 @@ Seção III
 Das Votações
 Art. 158. Concluído o debate oral, o(a) Presidente(a) da Sessão dará a palavra
 ao(à) Relator(a), para proferir seu voto, e, em seguida, ao(à) Revisor(a), se
-
 houver, seguindo-se os votos dos(as) demais Desembargadores(as), na ordem
 decrescente de antiguidade.
 §1º Os(As) Presidentes(as) das Câmaras Cíveis e Criminal terão sempre direito
@@ -1810,7 +1737,6 @@ as providências previstas no caput e, em seguida, solicitará a inclusão do fe
 em pauta para prosseguimento do julgamento, com submissão integral da
 nova questão aos julgadores.
 §6º Caso o(a) Desembargador(a) Relator(a) discorde da incidência do caput,
-
 deverá submeter a questão ao órgão julgador, que decidirá sobre a
 necessidade de intimação das partes para se manifestar sobre a matéria,
 sendo desnecessário lavrar acórdão se esta for acolhida.
@@ -1856,7 +1782,6 @@ favorável a uma das partes, ou se a solução não estiver de outro modo
 regulada, sendo elas, dentre outras previstas na legislação:
 I - no julgamento de matéria administrativa disciplinar relativa a servidor(a)
 público(a), havendo empate na votação, o(a) Presidente(a) proclamará a
-
 decisão mais favorável àquele(a);
 II - no julgamento do mérito em ação rescisória, a ação será julgada
 improcedente;
@@ -1898,7 +1823,6 @@ deduziu o fundamento determinante vencedor redigir o acórdão, assegurado
 aos(às) diversos(as) votantes o direito de declarar, em separado, as razões do
 seu voto.
 Seção IV
-
 Da Técnica de Ampliação de Julgamento
 Art. 168. Quando cabível a técnica de ampliação de julgamento prevista no
 art. 942 do Código de Processo Civil, haverá o prosseguimento, na forma
@@ -1938,7 +1862,6 @@ quando o cargo do(a) julgador(a) substituído(a) estiver ocupado por outro(a)
 julgador(a), a quem caberá participar do julgamento.
 Seção V
 Das Questões de Ordem
-
 Art. 172. O(A) Desembargador(a), verificando a existência de questão
 procedimental que possa comprometer o regular andamento do feito,
 inclusive nas hipóteses de divergências de interpretação, entre Juízes(as) ou
@@ -1978,7 +1901,6 @@ legal por prazo igual ou superior a trinta dias do(a) Desembargador(a) que
 pediu vistas, sendo inaplicável para a hipótese de gozo de férias.
 §6º Tendo o(a) Desembargador(a) que solicitou vista deixado de integrar o
 Tribunal, sem ter apresentado seu voto, devem os autos retornar ao(à)
-
 Relator(a), para continuação do julgamento, com, se necessário, a designação
 de novo(a) Revisor(a) e a participação de Magistrado(a) substituto(a).
 §7º Aplica-se também a substituição prevista no § 4º do caput quando o(a)
@@ -2014,7 +1936,6 @@ horas, sendo considerado parte integrante do acórdão para todos os fins
 legais, inclusive de pré-questionamento.
 §1º A publicação das conclusões do acórdão somente ocorrerá após a juntada
 dos fundamentos do voto vencido, salvo se decorrido o prazo estabelecido no
-
 caput.
 §2º Tendo deixado de integrar o Tribunal, ou diante de qualquer outra
 situação impeditiva, será realizada a publicação do acórdão, consignando-se
@@ -2054,7 +1975,6 @@ Justiça ou tenha deixado de compor o órgão julgador.
 que acompanharam o voto do(a) Relator(a), a lavratura caberá ao(à)
 Desembargador(a) indicado(a) pelo(a) Presidente(a) do órgão julgador,
 utilizando-se da gravação da mídia da sessão de julgamento.
-
 §2º Caso o(a) Presidente(a) do Tribunal ou o(a) Corregedor(a)-Geral da Justiça
 sejam designados(a) para lavrar o acórdão de julgamento que participaram
 como integrantes do Plenário, a estes(as) caberá apreciar os pedidos que lhe
@@ -2092,7 +2012,6 @@ CAPÍTULO IV
 DOS FEITOS DE COMPETÊNCIA ORIGINÁRIA DO TRIBUNAL
 Seção I
 Do Pedido Originário de Habeas Corpus
-
 Art. 188. A impetração, sem intervenção de Advogado(a), poderá ser
 realizada em meio físico, eletrônico ou de forma oral, neste último caso, será
 reduzida a termo pela Diretoria Adjunta de Assuntos Judiciárias – DAAJUC, ou
@@ -2130,7 +2049,6 @@ Art. 195. As fianças que se tiverem de prestar perante o Tribunal, em virtude
 de habeas corpus, serão processadas pelo(a) Relator(a) do feito.
 Seção II
 Do Pedido Originário de Mandado de Segurança
-
 Art. 196. Quando relevante o fundamento e do ato impugnado puder resultar
 a ineficácia da medida, o(a) Relator(A) determinar-lhe-á a suspensão, salvo
 nos casos vedados em lei.
@@ -2166,7 +2084,6 @@ Plenário, antes de solicitar as informações.
 entender que a decisão é urgente, em razão do interesse de ordem pública
 que envolve, poderá, com prévia ciência das partes, submetê-lo ao
 conhecimento do Plenário, que terá a faculdade de julgar o pedido liminar
-
 com os elementos de que dispuser.
 Art. 202. Se, no julgamento do mérito da ação, não for alcançada a maioria
 absoluta necessária à declaração da inconstitucionalidade, estando
@@ -2202,7 +2119,6 @@ separado, sem prejuízo da prisão e do processo.
 §3º Se o inquérito versar sobre a prática de crime de ação privada, o(a)
 Relator(a) determinará seja aguardada a iniciativa do(a) ofendido(a) ou de
 quem por lei esteja autorizado a oferecer queixa.
-
 Art. 207. Concluídas as diligências deferidas, mandará o(a) Relator(a) dar vista
 às partes para alegações, pelo prazo de quinze dias, sendo comum o prazo
 do(a) acusador(a) e do(a) assistente, bem como o dos(as) corréus(corrés).
@@ -2245,7 +2161,6 @@ Presidente(a);
 VIII - na ação penal privada, o(a) Procurador(a)-Geral de Justiça falará após
 o(a) autor(a), por quinze minutos;
 IX - encerrados os debates, o Tribunal proferirá o julgamento; e
-
 X - o julgamento efetuar-se-á em uma ou mais sessões, a critério do Tribunal.
 Art. 211. Nomear-se-á Defensor(a) ad hoc se o(a) Advogado(a) constituído(a)
 pelo(a) réu(ré) ou o(a) Defensor(a) anteriormente nomeado(a) não
@@ -2285,7 +2200,6 @@ Parágrafo único. A qualquer tempo, o(a) Relator(a) poderá solicitar
 informações ao(à) Juiz(íza) da execução e requisitar os autos do processo sob
 revisão, desde que não comprometa a execução da pena.
 Art. 218. Após a solicitação de dia para julgamento pelo(a) Revisor(a), a
-
 revisão criminal será julgada pelo Plenário, admitindo-se a realização de
 sustentação oral, nos moldes deste Regimento.
 Parágrafo único. Do acórdão que julgar a revisão se juntará cópia aos
@@ -2320,7 +2234,6 @@ Parágrafo único. Caberá agravo interno das decisões monocráticas proferidas
 pelo(a) Relator(a).
 Art. 225. Após o prazo para contestação, o(a) Relator(a) proferirá despacho
 saneador e deliberará sobre as provas requeridas.
-
 §1º O(A) Juiz(íza) de Direito a quem for delegada a produção da prova, na
 forma do Código de Processo Civil, terá competência apenas para os atos de
 execução da delegação.
@@ -2357,7 +2270,6 @@ Art. 231. Da decisão somente cabem embargos de declaração, cumprindo
 ao(à) Relator(a) expedir imediata comunicação aos(às) magistrados(as) em
 conflito, após decorrido o prazo recursal.
 Seção XI
-
 Da Suspensão de Liminar em Mandado de Segurança e da Suspensão
 Provisória de Execução de Sentença
 Art. 232. Após a apreciação do pedido de suspensão da execução de liminar
@@ -2395,7 +2307,6 @@ será a inicial distribuída a um(a) dos(as) Desembargadores(as) que tenham
 participado do julgamento no processo principal, desde que ainda integre
 uma das Câmaras Cíveis do Tribunal.
 §3º Persistindo a impossibilidade de se realizar a distribuição nos moldes
-
 definidos neste Regimento, será a demanda distribuída a um(a)
 Desembargador(a) integrante de Câmara Cível.
 §4º Será distribuída ao(à) Presidente(a) a reclamação que tiver como causa
@@ -2403,13 +2314,8 @@ de pedir a usurpação da sua competência ou o descumprimento de decisão
 sua.
 Art. 235. A Reclamação contra acórdão de Turma Recursal, em matéria cível,
 será distribuída a um(a) dos(as) membros(as) das Câmaras Cíveis.
-Art. 236. Compete ao Plenário o julgamento
+Art. 236. Compete ao Plenário o julgamento da Reclamação,
 independentemente do fundamento alegado na inicial.
-
-da
-
-Reclamação,
-
 Art. 237. Ao despachar a Reclamação, o Relator:
 I - indeferirá de plano a Reclamação inadmissível, prejudicada ou proposta
 contra decisão transitada em julgado;
@@ -2443,7 +2349,6 @@ exorbitante do julgado ou determinada medida adequada à solução da
 controvérsia.
 Art. 240. Julgada procedente a Reclamação por usurpação da competência,
 fica prevento(a) o(a) Relator(a) para o processo avocado.
-
 Seção XIII
 Da Correição Parcial
 Art. 241. Tem lugar a correição parcial, para a emenda de erro ou abusos que
@@ -2475,7 +2380,6 @@ de despacho, nos autos, ou, verbalmente, com registro na ata da sessão de
 julgamento, o impedimento ou a suspeição, na forma prevista em lei.
 Art. 246. A alegação de suspeição do(a) Desembargador(a) Relator(a) deverá
 ser suscitada até quinze dias após a publicação da distribuição, quando
-
 fundada em motivo preexistente; a do(a) Desembargador(a) Revisor(a), nas
 demandas criminais, e dos(a) demais Desembargadores(a) que integram o
 órgão julgador, deverá ser alegada até antes do início do julgamento
@@ -2519,7 +2423,6 @@ ou a suspeição em petição fundamentada, devidamente instruída, na primeira
 oportunidade em que lhe couber falar nos autos.
 Art. 252. Preenchidas as formalidades dos artigos anteriores, o(a) Relator(a)
 apresentará o processo, em mesa, para julgamento.
-
 Art. 253. A arguição de suspeição ou impedimento de Desembargador(a) será
 sempre individual, não ficando os(as) demais Desembargadores(as)
 impedidos(as) de apreciá-la, ainda que também recusados(as).
@@ -2555,7 +2458,6 @@ decisão, a ser apreciado pelo órgão competente para o julgamento do feito
 principal.
 Seção III
 Da Declaração Incidental de Inconstitucionalidade
-
 Art. 260. Acolhida a instauração do incidente pelo órgão fracionário
 correspondente, será lavrado o acórdão e intimado o Ministério Público, as
 partes e as pessoas jurídicas de direito público responsáveis pela edição do
@@ -2594,7 +2496,6 @@ contestação, o valor atribuído pelo(a) autor(a).
 Parágrafo único. Da decisão do(a) Relator(a) caberá agravo interno à Câmara,
 à Seção Especializada Cível ou ao Plenário, conforme o caso.
 Seção V
-
 Da Arguição de Falsidade
 Art. 266. A arguição de falsidade de documento, regulado pelo Código de
 Processo Civil e Código de Processo Penal, será processada perante o(a)
@@ -2626,7 +2527,6 @@ I - pedido autônomo de edição de súmula;
 II - incidente de assunção de competência;
 III - incidente de resolução de demandas repetitivas.
 Parágrafo único. Em qualquer caso será ouvida a Procuradoria-Geral de
-
 Justiça, no prazo de quinze dias.
 Seção VIII
 Do Incidente de Assunção de Competência
@@ -2666,7 +2566,6 @@ Desembargadores(as), publicar no Diário da Justiça Eletrônico - DJe, incluir 
 seu enunciado em banco próprio, disponibilizado no sítio eletrônico do
 Tribunal de Justiça, bem como informar ao Núcleo de Repercussão Geral e
 Recursos Repetitivos.
-
 Seção IX
 Da Proposta de Edição, Revisão e Cancelamento de Súmula do Entendimento
 Predominante do Tribunal de Justiça de Alagoas
@@ -2706,7 +2605,6 @@ Justiça cancelar ou alterar, tomando os que forem modificados novos
 números de série.
 Art. 277. A Procuradoria-Geral de Justiça se manifestará, no prazo
 peremptório de quinze dias, acerca das propostas de edição, revisão ou
-
 cancelamento de Súmula do Entendimento Predominante do Tribunal de
 Justiça.
 Art. 278. No julgamento das propostas de súmulas de que trata esta seção, o
@@ -2751,7 +2649,6 @@ Comissão, sendo o Plenário competente para aprovar os nomes indicados.
 §4º A competência da Comissão Permanente de Uniformização de
 Jurisprudência não exclui a possibilidade de apresentação de proposta de
 súmula ou IRDR por todos(as) os(as) Desembargadores(as).
-
 §5º A Comissão Permanente de Uniformização de Jurisprudência apresentará
 relatório semestral de atividades ao Tribunal Pleno.
 Seção X
@@ -2788,7 +2685,6 @@ Federal a proposta de edição, revisão e cancelamento de enunciado de
 súmula vinculante.
 Seção XI
 Do Incidente de Resolução de Demandas Repetitivas
-
 Art. 285. Quando cabível o Incidente de Resolução de Demandas Repetitivas,
 a competência para seu julgamento será do Pleno do Tribunal de Justiça, a
 quem caberá, além de fixar a tese jurídica, julgar o recurso, a remessa
@@ -2832,7 +2728,6 @@ notificado para que promova, no prazo de trinta dias, a apresentação do
 incidente para julgamento, sob pena de ser aplicar a medida prevista no art.
 940, § 2º, do Código de Processo Civil, com a devida substituição da relatoria.
 Art. 293. Para o julgamento da admissibilidade, bem como para o julgamento
-
 do incidente, deverá haver a inclusão em pauta.
 Art. 294. Ao(À) Relator(a) caberá definir, previamente, a forma e a
 participação dos(as) interessados(as) em realizar sustentação oral,
@@ -2868,7 +2763,6 @@ designado(a) pelo(a) Presidente(a) do Tribunal de Justiça, sendo o Plenário
 competente para aprovar o nome indicado.
 CAPÍTULO VI
 DOS RECURSOS PARA O TRIBUNAL DE JUSTIÇA
-
 Seção I
 Dos Recursos Cíveis
 Art. 303. Os recursos cíveis serão interpostos nos casos, pela forma e nos
@@ -2896,7 +2790,6 @@ Art. 307. A remessa necessária, quando julgada por uma das Câmaras Cíveis,
 exigirá sua inclusão em pauta.
 Parágrafo único. Aplica-se à remessa necessária, no que couber, o
 procedimento estabelecido para o recurso de apelação.
-
 Art. 308. Quando houver, simultaneamente, remessa necessária e apelação,
 o processo será autuado como apelação cível.
 Art. 309. Verificando o(a) Relator(a) que a hipótese dos autos não exige o
@@ -2931,7 +2824,6 @@ Art. 316. O agravo, que se processa nos próprios autos, é julgado pelo órgão
 que tem ou teria competência para a apreciação do feito originário ou de
 eventual recurso na causa principal.
 Art. 317. O(A) prolator(a) da decisão impugnada poderá reconsiderar seu
-
 entendimento, ainda que o agravo tenha sido ajuizado após o decurso do
 prazo recursal.
 Parágrafo único. No julgamento de agravo interno, tem direito a voto o(a)
@@ -2967,7 +2859,6 @@ Relator(a) que, se for o caso, determinará sua remessa à Procuradoria-Geral
 de Justiça, para oferta de parecer.
 §1º Retornando, serão os autos conclusos ao(à) Relator(a), que incluirá em
 pauta de julgamento.
-
 §2º A decisão será comunicada ao Juízo de primeiro grau, pelo(a)
 Secretário(a) do órgão julgador, sendo-lhe remetida cópia do acórdão.
 Subseção II
@@ -3000,8 +2891,8 @@ que poderá exercer o juízo de retratação e, caso mantida a decisão, o recur
 subirá ao Tribunal nos próprios autos, quando não prejudicar o andamento do
 processo, nos termos do Código de Processo Penal.
 §3º No Tribunal, autuado e distribuído o recurso, os autos serão conclusos
-ao(à) Relator(a) que, se for o caso, determinará sua remessa à Procuradoriageral de Justiça, para oferta de parecer.
-
+ao(à) Relator(a) que, se for o caso, determinará sua remessa à Procuradoria-
+geral de Justiça, para oferta de parecer.
 §4º Retornando, serão eles conclusos ao(à) Relator(a), que pedirá ou
 designará dia para julgamento.
 Art. 330. A decisão proferida será comunicada ao Juízo de primeiro grau, pela
@@ -3036,7 +2927,6 @@ monocrática, deverá este ser julgado pelo(a) Relator(a).
 Parágrafo único. Quando ajuizado contra decisão colegiada, somente o órgão
 poderá julgar o recurso.
 Art. 336. Deixando o(a) Relator(a) da decisão ou acórdão embargados de
-
 atuar no feito, caberá ao(à) novo(a) Relator(a) o julgamento do recurso, ainda
 que não tenha participado do julgamento atacado.
 Subseção VI
@@ -3070,7 +2960,6 @@ Art. 343. Os recursos administrativos serão interpostos no prazo de cinco
 dias, contados da publicação do ato, deliberação ou decisão, salvo disposições
 contrárias, fixadas neste Regimento e na legislação de regência.
 CAPÍTULO VII
-
 DA EXECUÇÃO
 Seção I
 Das Disposições Gerais
@@ -3107,7 +2996,6 @@ sede de recursos, salvo hipótese de urgência, onde o(a) próprio(a) Relator(a)
 ou, em sua ausência, o(a) Presidente(a) do órgão colegiado, determinará o
 respectivo cumprimento.
 Seção II
-
 Da Execução Contra a Fazenda Pública e da Requisição de Pagamento
 Art. 349. O Tribunal de Justiça regulará, por meio de Resolução, os
 procedimentos a serem adotados para a execução contra a Fazenda Púbica e
@@ -3136,7 +3024,6 @@ criação, a composição e outros aspectos relacionados ao funcionamento das
 Comissões.
 CAPÍTULO II
 DA COMISSÃO PERMANENTE DE ORGANIZAÇÃO E ATUALIZAÇÃO REGIMENTAL
-
 Art. 351. A Comissão Permanente de Organização e Atualização Regimental
 será composta, no mínimo, por um(a) Desembargador(a), que a presidirá, por
 um(a) juiz(íza) auxiliar da Presidência, por três servidores(as) lotados no
@@ -3174,7 +3061,6 @@ estabelecido pelo Conselho Nacional de Justiça e no Plano Estratégico
 estabelecido pelo Tribunal de Justiça de Alagoas, de forma a garantir os
 recursos necessários à sua execução; e
 IV - promover o acompanhamento periódico da execução orçamentária, com
-
 a publicação dos relatórios elaborados nessa atividade.
 Parágrafo único. Cabe ao(à) Presidente(a) do Tribunal de Justiça indicar os(as)
 membros(as) da Comissão de que trata o caput deste artigo, exceto os(as)
@@ -3212,7 +3098,6 @@ utilizado no primeiro grau;
 IV - indicar ao(à) Presidente(a) do Tribunal os(as) Juízes(as) de Direito que
 serão designados(a) para o exercício da função de Juiz(íza) Auxiliar da
 Corregedoria;
-
 V - indicar ao(à) Presidente(a), para fins de designação ou nomeação no
 âmbito da Corregedoria, o nome dos(as) ocupantes de função gratificada ou
 cargo em comissão;
@@ -3256,7 +3141,6 @@ sua presença se faça necessária;
 XIV - propor ao(à) Presidente(a) do Tribunal, ao Tribunal Pleno ou ao Conselho
 da Magistratura, expedição de decisão normativa em matéria administrativa
 do Poder Judiciário, bem como apresentar anteprojeto de resolução,
-
 provimento ou lei para aperfeiçoamento do Poder Judiciário; e
 XV - exercer outras atribuições que lhe sejam cometidas pela lei ou pelo
 Regimento Interno da Corregedoria Geral da Justiça ou por ato normativo do
@@ -3290,7 +3174,6 @@ autenticidade, a identificação e o endereço do(a) denunciante.
 Tribunal, no caso de Desembargadores(as), ou pelo(a) Corregedor(a)-Geral da
 Justiça, no caso de Juízes(as) de Direito de primeiro grau, quando o fato
 narrado não configurar infração disciplinar ou ilícito penal.
-
 §2º Não sendo o caso de arquivamento de plano, o(a) Magistrado(a) será
 intimado(a) para prestar informações no prazo de cinco dias.
 Art. 360. Encerrado o prazo de manifestação, a autoridade competente
@@ -3330,7 +3213,6 @@ acusação e das provas existentes.
 de Juiz(a) de Direito de primeiro grau, e o(a) Presidente(a) do Tribunal de
 Justiça, no caso de Desembargadores(as).
 §2º O(A) Presidente(a) do Tribunal de Justiça e o(a) Corregedor(a) Geral de
-
 Justiça terão direito a voto.
 §3º Caso a proposta de abertura de processo administrativo disciplinar contra
 Magistrado(a) seja adiada ou deixe de ser apreciada por falta de quórum,
@@ -3371,7 +3253,6 @@ investigado(a) a celebração de Termo de Ajustamento de Conduta - TAC,
 desde que a medida seja necessária e suficiente para prevenção de novas
 infrações e para a promoção da cultura da moralidade e da eficiência no
 serviço público.
-
 Parágrafo único. Considera-se infração disciplinar de reduzido potencial de
 lesividade a deveres funcionais a conduta de cujas circunstâncias se anteveja
 a aplicação de penalidade de advertência, censura ou disponibilidade por até
@@ -3399,7 +3280,8 @@ decidir pelo aceite ou não das justificativas apresentadas.
 curso, podendo a autoridade ou o órgão competente, a seu critério, prorrogar
 o prazo final para o cumprimento, ajustar com o(a) investigado(a) outras
 condições ou modificar as já existentes.
-§3º Descumprido injustificadamente o Termo de Ajustamento de Conduta TAC, a autoridade ou o órgão competente, conforme o caso, aplicará, desde
+§3º Descumprido injustificadamente o Termo de Ajustamento de Conduta -
+TAC, a autoridade ou o órgão competente, conforme o caso, aplicará, desde
 logo, ao(à) acusado(a) a sanção administrativa de advertência ou censura
 correspondente à respectiva falta disciplinar. Caso a pena seja de
 disponibilidade até noventa dias, caberá ao Plenário a sua aplicação, pelo voto
@@ -3413,8 +3295,8 @@ noventa dias, antes da submissão do processo ao Plenário, o(a) investigado(a)
 será intimado(a) para apresentar defesa, no prazo de quinze dias.
 Art. 372. O(A) investigado(a) beneficiado(a) com o Termo de Ajustamento de
 Conduta - TAC não poderá gozar de novo benefício pelo prazo de três anos
-contados do cumprimento integral do Termo de Ajustamento de Conduta TAC.
-
+contados do cumprimento integral do Termo de Ajustamento de Conduta -
+TAC.
 Art. 373. Durante o cumprimento das medidas estabelecidas no Termo de
 Ajustamento de Conduta - TAC, o prazo prescricional de eventual infração
 disciplinar ficará suspenso.
@@ -3426,12 +3308,7 @@ CAPÍTULO II
 DA VERIFICAÇÃO DE INVALIDEZ DO MAGISTRADO
 Art. 375. A invalidez do(a) Magistrado(a), para fins de aposentadoria
 voluntária ou compulsória, ter-se-á como comprovada sempre que, por
-incapacidade,
-se
-achar
-permanentemente
-inabilitado(a)
-ou
+incapacidade, se achar permanentemente inabilitado(a) ou
 incompatibilizado(a) para o exercício do cargo.
 Parágrafo único. O(A) Magistrado(a) que, no período de dois anos
 consecutivos, afastar-se ao todo, por seis meses ou mais, para tratamento de
@@ -3459,7 +3336,6 @@ formulando, desde logo, os quesitos que julgar necessários; e
 IV - cientificará o(a) Magistrado(a) da nomeação da junta médica e, se for
 ocaso, o(a) seu(sua) curador(a) nomeado(a) ou procurador(a) constituído(a).
 Parágrafo único. O(A) médico(a) nomeado(a) para integrar a junta pode
-
 escusar-se, no prazo de cinco dias, alegando motivo justo ou, no mesmo
 prazo, ser recusado(a) por suspeição ou impedimento, nos casos
 estabelecidos na legislação processual, competindo ao(à) Relator(a) decidir
@@ -3503,7 +3379,6 @@ Art. 385. O julgamento será feito pelo Tribunal Pleno, em decisão motivada,
 dependendo a determinação de aposentadoria do voto da maioria absoluta
 dos(as) seus(suas) membros(as), participando da votação o(a) Presidente(a).
 Art. 386. Decidindo o Tribunal Pleno pela incapacidade do(a) magistrado(a),
-
 o(a) Presidente(a) lavrará o ato de sua aposentadoria.
 Art. 387. O processo de verificação de invalidez deve ser concluído no prazo
 de sessenta dias, a contar de sua instauração.
@@ -3521,14 +3396,7 @@ Art. 388. A qualquer Desembargador(a) é facultada a apresentação de
 emendas ao Regimento Interno do Tribunal de Justiça.
 §1º As propostas serão apresentadas por escrito à Presidência do Tribunal de
 Justiça e, após parecer da Comissão Permanente de Organização e Atualização
-Regimental,
-serão
-distribuídas,
-em
-cópia,
-a
-todos
-os(as)
+Regimental, serão distribuídas, em cópia, a todos os(as)
 Desembargadores(as), com apreciação na segunda sessão plenária
 subsequente a mencionada distribuição.
 §2º Considerar-se-ão aprovadas as propostas de emendas que obtiverem o
@@ -3540,7 +3408,6 @@ data de sua publicação no Diário da Justiça Eletrônico – DJe, salvo dispo
 em contrário.
 Seção II
 Da Interpretação Regimental
-
 Art. 389. Compete a qualquer Desembargador(a), antes de proferir o voto,
 solicitar o pronunciamento prévio do Tribunal Pleno:
 I - quando houver divergência quanto à interpretação e à aplicação da norma
@@ -3579,7 +3446,6 @@ juntada imediata;
 III - caso em mesa para julgamento, com pauta publicada em data anterior ou
 posterior à protocolização do requerimento, juntarão a petição
 imediatamente aos autos, comunicando ao Relator(a), para a adoção das
-
 providências cabíveis; ou
 IV - estando julgado o feito, providenciarão sua juntada antes da publicação.
 Parágrafo único. A juntada de nova procuração implicará, no que couber, na
@@ -3597,4 +3463,3 @@ Parágrafo único. As resoluções, provimentos e portarias em vigor e que não
 colidem com este Regimento são por ele mantidas.
 Art. 395. O presente Regimento entrará em vigor na data de sua publicação
 no Diário da Justiça Eletrônico – DJe.
-

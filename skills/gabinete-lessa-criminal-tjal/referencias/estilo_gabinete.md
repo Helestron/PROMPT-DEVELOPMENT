@@ -70,9 +70,12 @@ de peças e ementas, precedentes em série, digressão teórica, fórmulas de es
 argumento, prova ou questão. Parágrafo que possa ser retirado sem deixar tese sem resposta deve
 ser retirado.
 
-f. **Art. 10 do CPC** (por analogia) e contraditório: fundamento novo, não debatido pelas partes,
-que prejudique o réu exige oportunidade de manifestação; em favor do réu, o reconhecimento de
-ofício é a regra (ordem pública, HC de ofício).
+f. **Contraditório sobre fundamento novo** (art. 10 do CPC, por analogia; RITJAL, art. 161):
+matéria não debatida pelas partes, **ainda que cognoscível de ofício**, exige oportunidade de
+manifestação — cinco dias, pelo Regimento. Na minuta, marque o ponto em vermelho e indique o
+caminho (despacho prévio de manifestação ou suscitação na sessão). A cautela só cede diante de
+constrangimento ilegal à liberdade que não admita espera (v.g., concessão de HC de ofício para
+soltura), hipótese em que a urgência é registrada na anotada.
 
 ## 4. Dispositivo
 

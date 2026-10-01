@@ -57,18 +57,20 @@ número CNJ (validado pelo dígito), relator, tipo de peça e sessão. Ordem de 
 regimentais correndo contra o gabinete — fundamentos de voto vencido (72 horas, art. 179), voto
 de referendo de liminar concessiva na próxima sessão (art. 63, § 4º), vista (dez dias, art. 173),
 revisão (dez dias, art. 50); (2) sessão mais próxima; (3) dentro dela, HC, réu preso, prescrição
-próxima (arts. 74 e 148). Lote padrão: até 10 votos,
-salvo indicação do usuário. Votos do próprio gabinete são excluídos do Modo B.
+próxima (arts. 74 e 148). Lote padrão: até 10 votos, salvo indicação do usuário. Votos do
+próprio gabinete são excluídos do Modo B.
 
 ## R2. Autos
 
 Os autos do processo são baixados pelo e-SAJ (Fase 1; `referencias/esaj_autos.md`). **Não se
 revisa voto sem os autos**: o relatório do relator é objeto de conferência, não fonte.
 
-## R3. Conferência do voto (item 3 do SKILL.md, aplicada ao texto alheio)
+## R3. Conferência do voto (Fase 2-B do SKILL.md, aplicada ao texto alheio)
 
 1. `python scripts/conferir_citacoes.py <voto> --listar --saida <saida>/_fila_<numero>.json` —
-   extrai todas as citações (precedentes, súmulas, temas, dispositivos legais e regimentais).
+   extrai todas as citações (precedentes, súmulas, temas, dispositivos legais e regimentais);
+   para os artigos do RITJAL, `python scripts/regimento.py --fila <voto>` traz o texto vigente
+   de cada um, pronto para o confronto de pertinência.
 2. Verificação de cada uma na fonte oficial, com registro no ledger (Fase 2-B): existência,
    órgão, relator, datas, **pertinência** (o julgado diz o que o voto lhe atribui?), vigência
    (súmula cancelada, tese revista, dispositivo alterado ou revogado — inclusive a redação
@@ -91,7 +93,7 @@ e só então confronte com o voto. Pontos de confronto obrigatórios:
 | Dosimetria | Rodar `dosimetria.py` com os critérios do voto: a conta fecha? Há bis in idem, fração sem fundamento, reformatio in pejus (art. 617 do CPP)? |
 | Precedentes | Aderência a precedentes vinculantes (art. 927 do CPC, aplicado por analogia — art. 3º do CPP) e à orientação da própria Câmara; distinção ou superação fundamentadas? |
 | Dispositivo | Congruente com a fundamentação? Quantum, regime, substituição e providências (prisão, comunicação) coerentes? Efeito extensivo considerado (art. 580)? |
-| Ementa | Reflete a tese e o resultado? Segue o padrão adotado pelo Tribunal (conferir a recomendação do CNJ sobre ementas)? |
+| Ementa | Reflete a tese e o resultado (divergindo, prevalece o voto — RITJAL, art. 185)? Segue o padrão adotado pelo Tribunal (conferir a recomendação do CNJ sobre ementas)? |
 | Casos gêmeos | Há processo análogo já julgado pela Câmara ou pelo Desembargador com solução diversa? |
 
 ## R5. Nota de revisão (produto interno)
