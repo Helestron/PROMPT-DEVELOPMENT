@@ -31,6 +31,14 @@ $ErrorActionPreference = 'Stop'
 $VEDADOS = 'assinar|assinatura|liberar|libera nos autos|certificado|senha|token|\bpin\b|registrar voto|proferir voto|excluir|redistribu'
 $BASE = Split-Path -Parent $MyInvocation.MyCommand.Path
 $CONFIG = Join-Path (Split-Path -Parent $BASE) 'config\gabinete.json'
+# Pasta de estado (log, autorizacao de nivel B, PARAR.txt): por padrao, a do script; se a pasta do
+# skill for somente leitura, defina a variavel de ambiente GABINETE_TRABALHO com a pasta de trabalho.
+$TRABALHO = if ($env:GABINETE_TRABALHO) { $env:GABINETE_TRABALHO } else { $BASE }
+
+# Kill switch: PARAR.txt ao lado do script ou na pasta de trabalho suspende toda a automacao.
+if ((Test-Path (Join-Path $BASE 'PARAR.txt')) -or (Test-Path (Join-Path $TRABALHO 'PARAR.txt'))) {
+  throw 'Kill switch ativo (PARAR.txt): automacao suspensa pelo usuario.'
+}
 
 # Matriz de operações: nível A (automático), B (exige autorização de lote), C (vedado).
 if ($Operacao) {
@@ -40,7 +48,7 @@ if ($Operacao) {
     throw "BLOQUEADO: '$Operacao' e operacao de nivel C (vedada a automacao em qualquer hipotese)."
   }
   if ($cfg.operacoes.nivel_b -contains $Operacao) {
-    $aut = Join-Path $BASE 'autorizacao_nivel_b.json'
+    $aut = Join-Path $TRABALHO 'autorizacao_nivel_b.json'
     if (-not (Test-Path $aut)) { throw "BLOQUEADO: '$Operacao' (nivel B) sem autorizacao_nivel_b.json." }
     $a = Get-Content $aut -Raw -Encoding UTF8 | ConvertFrom-Json
     if ((Get-Date) -gt [datetime]$a.valida_ate) { throw "BLOQUEADO: autorizacao de nivel B expirada em $($a.valida_ate)." }
@@ -53,14 +61,12 @@ if ($Operacao) {
   }
 }
 
-# Kill switch: a existência de PARAR.txt ao lado do script suspende toda a automação.
-if (Test-Path (Join-Path $BASE 'PARAR.txt')) { throw 'Kill switch ativo (PARAR.txt): automacao suspensa pelo usuario.' }
 
 # Log JSONL de auditoria: uma linha por acao executada.
 function Registrar([hashtable]$d) {
   $d['ts'] = (Get-Date).ToString('yyyy-MM-ddTHH:mm:ss'); $d['modo'] = $Modo; $d['ensaio'] = [bool]$Ensaio
   if ($Operacao) { $d['operacao'] = $Operacao }; if ($NumeroProcesso) { $d['processo'] = $NumeroProcesso }
-  ($d | ConvertTo-Json -Compress) | Add-Content -Path (Join-Path $BASE 'saj_log.jsonl') -Encoding utf8
+  ($d | ConvertTo-Json -Compress) | Add-Content -Path (Join-Path $TRABALHO 'saj_log.jsonl') -Encoding utf8
 }
 
 Add-Type -AssemblyName UIAutomationClient

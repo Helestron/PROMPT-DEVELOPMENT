@@ -12,19 +12,22 @@ Interno do TJAL (`referencias/regimento_tjal.md`):
 2. **Vogal**: o Desembargador vota após o relator e o revisor, na ordem decrescente de
    antiguidade (art. 158). Pode acompanhar, divergir, **declarar em separado os fundamentos do
    voto** (arts. 167, parágrafo único, e 176) ou **pedir vista** (art. 173).
-3. **Vencido**: se o Desembargador ficar vencido — inclusive quando chega ao mesmo resultado
+3. **Vencido**: se o Desembargador ficar vencido — inclusive quando chegar ao mesmo resultado
    por fundamento determinante diverso (art. 180) —, os fundamentos do voto vencido devem ser
    apresentados por escrito ou em áudio em **72 horas** (art. 179), e integram o acórdão.
 
-O produto é sempre interno: a **nota de revisão**; e, quando a posição sugerida o exigir, a
-**minuta** do Desembargador (retificação ou complemento do relatório, declaração de voto, voto
-divergente, voto-vista, fundamentos do voto vencido), que segue o fluxo normal das Fases 3 a 5.
+O produto é sempre interno: a **nota de revisão**; e, quando a posição sugerida o exigir — e
+sempre que houver vista —, a **minuta** do Desembargador (retificação ou complemento do
+relatório, declaração de voto, voto divergente, voto-vista, fundamentos do voto vencido), que
+segue as Fases 3 e 4 e, se o usuário quiser, a Fase 5.
 
 **De onde vêm os votos**: o material dos processos incluídos em pauta é remetido aos demais
 gabinetes por meio eletrônico, via **intrajus** (RITJAL, art. 123), assim como a cópia do
 relatório quando a lei o exigir (art. 73); além disso, a Câmara pode usar pasta ou drive
-compartilhado. Leia de onde o material estiver, sempre em modo leitura, e guarde a cópia de
-trabalho na pasta própria do gabinete antes de inventariar.
+compartilhado. Leia de onde o material estiver, sempre em modo leitura. Pasta ou drive:
+inventarie diretamente na origem (é o hash da origem que denuncia alterações posteriores do
+relator). Material recebido pela intrajus: salve uma cópia em `pastas.saida_revisao` e
+inventarie essa cópia. As demais cópias de trabalho também vão para `pastas.saida_revisao`.
 
 **Calendário**: a Câmara Criminal reúne-se às **quartas-feiras** (art. 128, VI), com pauta
 publicada ao menos cinco dias úteis antes (arts. 70 e 120); HC, embargos de declaração julgados
@@ -57,8 +60,8 @@ número CNJ (validado pelo dígito), relator, tipo de peça e sessão. Ordem de 
 regimentais correndo contra o gabinete — fundamentos de voto vencido (72 horas, art. 179), voto
 de referendo de liminar concessiva na próxima sessão (art. 63, § 4º), vista (dez dias, art. 173),
 revisão (dez dias, art. 50); (2) sessão mais próxima; (3) dentro dela, HC e réu preso
-(arts. 74 e 148) e, por critério do gabinete, prescrição próxima. Lote padrão: até 10 votos, salvo indicação do usuário. Votos do
-próprio gabinete são excluídos do Modo B.
+(arts. 74 e 148) e, por critério do gabinete, prescrição próxima. Lote padrão: até 10 votos,
+salvo indicação do usuário. Votos do próprio gabinete são excluídos do Modo B.
 
 ## R2. Autos
 
@@ -67,7 +70,7 @@ revisa voto sem os autos**: o relatório do relator é objeto de conferência, n
 
 ## R3. Conferência do voto (Fase 2-B do SKILL.md, aplicada ao texto alheio)
 
-1. `python scripts/conferir_citacoes.py <voto> --listar --saida <saida>/_fila_<numero>.json` —
+1. `python scripts/conferir_citacoes.py <voto> --listar --saida <saida_revisao>/_fila_<numero>.json` —
    extrai todas as citações (precedentes, súmulas, temas, dispositivos legais e regimentais);
    para os artigos do RITJAL, `python scripts/regimento.py --fila <voto>` traz o texto vigente
    de cada um, pronto para o confronto de pertinência.
@@ -85,7 +88,7 @@ e só então confronte com o voto. Pontos de confronto obrigatórios:
 
 | Eixo | Pergunta |
 |---|---|
-| Relatório | Narra com fidelidade e com as fls. corretas as razões, contrarrazões, parecer e a sentença? Omite pedido ou tese defensiva? |
+| Relatório | Narra com fidelidade e com as fls. corretas as razões, as contrarrazões, o parecer e a sentença? Omite pedido ou tese defensiva? |
 | Admissibilidade | Conheceu do que devia e só do que devia? Tempestividade e cabimento conferidos? |
 | Ordem pública | Prescrição (rodar `prescricao.py`), nulidade absoluta, ilegalidade flagrante — algo que o voto deixou de reconhecer de ofício em favor do réu? |
 | Enfrentamento | Cada tese das razões foi enfrentada (art. 93, IX, da CF; art. 315, § 2º, do CPP)? Monte a matriz tese → resposta do voto. |
@@ -99,8 +102,8 @@ e só então confronte com o voto. Pontos de confronto obrigatórios:
 ## R5. Nota de revisão (produto interno)
 
 `Revisao_<numero>_<relator-abreviado>.docx`, montada com `scripts/montar_minuta.py` e verificada
-com `verificar_minuta.py --tipo nota_revisao --versao anotada`. Estrutura fixa, objetiva, sem
-retórica:
+com `python scripts/verificar_minuta.py Revisao_<numero>_<relator-abreviado>.docx --tipo
+nota_revisao --versao anotada`. Estrutura fixa, objetiva, sem retórica:
 
 1. **Identificação**: número, classe, relator, sessão, papel do gabinete (vogal/revisor),
    versão revisada (arquivo e SHA-256 do inventário).
@@ -121,28 +124,29 @@ retórica:
 A nota **aponta, não reescreve** o voto alheio; sugestão de redação ao relator, quando útil, vai
 como texto entre aspas no ponto respectivo, para eventual encaminhamento pelo Desembargador.
 
-## R6. Minuta do Desembargador (quando a posição não for "acompanhar")
+## R6. Minuta do Desembargador (quando a posição não for "acompanhar" e sempre que houver vista)
 
 Tipos do portão (`verificar_minuta.py --tipo …`) entre parênteses.
 
 - **Revisor que completa ou retifica o relatório** (`relatorio`): texto do relatório com os
   acréscimos ou correções, com as fls., e o pedido de dia (nível B na Fase 5). Diligência
-  sugerida: despacho curto dirigido ao relator, nos termos do art. 49, III; se o relator a
-  entender desnecessária, os autos voltam ao revisor, que pode suscitá-la no voto (art. 49,
-  parágrafo único).
+  (art. 49, III): a sugestão vai primeiro na nota de revisão; adotada pelo Desembargador, é
+  minutada como despacho do revisor dirigido ao relator (tipo `despacho`, com a última linha
+  padrão). Se o relator a entender desnecessária, os autos voltam ao revisor, que pode
+  suscitá-la no voto (art. 49, parágrafo único).
 - **Acompanhar com declaração de voto** (`declaracao_voto`): fundamentos próprios, curtos,
   quando a conclusão converge e as razões divergem (arts. 167, parágrafo único, e 176).
   Atenção: se a divergência for no **fundamento determinante**, o voto é vencido nesse ponto
   (art. 180) e atrai o prazo de 72 horas do art. 179.
 - **Divergir (total ou parcialmente)** (`voto_vogal`): adota o relatório do relator (sem
   repeti-lo), delimita o ponto de divergência e o enfrenta com densidade plena, encerrando com
-  o dispositivo próprio e "É como voto.". Em matéria criminal, o empate favorece o réu
+  o dispositivo próprio e "É como voto." Em matéria criminal, o empate favorece o réu
   (art. 163, IV; no HC, art. 193); havendo dispersão sobre a pena, aplica-se o art. 167, III.
 - **Voto-vista** (`voto_vista`): **sempre escrito, ainda que apenas para acompanhar**
-  (art. 174), em dez dias prorrogáveis por mais dez mediante comunicação ao Presidente
-  (art. 173); o pedido de vista é ato do Desembargador em sessão (nível C). Se, na vista,
-  surgir matéria não debatida pelas partes, os autos vão ao relator para a providência do
-  art. 161 (§ 5º).
+  (art. 174), em dez dias prorrogáveis por mais dez mediante comunicação ao Presidente do órgão
+  julgador (art. 173); o pedido de vista é ato do Desembargador em sessão (nível C). Se, na
+  vista, surgir matéria não debatida pelas partes, os autos vão ao relator, nos termos do
+  art. 161, § 5º.
 - **Fundamentos do voto vencido** (`voto_vencido`): **72 horas** (art. 179; o Regimento não
   fixa o termo inicial — conte do julgamento, por cautela), integrando o acórdão para todos os
   fins, inclusive prequestionamento; a publicação das conclusões aguarda a juntada, salvo se

@@ -18,7 +18,7 @@ mapa em `referencias/regimento_tjal.md`; consulta com `python scripts/regimento.
 | Recurso em sentido estrito | arts. 581 a 592 do CPP | arts. 321 a 323; 327; 149 (julgado antes das apelações) | Câmara Criminal (salvo inclusão ou exclusão de jurado na lista geral: Presidente do Tribunal — art. 321) | despacho de vista à PGJ e inclusão em pauta (art. 323); voto; ementa; conferir sequencial (arts. 322 e 327; CGJ/AL, arts. 797 e 798) |
 | Agravo em execução | art. 197 da LEP | arts. 328 a 330 (prazo de cinco dias; rito do RESE; sem efeito suspensivo, salvo desinternação) | Câmara Criminal | vista à PGJ e pedido de dia (art. 329, §§ 3º e 4º); voto |
 | Habeas corpus | art. 5º, LXVIII, da CF; arts. 647 a 667 do CPP | arts. 48, III; 189 a 195; 63, §§ 3º a 5º (referendo); 121, VI (independe de pauta); 43, IX, f; 47, IV | Câmara Criminal, quando o **coator** for autoridade do art. 43, IX, f (v.g., juiz de direito) ou houver iminente perigo (art. 48, III); Pleno, quando o **paciente** for uma dessas autoridades (art. 43, IX, f); Câmaras Cíveis, na prisão civil (art. 47, IV) | decisão liminar; **voto de referendo** se concessiva; despacho de informações (art. 662 do CPP) e oitiva da PGJ (art. 191); indeferimento liminar (art. 192, parágrafo único); prejudicialidade (art. 192); voto; ementa |
-| Mandado de segurança criminal | Lei n.º 12.016/2009 | arts. 114; 196 a 199; 46, III; 43, IX, g | distribuído a integrante da Câmara Criminal quando o ato for de natureza criminal (art. 114); atenção ao art. 46, III (Seção Especializada Cível, se o coator for juiz de direito) e ao art. 43, IX, g (Pleno, atos do próprio Tribunal, do PGJ e outros) — confirme o órgão julgador com a Secretaria | liminar (art. 196; contra ato de relator, referendo no Pleno — art. 197); voto |
+| Mandado de segurança criminal | Lei n.º 12.016/2009 | arts. 114; 196 a 199; 46, III; 43, IX, g | distribuído a integrante da Câmara Criminal quando o ato for de natureza criminal (art. 114); atenção ao art. 46, III (Seção Especializada Cível, se o coator for juiz de direito) e ao art. 43, IX, g (Pleno, atos do próprio Tribunal, do Procurador-Geral de Justiça e outros) — confirme o órgão julgador com a Secretaria | liminar (art. 196; contra ato de relator, referendo no Pleno — art. 197); voto |
 | Embargos de declaração | arts. 619 e 620 do CPP | arts. 333 a 336; 109; 121, V | o relator do acórdão apresenta em mesa (arts. 109 e 334); contra acórdão, julga o colegiado (art. 335, parágrafo único); contra decisão monocrática, o relator (art. 335, caput) | voto (em mesa, sem revisão — art. 334); indeferimento liminar, com agravo em cinco dias (art. 334, parágrafo único); decisão monocrática se opostos contra decisão monocrática (art. 335); tempestividade sempre expressa |
 | Embargos infringentes e de nulidade | art. 609, parágrafo único, do CPP | arts. 337 a 339; 111; 164; 43, IX, m | admissibilidade: relator do acórdão embargado (art. 338); julgamento: Pleno (art. 43, IX, m), com novo relator integrante da Câmara Criminal (art. 339) — confirme com a Secretaria a prática adotada e registre no caderno de bordo | decisão de admissibilidade (art. 338); voto (limitado à divergência — art. 337, parágrafo único) |
 | Revisão criminal | arts. 621 a 631 do CPP | arts. 43, IX, l; 112; 215 a 219 | Pleno | relatório; despacho sobre provas (art. 217); voto — vedada a relatoria e a revisão a quem relatou ou revisou o acórdão atacado (art. 112) |
@@ -27,7 +27,7 @@ mapa em `referencias/regimento_tjal.md`; consulta com `python scripts/regimento.
 | Correição parcial | — | arts. 241 a 243 | Câmara Criminal (matéria criminal) | liminar (art. 243); voto |
 | Conflito de competência criminal (1º grau) | arts. 113 a 117 do CPP | arts. 48, VIII; 121, I; 227 a 231 | Câmara Criminal | voto (independe de pauta) |
 | Recursos infracionais (ECA) | Lei n.º 8.069/1990 | art. 48, VII | Câmara Criminal | voto |
-| Ação penal originária | Lei n.º 8.038/1990, arts. 1º a 12, aplicáveis aos tribunais de justiça pela Lei n.º 8.658/1993 (conferir) | arts. 204 a 214 | conforme Constituição Estadual e Lei n.º 6.564/2005 (conferir) | atos de instrução; relatório; extinção da punibilidade monocrática após a PGJ (art. 213) |
+| Ação penal originária | Lei n.º 8.038/1990, arts. 1º a 12, aplicáveis aos tribunais de justiça pela Lei n.º 8.658/1993 (conferir) | arts. 204 a 214 | conforme a Constituição Estadual e a Lei n.º 6.564/2005 (conferir) | atos de instrução; relatório; extinção da punibilidade monocrática após a PGJ (art. 213) |
 
 **Papel do gabinete em cada processo** — identifique antes de tudo:
 
@@ -46,8 +46,8 @@ mapa em `referencias/regimento_tjal.md`; consulta com `python scripts/regimento.
 
 **Atenção à competência do Pleno**: revisão criminal (art. 43, IX, l), embargos infringentes
 contra decisões da Câmara Criminal (art. 43, IX, m) e HC cujo **paciente** esteja entre as
-autoridades do art. 43, IX, f (sendo uma delas o **coator**, o HC é da Câmara — art. 48, III). Nesses feitos, o voto é proferido no Pleno; ajuste o cabeçalho e o
-modelo do SG5.
+autoridades do art. 43, IX, f (sendo uma delas o **coator**, o HC é da Câmara — art. 48, III).
+Nesses feitos, o voto é proferido no Pleno; ajuste o cabeçalho e o modelo do SG5.
 
 ## 2. Ordem lógica da análise (relator)
 
@@ -103,9 +103,10 @@ sentença ou o voto declararam** e rode o script: a conta deve fechar. Pontos de
   não pelo simples número delas (pista: Súmula 443/STJ); tráfico privilegiado (art. 33, § 4º, da
   Lei n.º 11.343/2006 — requisitos e vedações; pista: Tema 1.139/STJ sobre ações penais em curso).
 - **Multa** proporcional à privativa (arts. 49 e 60 do CP).
-- **Regime e substituição**: o script devolve o quadro legal (art. 33, § 2º; art. 44); o
-  regime mais gravoso que o quantum permitir exige fundamentação concreta (pistas: Súmulas
-  440/STJ, 718 e 719/STF; reincidente com pena até 4 anos — pista: Súmula 269/STJ).
+- **Regime e substituição**: o script devolve o quadro legal (art. 33, § 2º; art. 44); a
+  imposição de regime mais gravoso do que o permitido pelo quantum exige fundamentação concreta
+  (pistas: Súmulas 440/STJ, 718 e 719/STF; reincidente com pena de até quatro anos — pista:
+  Súmula 269/STJ).
 - **Concurso de crimes** (arts. 69, 70 e 71 do CP): rode o script por crime e some/exaspere à
   parte, registrando no ledger de cálculos.
 
@@ -128,17 +129,17 @@ STF e do STJ. Prescrição consumada → a minuta a reconhece de ofício, antes 
    (art. 43, IX, f); prevenção (arts. 95 e 103).
 2. **Indeferimento liminar** (art. 192, parágrafo único): pedido manifestamente incabível,
    incompetência manifesta do Tribunal ou reiteração de outro com os mesmos fundamentos —
-   verifique no e-SAJ os HCs anteriores do mesmo paciente. Demais hipóteses de cabimento (HC
+   verifique no e-SAJ os HCs anteriores do mesmo paciente. Demais questões de cabimento (HC
    substitutivo, supressão de instância; pista: Súmula 691/STF) são enfrentadas com fundamento.
 3. **Liminar** (art. 189, III): fumus boni iuris e periculum libertatis em exame perfunctório.
    - **Concessiva** → produz efeitos imediatos (art. 63, § 2º), mas vai a **referendo** do
      colegiado: a Secretaria inclui o processo em mesa, independentemente de pauta, na primeira
      sessão subsequente à assinatura, sob pena de decaimento (art. 63, §§ 3º e 4º); não
-     referendada, cessam os efeitos e restabelece-se o ato impugnado (§ 5º). **Minute junto a
-     decisão e o voto de referendo** (tipo `referendo`), registre na lista de trabalho a sessão
+     referendada, cessam os efeitos e restabelece-se o ato impugnado (§ 5º). **Minute, em conjunto,
+     a decisão e o voto de referendo** (tipo `referendo`), registre na lista de trabalho a sessão
      prevista e alerte o usuário.
    - Comunicação imediata da concessão às autoridades que devam cumpri-la, firmada pelo relator,
-     assim como o salvo-conduto no HC preventivo (art. 194 e parágrafo único) — a minuta traz a
+     assim como o salvo-conduto no HC preventivo (art. 194, caput e parágrafo único) — a minuta traz a
      ordem expressa; alvará de soltura no BNMP pela Secretaria (art. 319); fiança, se for o
      caso, processada pelo relator (art. 195).
    - O § 3º do art. 63 alcança as decisões concessivas proferidas em feitos da competência da
@@ -148,14 +149,14 @@ STF e do STJ. Prescrição consumada → a minuta a reconhece de ofício, antes 
 4. Instrução: informações da autoridade coatora (art. 662 do CPP) e oitiva da PGJ (art. 191 —
    o texto, "ouvido o(a) Procurador(a)-Geral de Justiça, em dois dias", admite ler o prazo como
    da PGJ, em harmonia com o art. 1º do Decreto-Lei n.º 552/1969, ou como do relator; conferir);
-   o relator pode nomear advogado ao impetrante leigo e interrogar o paciente (art. 189, I e
-   II).
+   o relator pode nomear advogado ao impetrante leigo e interrogar o paciente
+   (art. 189, I e II).
 5. Mérito da prisão preventiva: pressupostos e requisitos (arts. 312 e 313 do CPP);
    fundamentação concreta e contemporânea (art. 312, § 2º; art. 315, § 2º); vedação de
    decretação de ofício (art. 311); revisão nonagesimal (art. 316, parágrafo único — conferir
    alcance segundo o STF); excesso de prazo pela razoabilidade, à luz da complexidade e da
-   atuação da defesa; medidas cautelares diversas (art. 319 do CPP); condições pessoais favoráveis não
-   bastam isoladamente; prisão domiciliar (arts. 318 e 318-A).
+   atuação da defesa; medidas cautelares diversas (art. 319 do CPP); condições pessoais
+   favoráveis não bastam isoladamente; prisão domiciliar (arts. 318 e 318-A do CPP).
 6. **Prejudicialidade**: cessada a coação, o HC é julgado prejudicado, podendo o Tribunal
    declarar a ilegalidade (art. 192, caput); fato superveniente com fls.
 7. Julgamento: independe de pauta, salvo requerimento de inclusão (art. 121, VI); prioridade
@@ -171,7 +172,7 @@ contra decisões do júri adstrito aos fundamentos da interposição (pista: Sú
 busca domiciliar sem fundadas razões (pistas: Tema 280/STF; HC 598.051/SP, STJ); reconhecimento
 pessoal sem as formalidades do art. 226 do CPP (pista: HC 598.886/SC, STJ); quebra da cadeia de
 custódia; interceptação e dados telemáticos sem autorização; inversão da ordem do interrogatório
-(art. 400 do CPP); citação por edital sem esgotamento; ausência de intimação pessoal do
+(art. 400 do CPP); citação por edital sem o esgotamento dos meios de localização do réu; ausência de intimação pessoal do
 defensor público ou dativo (art. 370, § 4º, do CPP).
 
 ## 7. Tribunal do júri em grau de recurso
@@ -195,7 +196,7 @@ e alcance).
 | Agravo contra indeferimento liminar de embargos de declaração | cinco dias | art. 334, parágrafo único |
 | Embargos infringentes e de nulidade | dez dias; contrarrazões em dez dias | arts. 337 e 338 |
 | Agravo em execução | cinco dias | art. 328 |
-| Pedido de vista | dez dias, prorrogáveis por mais dez mediante comunicação ao Presidente; voto-vista sempre escrito | arts. 173 e 174 |
+| Pedido de vista | dez dias, prorrogáveis por mais dez mediante comunicação ao Presidente do órgão julgador; voto-vista sempre escrito | arts. 173 e 174 |
 | Fundamentos do voto vencido | 72 horas (termo inicial não fixado; conte do julgamento, por cautela) | art. 179 |
 | Assinatura do acórdão pelo relator | dez dias do encerramento da sessão | art. 182, § 3º |
 | Matéria nova surgida nos debates ou na vista | suspensão e manifestação em cinco dias, salvo manifestação na própria sessão | art. 161, caput e §§ 3º e 5º |

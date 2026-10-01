@@ -40,7 +40,9 @@ if ($lot -and $lot -notmatch '^A_CONFIRMAR') {
 # 5. Navegador: apenas presença do Chrome (o login no e-SAJ é conferido pela página, não por aqui)
 $r.chrome_em_execucao = [bool](Get-Process -Name chrome -ErrorAction SilentlyContinue)
 $r.esaj_2grau_entrada = $cfg.esaj.entrada_2grau
-$r.kill_switch_ativo = Test-Path (Join-Path $BASE 'PARAR.txt')
+$TRABALHO = if ($env:GABINETE_TRABALHO) { $env:GABINETE_TRABALHO } else { $BASE }
+$r.pasta_de_estado = $TRABALHO
+$r.kill_switch_ativo = (Test-Path (Join-Path $BASE 'PARAR.txt')) -or (Test-Path (Join-Path $TRABALHO 'PARAR.txt'))
 
 ($r | ConvertTo-Json -Depth 4) | Out-File -FilePath $Saida -Encoding utf8
 $r.GetEnumerator() | ForEach-Object { '{0,-22} {1}' -f $_.Key, $_.Value }

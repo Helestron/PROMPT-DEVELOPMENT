@@ -105,7 +105,7 @@ Secretaria (art. 338).
 
 c-2. **Comunicação da ordem de HC é do relator**: a decisão concessiva é comunicada de imediato,
 preferencialmente por meio eletrônico, às autoridades que devam cumpri-la, e a comunicação e o
-salvo-conduto (no HC preventivo) são **firmados pelo relator** (art. 194 e parágrafo único). A
+salvo-conduto (no HC preventivo) são **firmados pelo relator** (art. 194, caput e parágrafo único). A
 minuta concessiva traz, por isso, a ordem expressa de comunicação imediata — ou a fórmula de que
 a decisão servirá como ofício — e, sendo o caso, o salvo-conduto.
 

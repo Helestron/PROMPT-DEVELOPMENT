@@ -1,20 +1,21 @@
 {
-  "_leia_me": "Configuração do gabinete. Campos com valor null ou 'A_CONFIRMAR' são preenchidos na Rodada de Descoberta (SKILL.md, item 5) a partir do que o próprio sistema exibir, e nunca por suposição. Não registre aqui senha, PIN, token nem dado de certificado.",
+  "_leia_me": "Configuração do gabinete. Campos com valor null ou 'A_CONFIRMAR' estão pendentes e são preenchidos na Rodada de Descoberta (referencias/saj_sg5_operacoes.md, item 1) a partir do que o próprio sistema exibir — nunca por suposição; a operação que dependa de campo pendente não se executa. As chaves de saj_sg5.categorias e saj_sg5.modelos coincidem com os tipos de minuta do portão (verificar_minuta.py). Não registre aqui senha, PIN, token nem dado de certificado.",
   "gabinete": {
     "tribunal": "Tribunal de Justiça do Estado de Alagoas",
     "orgao_julgador": "Câmara Criminal",
     "magistrado": "Desembargador João Luiz de Azevedo Lessa",
     "magistrado_em_exercicio": "titular (se houver Juiz(íza) convocado(a), registrar nome e período — RITJAL, arts. 26, § 8º, e 38)",
-    "lotacao_esperada_regex": "A_CONFIRMAR (trecho do título ou da barra de status do SG5 que identifica o gabinete)",
+    "lotacao_esperada_regex": "A_CONFIRMAR (trecho do título da janela do SG5 que identifica o gabinete)",
     "usuario_saj": "A_CONFIRMAR (login do servidor; configuração, não credencial)",
     "secretaria_destinataria": "Secretaria da Câmara Criminal",
-    "abertura_comandos_secretaria": "À Secretaria",
+    "abertura_comandos_secretaria": "À Secretaria,",
     "sessao_ordinaria_camara_criminal": "quartas-feiras (RITJAL, art. 128, VI); sessões virtuais conforme art. 152 e Resolução do TJAL"
   },
   "regimento": {
+    "pdf_consolidado": "referencias/ritjal_consolidado_emenda19.pdf",
     "texto_integral": "referencias/ritjal_integral.txt (somente texto vigente)",
     "texto_revogado": "referencias/ritjal_revogados.txt (tachado no PDF; consulta histórica)",
-    "versao": "RITJAL aprovado pelo Pleno em 20/08/2024, com as Emendas n.º 17 (19/08/2025), 18 (27/01/2026) e 19 (10/02/2026)",
+    "versao": "RITJAL aprovado pelo Pleno em 20/08/2024, com as Emendas n.ºs 17 (19/08/2025), 18 (27/01/2026) e 19 (10/02/2026)",
     "recebido_em": "2026-10-01",
     "consulta": "python scripts/regimento.py <artigo> | --buscar <termo> | --fila <minuta> | --revogados",
     "atualizacao": "python scripts/extrair_regimento.py <PDF consolidado> && python scripts/gerar_mapa_regimento.py"
@@ -47,20 +48,26 @@
     "executavel": "A_CONFIRMAR",
     "categorias": {
       "despacho": null,
-      "decisao_monocratica": null,
-      "relatorio": null,
-      "voto": null,
-      "ementa": null
-    },
-    "modelos": {
-      "despacho": null,
-      "decisao_monocratica": null,
+      "decisao": null,
       "relatorio": null,
       "voto": null,
       "ementa": null,
       "voto_vogal": null,
       "voto_vista": null,
       "voto_vencido": null,
+      "declaracao_voto": null,
+      "referendo": null
+    },
+    "modelos": {
+      "despacho": null,
+      "decisao": null,
+      "relatorio": null,
+      "voto": null,
+      "ementa": null,
+      "voto_vogal": null,
+      "voto_vista": null,
+      "voto_vencido": null,
+      "declaracao_voto": null,
       "referendo": null
     },
     "filas": {
@@ -107,7 +114,7 @@
       "lancar_movimentacao_nos_autos",
       "conversao_diligencia",
       "baixa_juizo_retratacao",
-      "redistribuicao_interna_gabinete"
+      "transferir_tarefa_interna"
     ],
     "nivel_c": [
       "assinar",
