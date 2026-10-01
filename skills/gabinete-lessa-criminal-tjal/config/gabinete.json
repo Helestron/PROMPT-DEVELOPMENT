@@ -1,35 +1,52 @@
 {
-  "_leia_me": "Configuração do gabinete. Campos com valor null ou 'A_CONFIRMAR' são preenchidos na Rodada de Descoberta (SKILL.md, item 5.1) a partir do que o próprio SAJ/SG5 exibir, e nunca por suposição. Não registre aqui senha, PIN, token nem dado de certificado.",
+  "_leia_me": "Configuração do gabinete. Campos com valor null ou 'A_CONFIRMAR' são preenchidos na Rodada de Descoberta (SKILL.md, item 5) a partir do que o próprio sistema exibir, e nunca por suposição. Não registre aqui senha, PIN, token nem dado de certificado.",
   "gabinete": {
     "tribunal": "Tribunal de Justiça do Estado de Alagoas",
     "orgao_julgador": "Câmara Criminal",
     "magistrado": "Desembargador João Luiz de Azevedo Lessa",
+    "magistrado_em_exercicio": "titular (se houver Juiz(íza) convocado(a), registrar nome e período — RITJAL, arts. 26, § 8º, e 38)",
     "lotacao_esperada_regex": "A_CONFIRMAR (trecho do título ou da barra de status do SG5 que identifica o gabinete)",
     "usuario_saj": "A_CONFIRMAR (login do servidor; configuração, não credencial)",
     "secretaria_destinataria": "Secretaria da Câmara Criminal",
-    "abertura_comandos_secretaria": "À Secretaria"
+    "abertura_comandos_secretaria": "À Secretaria",
+    "sessao_ordinaria_camara_criminal": "quartas-feiras (RITJAL, art. 128, VI); sessões virtuais conforme art. 152 e Resolução do TJAL"
+  },
+  "regimento": {
+    "texto_integral": "referencias/ritjal_integral.txt",
+    "versao": "RITJAL aprovado pelo Pleno em 20/08/2024, com as Emendas n.º 17 (19/08/2025), 18 (27/01/2026) e 19 (10/02/2026)",
+    "recebido_em": "2026-10-01",
+    "consulta": "python scripts/regimento.py <artigo> | --buscar <termo> | --fila <minuta>"
   },
   "pastas": {
     "trabalho": "A_CONFIRMAR (ex.: C:\\Gabinete\\Lote)",
     "modelos_gabinete": "A_CONFIRMAR (ex.: C:\\Gabinete\\Modelos)",
-    "votos_compartilhados": ["A_CONFIRMAR (ex.: G:\\Drives compartilhados\\Camara Criminal\\Votos)"],
+    "votos_compartilhados": ["A_CONFIRMAR (ex.: G:\\Drives compartilhados\\Camara Criminal\\Votos; material de pauta recebido via intrajus — RITJAL, arts. 73 e 123)"],
     "saida_revisao": "A_CONFIRMAR (pasta própria do gabinete; nunca a compartilhada)"
   },
   "esaj": {
     "base": "https://www2.tjal.jus.br",
-    "consulta_2grau": "/cposg5/",
+    "entrada_2grau": "https://www2.tjal.jus.br/cposg5/open.do?gateway=true",
+    "entrada_2grau_fonte": "informada pelo gabinete em 01/10/2026",
     "consulta_1grau": "/cpopg/",
-    "rotas_validadas": {}
+    "rotas_validadas": {
+      "entrada_2grau": "https://www2.tjal.jus.br/cposg5/open.do?gateway=true",
+      "consulta_1grau_search": "/cpopg/search.do (validada no skill de origem, 08–09/2026)",
+      "pasta_1grau": "/cpopg/abrirPastaDigital.do?processo.codigo=... (validada no skill de origem)",
+      "pdf_peca": "/pastadigital/getPDF.do?<parametros> (validada no skill de origem)",
+      "consulta_2grau_search": "A_CONFIRMAR (registrar a URL gerada pela pesquisa feita a partir da entrada_2grau)",
+      "pasta_2grau": "A_CONFIRMAR (registrar o link de pasta digital exibido na página do processo no cposg5)"
+    }
   },
   "saj_sg5": {
     "processo_regex": "sajsg5*",
     "janela_regex": "Sistema de Automa|SAJ",
     "executavel": "A_CONFIRMAR",
     "categorias": {"despacho": null, "decisao_monocratica": null, "relatorio": null, "voto": null, "ementa": null},
-    "modelos": {"despacho": null, "decisao_monocratica": null, "relatorio": null, "voto": null, "ementa": null, "voto_vogal": null},
+    "modelos": {"despacho": null, "decisao_monocratica": null, "relatorio": null, "voto": null, "ementa": null,
+                "voto_vogal": null, "voto_vista": null, "voto_vencido": null, "referendo": null},
     "filas": {"conclusos": "A_CONFIRMAR", "em_elaboracao": "A_CONFIRMAR", "aguardando_assinatura": "A_CONFIRMAR"},
     "movimentacoes_tpu": {
-      "_aviso": "Códigos preenchidos somente após conferência no campo Movimentação do SG5 e na TPU/CNJ.",
+      "_aviso": "Códigos preenchidos somente após conferência no campo Movimentação do SG5 e na TPU/CNJ (RITJAL, art. 82).",
       "provimento": null, "provimento_em_parte": null, "nao_provimento": null, "nao_conhecimento": null,
       "concessao_hc": null, "concessao_parcial_hc": null, "denegacao_hc": null, "liminar_deferida": null,
       "liminar_indeferida": null, "decisao_proferida": null, "despacho_mero_expediente": null
@@ -38,12 +55,14 @@
   "operacoes": {
     "nivel_a": ["consultar", "abrir_processo", "emitir_documento", "editar", "colar_minuta", "salvar",
                 "finalizar_sem_assinar", "mover_fila_interna", "anotar_pendencia_interna"],
-    "nivel_b": ["remessa_revisor", "vista_pgj", "pedido_inclusao_pauta", "retirada_pauta",
-                "encaminhar_secretaria", "lancar_movimentacao_nos_autos", "conversao_diligencia",
+    "nivel_b": ["remessa_revisor", "pedido_dia_julgamento", "vista_pgj", "pedido_inclusao_pauta",
+                "apresentacao_em_mesa", "retirada_pauta", "devolucao_vista", "encaminhar_secretaria",
+                "lancar_movimentacao_nos_autos", "conversao_diligencia", "baixa_juizo_retratacao",
                 "redistribuicao_interna_gabinete"],
-    "nivel_c": ["assinar", "assinar_e_liberar", "liberar_nos_autos", "registrar_voto_sessao",
-                "excluir_documento", "cancelar_documento_alheio", "alterar_cadastro_partes",
-                "redistribuir_processo", "baixar_ou_arquivar", "certificar_transito", "digitar_credencial"]
+    "nivel_c": ["assinar", "assinar_e_liberar", "liberar_nos_autos", "registrar_voto_sessao", "pedir_vista_sessao",
+                "declarar_suspeicao_impedimento", "excluir_documento", "cancelar_documento_alheio",
+                "alterar_cadastro_partes", "redistribuir_processo", "baixar_ou_arquivar", "certificar_transito",
+                "digitar_credencial"]
   },
   "formatacao": {
     "fonte": "Times New Roman",
@@ -57,11 +76,16 @@
       "despacho": "Publicações e intimações via DJEN",
       "decisao": "Publicações e intimações via DJEN",
       "voto": "É como voto.",
-      "voto_vogal": "É como voto."
+      "voto_vogal": "É como voto.",
+      "voto_vista": "É como voto.",
+      "voto_vencido": "É como voto.",
+      "declaracao_voto": "É como voto.",
+      "referendo": "É como voto."
     },
     "fecho_relatorio": {
       "decisao": "Brevemente relatado, passo a decidir.",
-      "voto": "É o relatório."
+      "voto": "É o relatório.",
+      "relatorio": "É o relatório."
     },
     "formulas_fixas": ["À douta revisão.", "É como voto.", "É o relatório."]
   }

@@ -29,8 +29,8 @@ sistema exibe. Somente leitura — nenhum documento é criado nesta rodada.
 | Nível | Regra | Operações |
 |---|---|---|
 | **A — automático** | executa sem perguntar, dentro do lote | consultar filas e processos; abrir processo e pasta; emitir documento pelo modelo do gabinete; editar; colar a versão limpa; salvar; **finalizar sem assinar** (envio à fila de assinatura do Desembargador); mover entre filas internas do gabinete; anotar pendência interna |
-| **B — com autorização de lote** | exige ordem expressa do usuário no chat, registrada em `scripts/autorizacao_nivel_b.json` (texto literal, operações, processos, validade) | lançar movimentação visível nos autos; remessa ao revisor; vista à Procuradoria-Geral de Justiça; pedido de inclusão em pauta e retirada de pauta; encaminhamento à Secretaria; conversão em diligência; redistribuição interna de tarefa no gabinete |
-| **C — vedado** | nunca, ainda que o usuário peça | assinar (inclusive "Assinar e Liberar"); liberar nos autos; registrar voto em sessão; excluir ou cancelar documento (sobretudo alheio); alterar cadastro de partes; redistribuir processo; baixar ou arquivar; certificar trânsito; digitar senha, PIN ou token |
+| **B — com autorização de lote** | exige ordem expressa do usuário no chat, registrada em `scripts/autorizacao_nivel_b.json` (texto literal, operações, processos, validade) | lançar movimentação visível nos autos; remessa ao revisor (RITJAL, art. 325); pedido de dia para julgamento pelo relator ou pelo revisor (arts. 49, II, e 61, XIV); vista à Procuradoria-Geral de Justiça (arts. 323, 324, 329, § 3º, e 331, parágrafo único); pedido de inclusão em pauta e retirada de pauta; apresentação em mesa de feito que independe de pauta (arts. 61, XV, e 121); devolução de autos após vista (art. 173, § 2º); baixa para juízo de retratação (art. 326); encaminhamento à Secretaria; conversão em diligência (art. 178); redistribuição interna de tarefa no gabinete |
+| **C — vedado** | nunca, ainda que o usuário peça | assinar (inclusive "Assinar e Liberar" e a assinatura do acórdão — arts. 61, XVII, 182 e 184); liberar nos autos; registrar voto em sessão ou em plataforma virtual (art. 152); pedir vista em sessão (art. 173); declarar suspeição ou impedimento (arts. 20 e 245); excluir ou cancelar documento (sobretudo alheio); alterar cadastro de partes; redistribuir processo; baixar ou arquivar; certificar trânsito; digitar senha, PIN ou token |
 
 Por que o nível C é intransponível: assinatura e voto em sessão são atos pessoais do magistrado
 (art. 93, IX, da CF; assinatura eletrônica com certificado, Lei n.º 11.419/2006) e dependem de
@@ -112,6 +112,21 @@ lista do lote (SKILL.md, item 1.2).
     de ferramentas não é confiável no PG5. Só registre "finalizado" após a mensagem de sucesso.
 
 ### 4.3 Movimentar (nível B, com autorização)
+
+Sequências regimentais típicas do gabinete (cada passo, uma operação autorizada):
+
+- **Apelação, como relator**: conclusão → vista à PGJ (art. 324) → relatório → remessa ao revisor
+  (art. 325) → o revisor pede dia.
+- **Apelação, como revisor**: exame e eventual retificação do relatório → pedido de dia em até
+  dez dias (arts. 49 e 50).
+- **RESE e agravo em execução**: vista à PGJ → inclusão em pauta / pedido de dia (arts. 323, § 1º,
+  e 329, § 4º).
+- **HC**: liminar → (concessiva: referendo em mesa na primeira sessão — art. 63, § 4º, a cargo da
+  Secretaria) → informações e PGJ (art. 191) → apresentação em mesa (art. 121, VI).
+- **Embargos de declaração**: apresentação em mesa na sessão subsequente (art. 334).
+- **Vista**: devolução em até dez dias, prorrogáveis por mais dez (art. 173), com o voto-vista
+  escrito juntado (art. 174).
+
 Remessa ao revisor (art. 613, I, do CPP), vista à PGJ, pedido de inclusão em pauta, conversão em
 diligência, encaminhamento à Secretaria: sempre com `-Operacao <rótulo> -NumeroProcesso <número>`
 em **todas** as chamadas do roteiro, para que a matriz e o log alcancem cada clique. Antes do

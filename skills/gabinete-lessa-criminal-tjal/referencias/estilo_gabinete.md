@@ -16,8 +16,13 @@ mensuráveis; as demais são da revisão adversarial.
 | Decisão monocrática (liminar em HC, não conhecimento, prejudicialidade, extinção da punibilidade, demais hipóteses regimentais) | DECISÃO MONOCRÁTICA → relatório → fundamentação → dispositivo → comandos à Secretaria | Brevemente relatado, passo a decidir. | Publicações e intimações via DJEN |
 | Relatório (apelação com revisor) | RELATÓRIO → eventos | É o relatório. (seguido, quando houver revisor, de "À douta revisão.") | — |
 | Voto do relator | RELATÓRIO → eventos → É o relatório. → VOTO → admissibilidade → questões de ofício → preliminares → mérito → dosimetria → consectários → dispositivo | É o relatório. | É como voto. |
-| Voto de vogal (divergente, vista, declaração) | VOTO DIVERGENTE / VOTO-VISTA / DECLARAÇÃO DE VOTO → delimitação do ponto → fundamentação → dispositivo próprio | — (adota o relatório do relator) | É como voto. |
-| Ementa | padrão de ementa adotado pelo TJAL (conferir a recomendação do CNJ sobre padronização de ementas e o modelo do gabinete) | — | — |
+| Voto de referendo de liminar concessiva (RITJAL, art. 63, §§ 3º a 5º) — tipo `referendo` | VOTO (REFERENDO DE LIMINAR) → síntese da decisão referendada (fls.) → razões para mantê-la → proposta de referendo | — | É como voto. |
+| Voto divergente (tipo `voto_vogal`) | VOTO DIVERGENTE → delimitação do ponto → fundamentação → dispositivo próprio | — (adota o relatório do relator) | É como voto. |
+| Voto-vista, sempre escrito (art. 174) — tipo `voto_vista` | VOTO-VISTA → delimitação → fundamentação → dispositivo (ou adesão fundamentada) | — | É como voto. |
+| Declaração de voto (arts. 167, parágrafo único, e 176) — tipo `declaracao_voto` | DECLARAÇÃO DE VOTO → fundamentos próprios | — | É como voto. |
+| Fundamentos do voto vencido, em 72 horas (arts. 179 e 180) — tipo `voto_vencido` | VOTO VENCIDO → ponto de divergência → fundamentação → conclusão | — | É como voto. |
+| Relatório retificado ou completado pelo revisor (art. 49, I) — tipo `relatorio` | RELATÓRIO → acréscimos e correções com fls. | É o relatório. | — |
+| Ementa | padrão de ementa adotado pelo TJAL (lavratura conforme Resolução do TJAL — RITJAL, art. 181; conferir também a recomendação do CNJ sobre padronização de ementas e o modelo do gabinete). Havendo divergência entre ementa e voto, **prevalece o voto** (art. 185): a ementa reproduz fielmente a tese e o resultado | — | — |
 | Nota de revisão (interna) | `referencias/revisao_votos.md`, R5 | — | — |
 
 As epígrafes admitidas são **apenas** os nomes das peças e das partes estruturais (RELATÓRIO,
@@ -83,6 +88,14 @@ c. Todos os comandos em um único parágrafo, numerados (1), (2)…; **comandos 
 parágrafo próprio, imediatamente após, aberto por **"À Secretaria,"** em negrito (vírgula,
 nunca dois-pontos), simples e sucintos. Não se manda a Secretaria contar prazo nem certificar o
 que os autos já mostram: a contagem e a leitura são do gabinete.
+
+c-1. **Deveres regimentais da Secretaria** não precisam de comando, salvo urgência que justifique
+reforço: comunicação imediata da concessão de HC às autoridades (RITJAL, art. 194); expedição de
+alvará de soltura no BNMP (art. 319 — em decisão que solta, admite-se o comando expresso, pela
+urgência); comunicação da decisão do RESE e do agravo em execução ao juízo de origem, com cópia
+do acórdão (arts. 323, § 2º, e 330); inclusão em mesa do processo com liminar concessiva para
+referendo (art. 63, § 4º); vista ao Ministério Público no MS após as informações (art. 199).
+Contrarrazões nos embargos infringentes são abertas pela Secretaria (art. 338).
 
 d. Decisões e despachos encerram-se em "Publicações e intimações via DJEN", sem "publique-se",
 "intime-se" ou "cumpra-se"; votos, em "É como voto.".

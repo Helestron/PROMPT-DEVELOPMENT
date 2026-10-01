@@ -1,15 +1,17 @@
 ---
 name: gabinete-lessa-criminal-tjal
-description: Assessoria do Gabinete do Desembargador João Luiz de Azevedo Lessa (Câmara Criminal do TJAL) no 2º grau. Três modos - (A) lote de processos conclusos (lista do usuário ou fila do SAJ/SG5), com download integral dos autos no e-SAJ (2º grau e origem), análise criminal completa, minutas de despacho, decisão monocrática, relatório, voto e ementa, revisão em portões automatizados e inserção e movimentação no SAJ/SG5, finalizando sem assinar; (B) revisão de votos de outros gabinetes lidos em pasta ou drive compartilhado, com nota de revisão, posição sugerida (acompanhar, ressalvar, divergir, pedir vista) e minuta de voto divergente ou de vista; (C) qualquer operação no SAJ/SG5 dentro da matriz de níveis A, B e C. Confere jurisprudência, dispositivos legais e regimentais, dosimetria e prescrição por script. Use para trabalhe os conclusos, minute este HC, revise os votos da sessão, confira este voto, insira no SAJ, movimente estes processos. Requer e-SAJ logado no Chrome e SAJ/SG5 aberto no perfil do gabinete.
+description: Assessoria do Gabinete do Des. João Luiz de Azevedo Lessa (Câmara Criminal do TJAL, 2º grau), conforme o Regimento Interno do TJAL (texto integral incluído). Modos - (A) conclusos, por lista ou fila do SAJ/SG5, com autos no e-SAJ de 2º grau (cposg5, entrada gateway) e de origem, análise criminal, minutas de despacho, decisão monocrática, liminar e referendo, relatório, voto e ementa, portões de revisão e inserção e movimentação no SG5, finalizando sem assinar; (B) revisão de votos de outros gabinetes (pasta, drive ou intrajus), como vogal ou revisor, com nota de revisão e minuta de declaração de voto, voto divergente, voto-vista ou voto vencido; (C) qualquer operação no SG5 na matriz de níveis A, B e C. Confere jurisprudência, lei e Regimento, dosimetria e prescrição por script. Use para trabalhe os conclusos, minute este HC, revise os votos da sessão, confira este voto, insira no SAJ, movimente estes processos. Requer e-SAJ logado no Chrome e SG5 aberto.
 ---
 
 # Gabinete do Des. João Luiz de Azevedo Lessa — Câmara Criminal do TJAL (2º grau)
 
 Unidade: **Gabinete do Desembargador João Luiz de Azevedo Lessa — Câmara Criminal do Tribunal de
-Justiça do Estado de Alagoas**. Sistemas: **e-SAJ** (consulta e pasta digital, 2º grau `cposg5` e
-origem `cpopg`) e **SAJ/SG5** (cliente do 2º grau). Configuração em `config/gabinete.json`
-(lotação, usuário, pastas, códigos de modelos, filas e movimentações), preenchida pela Rodada de
-Descoberta — nunca por suposição.
+Justiça do Estado de Alagoas**. Sistemas: **e-SAJ** — 2º grau pela entrada
+`https://www2.tjal.jus.br/cposg5/open.do?gateway=true` e origem pelo `cpopg` — e **SAJ/SG5**
+(cliente do 2º grau). Norma interna: **Regimento Interno do TJAL** (aprovado em 20/08/2024, com as
+Emendas n.º 17/2025, 18/2026 e 19/2026), em texto integral no skill. Configuração em
+`config/gabinete.json` (lotação, usuário, pastas, códigos de modelos, filas e movimentações),
+preenchida pela Rodada de Descoberta — nunca por suposição.
 
 Derivado do skill `lote-minutas-esaj` (8ª Vara Cível de Arapiraca), do qual herda as fases, os
 ledgers, os portões, a técnica de automação validada do SAJ e as salvaguardas; o que era próprio
@@ -21,7 +23,7 @@ equivalente do 2º grau criminal.
 | Modo | Quando | Produto |
 |---|---|---|
 | **A — Conclusos** | "trabalhe os conclusos", "minute este HC/apelação", lista de processos | minutas (anotada .docx + limpa .rtf) inseridas no SG5 e finalizadas sem assinar; movimentações de nível B se autorizadas |
-| **B — Revisão de votos** | "revise os votos da sessão", "confira o voto do relator", pasta compartilhada | nota de revisão + posição sugerida; minuta de voto divergente/vista/declaração quando cabível |
+| **B — Revisão de votos** | "revise os votos da sessão", "confira o voto do relator", "revise como revisor", pasta, drive ou intrajus | nota de revisão + posição sugerida; minuta de relatório retificado (revisor), declaração de voto, voto divergente, voto-vista ou fundamentos de voto vencido (72 h) |
 | **C — Operação no SG5** | "consulte a fila", "remeta ao revisor", "inclua em pauta", "finalize os documentos" | a operação, dentro da matriz A/B/C, com log de auditoria |
 
 Referências (leia a pertinente **antes** da fase correspondente):
@@ -29,7 +31,9 @@ Referências (leia a pertinente **antes** da fase correspondente):
 - `referencias/esaj_autos.md` — acesso aos autos, rotas, download, OCR, sessão (Fase 1).
 - `referencias/criminal_2grau.md` — roteiro de análise criminal, dosimetria, prescrição, HC, nulidades (Fases 2–3, Modo B).
 - `referencias/conferencia_fontes.md` — ledger, hierarquia de fontes, regimento, vigência (Fase 2-B, Modo B).
-- `referencias/regimento_tjal.md` — mapa regimental do gabinete (preencher a partir do texto oficial).
+- `referencias/regimento_tjal.md` — mapa regimental do gabinete, com transcrições do texto vigente (competência, relator, revisor, HC, recursos, pauta, sessão, vista, voto vencido, acórdão).
+- `referencias/ritjal_integral.txt` — Regimento Interno do TJAL, texto integral pesquisável (consultar por `scripts/regimento.py`).
+- `referencias/cgj_normas_integral.txt` — Código de Normas da CGJ/AL, citado pelo Regimento nos arts. 322 e 327 (RESE em sequencial — arts. 797 e 798 do Código).
 - `referencias/estilo_gabinete.md` — padrão de redação das peças (Fase 3).
 - `referencias/revisao_votos.md` — protocolo do Modo B.
 - `referencias/saj_sg5_operacoes.md` — matriz de operações, Rodada de Descoberta, roteiros e lições do SAJ (Fase 5, Modo C).
@@ -37,7 +41,9 @@ Referências (leia a pertinente **antes** da fase correspondente):
 Scripts (`scripts/`): `cnj.py` (número CNJ), `dosimetria.py`, `prescricao.py`,
 `montar_minuta.py` (anotada .docx), `verificar_minuta.py` (portão léxico e de estilo),
 `gerar_versoes.py` (limpa .docx/.rtf sob portão), `conferir_citacoes.py` (citações × ledger),
-`inventario_votos.py` (pasta compartilhada, somente leitura), `saj_sg5.ps1` (automação do SG5).
+`inventario_votos.py` (pasta compartilhada, somente leitura), `regimento.py` (texto vigente de
+artigo do RITJAL, busca por termo e fila de conferência regimental da minuta), `saj_sg5.ps1`
+(automação do SG5).
 Python 3 com `python-docx` (`pip install python-docx`); PowerShell 5.1 no Windows.
 
 ## 1. Execução, entrada e limites
@@ -60,9 +66,12 @@ bloqueio de assinatura e de credencial) estão no `saj_sg5.ps1` e independem do 
   ordem dada, sem triar. Aceite a forma abreviada `NNNNNNN-DD.AAAA` completando com o foro
   informado ou, à falta, `0000` (originários) — `python scripts/cnj.py --completar`.
 - **Fila do SG5** ("trabalhe os conclusos"): leia a fila de conclusos do gabinete (roteiro 4.1 de
-  `saj_sg5_operacoes.md`) e monte o lote por **urgência**: (1) HC com liminar pendente; (2) réu
-  preso, do mais antigo na prisão ao mais recente; (3) prescrição próxima; (4) prioridade legal;
-  (5) data de conclusão mais antiga. Registre a ordem e o critério na lista de trabalho.
+  `saj_sg5_operacoes.md`) e monte o lote por **urgência**: (1) prazos regimentais correndo contra
+  o gabinete — fundamentos de voto vencido (72 horas, RITJAL, art. 179), voto de referendo de
+  liminar concessiva (art. 63, § 4º), vista (art. 173), revisão (art. 50); (2) HC com liminar
+  pendente; (3) réu preso, do mais antigo na prisão ao mais recente; (4) prescrição próxima;
+  (5) demais prioridades do art. 74 do RITJAL; (6) data de conclusão mais antiga. Registre a
+  ordem e o critério na lista de trabalho.
 - Lote padrão: **até 10 processos** (ou o número indicado pelo usuário). Excedentes: informe em
   uma linha. Valide cada número pelo dígito (`cnj.py`); inválido é registrado e não trava o lote.
 
@@ -108,7 +117,8 @@ bloqueio de assinatura e de credencial) estão no `saj_sg5.ps1` e independem do 
 
 1. `config/gabinete.json` sem `A_CONFIRMAR` nos campos que a execução usará; havendo, rode a
    **Rodada de Descoberta** (`saj_sg5_operacoes.md`, item 1) antes da Fase 5.
-2. e-SAJ: abra uma `show.do` e confira se há tela de login.
+2. e-SAJ: abra `https://www2.tjal.jus.br/cposg5/open.do?gateway=true` e confira se a sessão está
+   autenticada (sem tela de login); toda consulta de 2º grau parte dessa entrada.
 3. SAJ/SG5: `powershell -File scripts/saj_sg5.ps1 -Modo Verificar`; lotação no gabinete do
    Des. João Luiz de Azevedo Lessa conferida por captura antes do primeiro lançamento —
    **lotação errada insere documento em gabinete alheio, o que é irreversível**.
@@ -117,11 +127,14 @@ bloqueio de assinatura e de credencial) estão no `saj_sg5.ps1` e independem do 
 
 ### FASE 1 — Autos (antes de qualquer análise)
 
-Para cada processo, capa e movimentações (`cposg5`) e **íntegra da pasta digital** do 2º grau e,
+Para cada processo, a partir da entrada `cposg5/open.do?gateway=true`, capa e movimentações e
+**íntegra da pasta digital** do 2º grau e,
 quando necessário, da origem (`cpopg`), conforme a tabela de `esaj_autos.md`, item 1. Salve em
 `_autos/<numero>/`, extraia o texto (pdftotext; OCR se necessário) e numere pelas fls. da pasta.
 Registre: papel do gabinete (relator/revisor), situação de pauta, réu preso, petições posteriores
-à conclusão. Falha após novas tentativas com sessão renovada: registre, informe e siga.
+à conclusão, prevenção (RITJAL, arts. 95 e 103) e eventual impedimento do Desembargador (v.g.,
+revisão criminal de acórdão que relatou ou revisou — art. 112): achado de impedimento ou
+suspeição é alerta imediato, com minuta de despacho em vermelho (a declaração é nível C). Falha após novas tentativas com sessão renovada: registre, informe e siga.
 Só avance quando todos estiverem baixados ou com falha registrada.
 
 ### FASE 2 — Análise integral (um a um)
@@ -132,10 +145,18 @@ Só avance quando todos estiverem baixados ou com falha registrada.
    já não decidiu.
 2. **Escolha do ato** (preferência pela solução definitiva sempre que madura):
    - processo pronto para julgamento colegiado → **relatório e voto** (e ementa), ou só
-     **relatório** com "À douta revisão." quando houver revisor;
-   - hipótese regimental de decisão do relator → **decisão monocrática** (liminar em HC,
-     não conhecimento, prejudicialidade, extinção da punibilidade, demais casos do RITJAL —
-     conferidos na Fase 2-B);
+     **relatório** com "À douta revisão." quando houver revisor (RITJAL, arts. 325 e 49);
+   - hipótese regimental de decisão do relator → **decisão monocrática**, somente nos casos do
+     RITJAL: recurso prejudicado ou desprovimento de recurso contrário a súmula do STF, do STJ
+     ou do TJAL, a repetitivo, a IRDR ou a IAC (art. 62); nas originárias, só extinção sem
+     mérito ou previsão legal (art. 62, parágrafo único) — no HC, indeferimento liminar
+     (art. 192, parágrafo único) e prejudicialidade (art. 192); desistência e deserção
+     (art. 61, VIII); embargos de declaração contra decisão monocrática (art. 335); liminar
+     (arts. 189, III, 196 e 243); extinção da punibilidade na ação penal originária (art. 213).
+     Fora dessas hipóteses, o ato é **voto**;
+   - **liminar concessiva** em feito da Câmara Criminal → decisão **e voto de referendo**
+     (tipo `referendo`): o processo vai em mesa na primeira sessão subsequente à assinatura e,
+     sem referendo, a liminar perde efeito (art. 63, §§ 3º a 5º); alerte o usuário;
    - falta de ato preparatório → **despacho** que encadeie toda a sequência previsível (vista à
      PGJ, razões na instância — art. 600, § 4º, do CPP —, intimação do réu para constituir
      defensor, informações da autoridade coatora), com o gatilho final "após, voltem conclusos";
@@ -160,9 +181,10 @@ Entre a análise e a redação (procedimento completo em `referencias/conferenci
 1. Levante as teses de que a solução depende e analise **sempre** a adequação a precedentes
    qualificados (STF e STJ) e a eventual **suspensão nacional**; registre a conclusão.
 2. Verifique cada citação candidata — precedente, súmula, tema, **dispositivo legal (redação
-   vigente; no direito material, a da data do fato)** e **dispositivo regimental (texto oficial
-   do RITJAL)** — na fonte primária, com trecho literal, no ledger `_verificacoes.json`
-   (`VERIFIED`/`REJECTED`). Delegue a subagentes por tema quando o volume justificar.
+   vigente; no direito material, a da data do fato)** e **dispositivo regimental** — este
+   sempre por `python scripts/regimento.py <artigo>`, que aplica a redação emendada — na fonte
+   primária, com trecho literal, no ledger `_verificacoes.json` (`VERIFIED`/`REJECTED`).
+   Delegue a subagentes por tema quando o volume justificar.
 3. Consulte a **jurisprudência da Câmara Criminal do TJAL** e decisões anteriores do próprio
    Desembargador sobre a matéria (coerência e casos gêmeos). Divergência com precedente
    qualificado: prevalece o precedente, com o registro em vermelho na anotada.
@@ -191,13 +213,17 @@ Nenhuma minuta vai ao SG5 sem passar, em ordem, por todos os portões. Falhando 
    ressalva, advertência ou cor na anotada. Apontamentos (dois-pontos, travessões, parágrafos
    longos, menção a tema, passagens de prazo): cada um reexaminado e justificado na lista de
    trabalho; o não justificado torna-se bloqueante.
-2. **Portão de citações** — `scripts/conferir_citacoes.py Minuta_….docx --ledger _verificacoes.json`:
-   toda citação com entrada `VERIFIED`; diploma não identificado conferido manualmente.
+2. **Portão de citações** — primeiro `scripts/regimento.py --fila Minuta_….docx` (artigos do
+   RITJAL citados, com o texto vigente, para conferência de pertinência e registro no ledger);
+   depois `scripts/conferir_citacoes.py Minuta_….docx --ledger _verificacoes.json`: toda citação
+   com entrada `VERIFIED`; diploma não identificado conferido manualmente.
 3. **Portão aritmético** — penas, frações, multa, prazos prescricionais e datas da minuta
    conferidos contra `_calculos.json` e a saída dos scripts.
 4. **Controle de completude** sobre a matriz da Fase 2: toda tese enfrentada; toda prova
    relevante valorada com fls.; matérias de ofício verificadas; dispositivo congruente;
-   ausência de reformatio in pejus; efeito extensivo considerado.
+   ementa fiel ao voto (havendo divergência, prevalece o voto — RITJAL, art. 185); ausência de
+   reformatio in pejus; efeito extensivo considerado; matéria não submetida às partes sinalizada
+   (art. 161); decisão monocrática dentro das hipóteses regimentais (Fase 2, item 2).
 5. **Revisão adversarial por subagente independente** — escopo: (1) afirmações de fato, fls.,
    datas e números confrontados com os autos; (2) coerência entre fundamentação, dispositivo e
    ementa; (3) dosimetria e regime (bis in idem, fração sem fundamento, art. 617 do CPP);
@@ -226,8 +252,10 @@ Roteiros em `referencias/saj_sg5_operacoes.md`; todas as chamadas do script com
    contexto e só registrar "finalizado" após a mensagem de sucesso.
 2. **Se a finalização lançar movimentação nos autos ou concluir etapa do fluxo** (efeito visível
    no processo), ela é **nível B**: sem autorização, salve, não finalize, registre e informe.
-3. **Movimentações de nível B** (remessa ao revisor, vista à PGJ, pedido de inclusão em pauta,
-   conversão em diligência, encaminhamento à Secretaria, lançamento de movimentação): somente
+3. **Movimentações de nível B** (remessa ao revisor, pedido de dia, vista à PGJ, pedido de
+   inclusão em pauta, apresentação em mesa, devolução de vista, baixa para retratação,
+   conversão em diligência, encaminhamento à Secretaria, lançamento de movimentação — sequências
+   regimentais em `saj_sg5_operacoes.md`, 4.3): somente
    depois que o usuário as autorizar no chat — grave então `scripts/autorizacao_nivel_b.json`
    com o **texto literal** da ordem, as operações, os processos e a validade (no máximo o dia).
    Ordem genérica ("faça o que for preciso") não basta: peça, em uma linha, a lista de operações
@@ -238,23 +266,31 @@ Roteiros em `referencias/saj_sg5_operacoes.md`; todas as chamadas do script com
 
 ## 3. Modo B — Revisão de votos de outros gabinetes
 
-Protocolo completo em `referencias/revisao_votos.md`. Em síntese:
+Protocolo completo em `referencias/revisao_votos.md`. Papéis regimentais: **revisor** (RITJAL,
+art. 49 — confirmar, completar ou retificar o relatório, sugerir diligência e pedir dia, em até
+dez dias, art. 50), **vogal** (art. 158; declaração de voto, arts. 167, parágrafo único, e 176;
+vista, arts. 173 e 174) e **vencido** (fundamentos em 72 horas, arts. 179 e 180). Em síntese:
 
-1. **R0–R1** — inventário **somente leitura** da pasta ou drive compartilhado
-   (`scripts/inventario_votos.py`), com detecção de votos novos e alterados; seleção por sessão
-   e urgência.
-2. **R2** — autos pelo e-SAJ (Fase 1): não se revisa voto sem os autos.
-3. **R3** — conferência integral das citações do voto (jurisprudência, dispositivos legais e
-   regimentais) no ledger (Fase 2-B).
+1. **R0–R1** — inventário **somente leitura** da pasta, do drive compartilhado ou do material de
+   pauta recebido via intrajus (arts. 73 e 123) com `scripts/inventario_votos.py`, detectando
+   votos novos e alterados; ordem: prazos regimentais (72 h do voto vencido, referendo, vista,
+   revisão), sessão mais próxima (Câmara Criminal às quartas-feiras — art. 128, VI), HC e réu
+   preso.
+2. **R2** — autos pelo e-SAJ (Fase 1, entrada `gateway`): não se revisa voto sem os autos.
+3. **R3** — conferência integral das citações do voto — jurisprudência, lei e Regimento
+   (`regimento.py --fila` e `conferir_citacoes.py --listar`) — no ledger (Fase 2-B).
 4. **R4** — análise independente do caso (Fase 2) e confronto com o voto em todos os eixos
    (relatório, admissibilidade, ordem pública, enfrentamento, prova, dosimetria por script,
-   precedentes, dispositivo, ementa, casos gêmeos).
-5. **R5** — **nota de revisão** com posição sugerida (acompanhar; acompanhar com ressalva;
-   divergir em parte; divergir; pedir vista; questão de ordem), pontos bloqueantes, relevantes e
-   de forma, citações conferidas e memória de cálculo.
-6. **R6** — quando a posição não for "acompanhar", **minuta de voto** do Desembargador (declaração
-   de voto, voto divergente ou voto-vista), que segue as Fases 3 a 5. Pedir vista e votar em
-   sessão são atos do Desembargador; **registrar voto em sessão é nível C**.
+   precedentes, dispositivo, ementa — que não pode divergir do voto, art. 185 —, casos gêmeos);
+   sustentações orais gravadas da sessão virtual ouvidas antes de concluir (art. 155).
+5. **R5** — **nota de revisão** com posição sugerida (acompanhar; acompanhar com declaração de
+   voto; divergir em parte; divergir; pedir vista; questão de ordem — art. 172; matéria não
+   debatida — art. 161; como revisor, confirmar, completar ou retificar o relatório e pedir dia),
+   pontos bloqueantes, relevantes e de forma, citações conferidas e memória de cálculo.
+6. **R6** — quando a posição não for "acompanhar", **minuta** do Desembargador (relatório
+   retificado, declaração de voto, voto divergente, voto-vista sempre escrito ou fundamentos de
+   voto vencido), que segue as Fases 3 a 5. Pedir vista, votar em sessão ou na plataforma
+   virtual são atos do Desembargador — **nível C**.
 
 ## 4. Modo C — Operação avulsa no SAJ/SG5
 
@@ -288,6 +324,17 @@ se executa.
 - **Efeito extensivo esquecido** para corréu em situação idêntica (art. 580 do CPP).
 - **Voto alheio alterado após a revisão**: o inventário acusa ALTERADO; refaça a nota.
 - **Finalização que movimenta**: conferir a etapa do fluxo antes de finalizar (nível B).
+- **Liminar concessiva sem referendo**: na Câmara Criminal, decai se não referendada na
+  primeira sessão subsequente (RITJAL, art. 63, §§ 3º a 5º) — minute o voto de referendo junto.
+- **Monocrática fora do art. 62**: desprovimento monocrático só contra súmula (STF, STJ ou TJAL),
+  repetitivo, IRDR ou IAC; nas originárias, só extinção sem mérito ou previsão legal.
+- **Competência do Pleno**: revisão criminal, embargos infringentes contra decisões da Câmara e HC
+  com paciente do art. 43, IX, f, não são julgados pela Câmara Criminal.
+- **Voto vencido esquecido**: 72 horas (art. 179), inclusive quando a divergência é só no
+  fundamento determinante (art. 180).
+- **Artigo regimental emendado citado pela redação antiga**: use sempre `regimento.py`.
+- **Consulta de 2º grau fora da entrada `gateway`**: pasta digital e autos sigilosos podem não
+  aparecer; volte a `cposg5/open.do?gateway=true`.
 - **Lições do SAJ** (validadas no PG5): nada de Ctrl+A/Ctrl+M no editor; modal oculto bloqueia
   a entrada (`-Modo Janelas`); "Selecionados 1" antes de finalizar; outros usuários inserem nas
   mesmas filas — confira a linha "Partes:".
@@ -316,6 +363,28 @@ se executa.
 
 ## 9. Registro de alterações
 
+- **01/10/2026 (2.ª entrada) — e-SAJ de 2º grau e Regimento Interno.** Por indicação do
+  usuário: (1) a entrada do e-SAJ de 2º grau passa a ser
+  `https://www2.tjal.jus.br/cposg5/open.do?gateway=true` (Fase 0, Fase 1,
+  `referencias/esaj_autos.md`, `config/gabinete.json`); (2) o Regimento Interno do TJAL
+  fornecido (aprovado em 20/08/2024, Emendas n.º 17/2025, 18/2026 e 19/2026) foi incorporado em
+  texto integral (`referencias/ritjal_integral.txt`), com mapa de uso preenchido por transcrição
+  automática (`referencias/regimento_tjal.md`) e o script `regimento.py` (texto vigente por
+  artigo, com a regra de prevalência da redação emendada; busca; fila de conferência). Adaptações
+  decorrentes: competências da Câmara Criminal e do Pleno (arts. 43, 48, 114, 242, 321);
+  hipóteses de decisão monocrática (arts. 62, 192 e outros); **referendo obrigatório da liminar
+  concessiva** e o novo tipo de minuta `referendo` (art. 63, §§ 3º a 5º); revisor (arts. 49 e 50);
+  vista e voto-vista escrito (arts. 173 e 174); **fundamentos do voto vencido em 72 horas** e o
+  tipo `voto_vencido` (arts. 179 e 180); declaração de voto (arts. 167 e 176); matéria não
+  debatida (art. 161); ementa × voto (art. 185); prioridades, pauta e sessões (arts. 70, 74, 120,
+  121, 128, 148, 149); intrajus como fonte do Modo B (arts. 73 e 123); deveres regimentais da
+  Secretaria que dispensam comando (arts. 194, 319, 323 e 330); prazos regimentais
+  (`criminal_2grau.md`, item 8); matriz de operações com base regimental e novos itens de nível B
+  (pedido de dia, apresentação em mesa, devolução de vista, baixa para retratação) e de nível C
+  (pedir vista, declarar suspeição). O Código de Normas da CGJ/AL voltou ao skill apenas como
+  referência dos arts. 322 e 327 do Regimento (RESE em sequencial). Correção em
+  `conferir_citacoes.py`: "Regimento Interno do STJ/STF" não é mais confundido com o RITJAL, e
+  "deste Regimento" passa a ser reconhecido. Nenhuma salvaguarda foi alterada.
 - **01/10/2026 — Criação** (`gabinete-lessa-criminal-tjal`), a partir do `lote-minutas-esaj`
   (versão de 18/09/2026), para o Gabinete do Des. João Luiz de Azevedo Lessa, Câmara Criminal do
   TJAL. Herdados: fases de autos, verificação, minuta e inserção; ledgers; portão léxico; revisão

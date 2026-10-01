@@ -15,6 +15,7 @@ import dosimetria  # noqa: E402
 import gerar_versoes  # noqa: E402
 import montar_minuta  # noqa: E402
 import prescricao  # noqa: E402
+import regimento  # noqa: E402
 import verificar_minuta  # noqa: E402
 
 VOTO_OK = """# RELATÓRIO
@@ -179,3 +180,54 @@ def test_inventario_detecta_novo_e_alterado_sem_escrever_na_pasta(tmp_path, voto
     subprocess.run([sys.executable, str(script), str(pasta), "--saida", str(saida)], check=True, capture_output=True)
     assert json.loads(saida.read_text(encoding="utf-8"))["itens"][0]["situacao"] == "ALTERADO"
     assert sorted(p.name for p in pasta.iterdir()) == antes
+
+
+# ---------- regimento ----------
+def test_regimento_carrega_todos_os_artigos():
+    artigos = regimento.carregar()
+    assert set(range(1, 396)) <= set(artigos)
+
+
+def test_regimento_prevalece_redacao_emendada():
+    art93 = regimento.consultar([93])[0]
+    assert "15 dias" in art93["texto"] and "Emenda nº 18" in art93["texto"]
+    assert any("2 redações" in a for a in art93["avisos"])
+
+
+def test_regimento_nao_corta_artigo_em_linha_que_comeca_por_secao():
+    # art. 61, XIII, quebra a linha em "Seção Especializada Cível ou nas Câmaras..."
+    art61 = regimento.consultar([61])[0]["texto"]
+    assert "XXIII - exercer o controle" in art61
+
+
+def test_regimento_referendo_liminar_camara_criminal():
+    art63 = regimento.consultar([63])[0]["texto"]
+    assert "decisões concessivas proferidas em feitos da competência da Câmara Criminal" in art63
+
+
+def test_regimento_busca_e_fila(tmp_path):
+    assert any(r["artigo"] == 179 for r in regimento.buscar("setenta e duas horas"))
+    src = tmp_path / "m.txt"
+    src.write_text("# VOTO\nNos termos do art. 62 do Regimento Interno deste Tribunal e do art. 34 do RISTJ.\n", encoding="utf-8")
+    out = tmp_path / "m.docx"
+    montar_minuta.montar(src.read_text(encoding="utf-8").splitlines(), out, montar_minuta.carregar_config(None))
+    fila = regimento.fila(out)
+    assert [e["id"] for e in fila] == ["R062"] and fila[0]["status"] == "PENDENTE"
+
+
+def test_citacao_regimento_stj_nao_vira_ritjal():
+    chaves = {a["chave_norm"] for a in conferir_citacoes.extrair(
+        "art. 34 do Regimento Interno do STJ e art. 21 do Regimento Interno do STF, art. 63 deste Regimento")}
+    assert {"RISTJ ART 34", "RISTF ART 21", "RITJAL ART 63"} <= chaves
+    assert "RITJAL ART 34" not in chaves
+
+
+def test_portao_aceita_voto_vencido_e_referendo(tmp_path):
+    for tipo, titulo in (("voto_vencido", "VOTO VENCIDO"), ("referendo", "VOTO (REFERENDO DE LIMINAR)")):
+        src = tmp_path / f"{tipo}.txt"
+        src.write_text(f"# {titulo}\nCom a devida vênia ao eminente relator, divirjo quanto à dosimetria, porque a "
+                       "fração aplicada na terceira fase carece de fundamentação concreta, como demonstram as fls. 210.\n"
+                       "É como voto.\n", encoding="utf-8")
+        out = tmp_path / f"{tipo}.docx"
+        montar_minuta.montar(src.read_text(encoding="utf-8").splitlines(), out, montar_minuta.carregar_config(None))
+        assert verificar_minuta.verificar(out, tipo, "anotada")["bloqueantes"] == [], tipo

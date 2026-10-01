@@ -7,7 +7,8 @@ Verifica um .docx (versão anotada ou limpa) e devolve, em JSON, as pendências 
 bloqueante).
 
 Uso:
-    python verificar_minuta.py arquivo.docx --tipo voto|voto_vogal|decisao|despacho|ementa|nota_revisao
+    python verificar_minuta.py arquivo.docx --tipo voto|relatorio|voto_vogal|voto_vista|voto_vencido|
+                               declaracao_voto|referendo|decisao|despacho|ementa|nota_revisao
                                --versao anotada|limpa [--config ../config/gabinete.json]
 Código de saída: 0 aprovado; 1 há bloqueantes.
 """
@@ -20,17 +21,22 @@ from docx import Document
 
 PADRAO = {
     "titulos_admitidos": ["DESPACHO", "DECISÃO", "DECISÃO MONOCRÁTICA", "RELATÓRIO", "VOTO",
-                          "VOTO-VISTA", "VOTO DIVERGENTE", "DECLARAÇÃO DE VOTO", "EMENTA",
-                          "NOTA DE REVISÃO"],
+                          "VOTO-VISTA", "VOTO DIVERGENTE", "VOTO VENCIDO", "DECLARAÇÃO DE VOTO",
+                          "VOTO (REFERENDO DE LIMINAR)", "EMENTA", "NOTA DE REVISÃO"],
     "ultima_linha": {
         "despacho": "Publicações e intimações via DJEN",
         "decisao": "Publicações e intimações via DJEN",
         "voto": "É como voto.",
         "voto_vogal": "É como voto.",
+        "voto_vista": "É como voto.",
+        "voto_vencido": "É como voto.",
+        "declaracao_voto": "É como voto.",
+        "referendo": "É como voto.",
     },
     "fecho_relatorio": {
         "decisao": "Brevemente relatado, passo a decidir.",
         "voto": "É o relatório.",
+        "relatorio": "É o relatório.",
     },
     "expressoes_vedadas": ["publique-se", "intime-se", "intimem-se", "cumpra-se", "registre-se"],
     "linguagem_de_metodo": ["varredura", "camada de texto", "extração", "ocr", "renderiz",

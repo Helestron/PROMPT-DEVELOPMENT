@@ -1,10 +1,22 @@
 # Acesso aos autos pelo e-SAJ do TJAL — 2º grau e origem
 
-Referência da Fase 1 do SKILL.md. Rotas do 1º grau (`/cpopg/`) foram **validadas em execução real**
-no skill de origem (`lote-minutas-esaj`, 08–09/2026). As rotas do 2º grau (`/cposg5/`) seguem o
-mesmo componente da Softplan, mas devem ser **confirmadas na primeira execução** e registradas em
-`config/gabinete.json > esaj.rotas_validadas`, com a data. Até lá, trate-as como hipótese de
-trabalho: descubra o link a partir da própria página, nunca o monte de memória.
+Referência da Fase 1 do SKILL.md.
+
+**Porta de entrada do e-SAJ de 2º grau (informada pelo gabinete em 01/10/2026):**
+
+```
+https://www2.tjal.jus.br/cposg5/open.do?gateway=true
+```
+
+É a entrada do gabinete para a consulta de 2º grau. **Toda consulta de 2º grau começa por essa
+URL**, na sessão autenticada do Chrome. O parâmetro `gateway=true` indica o acesso pela porta de
+usuário interno; na primeira execução, confirme e registre no caderno de bordo o que ela libera
+em relação à consulta pública (`/cposg5/open.do` sem o parâmetro) — em especial a pasta digital
+e os feitos em segredo de justiça — e não troque de entrada no meio do lote. Rotas do 1º grau (`/cpopg/`) foram **validadas em execução real** no skill de
+origem (`lote-minutas-esaj`, 08–09/2026). As rotas internas do 2º grau a partir da entrada
+(URL de pesquisa e link da pasta digital) devem ser registradas em
+`config/gabinete.json > esaj.rotas_validadas` na primeira execução, com a data — descubra-as na
+própria página, nunca as monte de memória.
 
 ## 1. O que baixar em cada classe
 
@@ -12,7 +24,7 @@ O processo no 2º grau raramente basta sozinho. Baixe:
 
 | Classe | Autos do 2º grau (`cposg5`) | Autos de origem (`cpopg`) |
 |---|---|---|
-| Apelação criminal, RESE, embargos infringentes | sempre | sempre que a pasta do 2º grau não trouxer a íntegra da ação penal (sentença, provas, interrogatório, mídias) |
+| Apelação criminal, RESE, embargos infringentes | sempre | sempre que a pasta do 2º grau não trouxer a íntegra da ação penal (sentença, provas, interrogatório, mídias); no RESE, verifique se o recurso subiu em **sequencial** vinculado ao principal (RITJAL, arts. 322 e 327; Código de Normas da CGJ/AL, arts. 797 e 798 — `referencias/cgj_normas_integral.txt`) |
 | Habeas corpus, MS criminal, correição parcial | sempre (foro `0000`) | a ação penal ou o inquérito de origem indicado na inicial, para conferir a decisão impugnada e o andamento real |
 | Agravo em execução | sempre | a execução tramita no SEEU (CNJ), fora do e-SAJ: trabalhe com as peças trasladadas e registre a limitação |
 | Revisão criminal | sempre | a ação penal transitada (sentença, acórdão, certidão de trânsito) |
@@ -30,9 +42,18 @@ número da origem está na inicial e nas informações da autoridade coatora.
 https://www2.tjal.jus.br/cpopg/search.do?conversationId=&cbPesquisa=NUMPROC&dadosConsulta.localPesquisa.cdLocal=-1&dadosConsulta.tipoNuProcesso=UNIFICADO&numeroDigitoAnoUnificado=NNNNNNN-DD.AAAA&foroNumeroUnificado=FFFF&dadosConsulta.valorConsultaNuUnificado=NNNNNNNDDAAAA802FFFF&dadosConsulta.valorConsulta=
 ```
 
-2º grau (confirmar): abra `https://www2.tjal.jus.br/cposg5/open.do`, pesquise pelo número
-unificado na própria tela e **registre a URL de resultado efetivamente gerada** em
-`rotas_validadas.consulta_2grau`. Nas execuções seguintes, use a URL registrada.
+2º grau: abra `https://www2.tjal.jus.br/cposg5/open.do?gateway=true`, confira que a sessão está
+autenticada (sem tela de login e com o usuário identificado), pesquise pelo número unificado na
+própria tela e **registre a URL de resultado efetivamente gerada** em
+`rotas_validadas.consulta_2grau_search` (e o link da pasta em `rotas_validadas.pasta_2grau`).
+Nas execuções seguintes, use as URLs registradas, sempre na sessão aberta pela entrada `gateway`.
+Se a pesquisa por URL direta perder a autenticação, volte à entrada e pesquise pela tela.
+
+Dados de cadastro úteis: nos processos criminais, o sistema registra a data da infração, do
+recebimento da denúncia ou queixa, da prisão e da sentença (RITJAL, art. 83, parágrafo único) —
+use-os para **pré-conferir** a prescrição, sempre confirmados nos autos antes de entrar no JSON
+de `prescricao.py`. A prioridade registrada no cadastro (art. 74, parágrafo único) orienta a
+ordem do lote.
 
 Com `get_page_text`, extraia da capa: classe, assunto, partes (réu preso? — a capa costuma sinalizar),
 relator, revisor, órgão julgador, movimentações, incidentes, processos apensos e vinculados,
@@ -87,7 +108,8 @@ sistema, o tesseract não produz saída alguma). Numere as fls. pela paginação
 
 ## 5. Sessão do e-SAJ
 
-1. Verifique ativamente (abra uma `show.do` e confira se há tela de login) em vez de perguntar.
+1. Verifique ativamente — abra `https://www2.tjal.jus.br/cposg5/open.do?gateway=true` e confira se
+   há tela de login ou usuário identificado; no 1º grau, abra uma `show.do` — em vez de perguntar.
 2. Estado persistente em `_estado.json`, por processo e etapa; retomada idempotente.
 3. Sinais de expiração ("Não foi possível validar o seu acesso", tela de login): pare de imediato.
 4. Uma única mensagem objetiva pedindo novo login; retome do ponto exato.

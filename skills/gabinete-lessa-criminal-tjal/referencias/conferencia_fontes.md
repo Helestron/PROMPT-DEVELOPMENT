@@ -53,19 +53,35 @@ conferido por amostragem antes de virar `VERIFIED`.
 
 ## 3. Dispositivos regimentais — Regimento Interno do TJAL
 
-Competências da Câmara Criminal e da Seção/Pleno, poderes do relator para decidir
-monocraticamente, revisão, vista, pauta e sessões (presenciais e virtuais), sustentação oral,
-embargos de declaração, questões de ordem e prazos internos são **matéria regimental**. Regras:
+Texto vigente **disponível no skill**: `referencias/ritjal_integral.txt` (fornecido pelo gabinete
+em 01/10/2026 — Regimento aprovado pelo Pleno em 20/08/2024, com as Emendas n.º 17/2025, 18/2026
+e 19/2026). Mapa temático com transcrições: `referencias/regimento_tjal.md`.
 
-1. Antes do primeiro lote, obtenha o texto vigente do RITJAL no portal oficial do Tribunal e
-   salve-o em `referencias/ritjal_integral.txt` (texto pesquisável), com a data da obtenção e as
-   emendas consolidadas. Preencha `referencias/regimento_tjal.md` com o mapa dos artigos que o
-   gabinete usa, **cada um transcrito do texto obtido**.
-2. Toda citação de artigo regimental passa pelo ledger com `tipo: "regimento"`, trecho literal
-   e data de conferência. O mapa de `regimento_tjal.md` orienta; o integral autoriza.
-3. Havendo emenda regimental posterior à data do mapa, reconfira os artigos afetados.
-4. Regimentos do STF e do STJ entram apenas quando a matéria os exigir (v.g., admissibilidade de
-   recursos aos tribunais superiores), pelo mesmo procedimento.
+1. **Consulta e transcrição por script**, nunca de memória:
+   `python scripts/regimento.py 62 63 192` devolve o texto vigente de cada artigo.
+   Atenção: o texto integral traz, para os artigos emendados, a redação anterior e a nova
+   (v.g., arts. 93 e 99; parágrafos dos arts. 32 e 63). O script adota a redação marcada
+   "(Alterado/Incluído pela Emenda …)" e avisa quando o artigo tem dispositivo emendado; nesse
+   caso, cite o parágrafo marcado.
+2. **Portão regimental**: `python scripts/regimento.py --fila Minuta_….docx` lista os artigos do
+   RITJAL citados na minuta, com o texto vigente, no esquema do ledger (`tipo: "regimento"`,
+   status `PENDENTE`). Confira a **pertinência** (o artigo diz o que a minuta afirma?), mude o
+   status para `VERIFIED` ou `REJECTED` e só então rode `conferir_citacoes.py`.
+3. **Remissões externas do Regimento**: o RITJAL remete à Lei n.º 6.564/2005 (Código de
+   Organização Judiciária — composição, quórum e eleição das Câmaras, arts. 2º, 6º e 16), a
+   Resoluções do TJAL (lavratura de acórdãos — art. 181; sessões virtuais — art. 152; plantão —
+   art. 75) e ao Código de Normas da CGJ/AL (RESE com mais de um réu — arts. 322 e 327; ver
+   `referencias/cgj_normas_integral.txt`, arts. 797 e 798). Esses atos não estão no skill:
+   cite-os apenas depois de obtido o texto oficial.
+4. **Casos omissos**: RISTF e RISTJ, nessa ordem (art. 392); dúvida de interpretação
+   regimental: pronunciamento prévio do Pleno (art. 389).
+5. **Atualização**: nova emenda → substituir `ritjal_integral.txt` pelo texto oficial,
+   regenerar o mapa e reconferir as entradas `regimento` do ledger com mais de 30 dias.
+
+**Jurisprudência do TJAL**: repositórios oficiais são o DJe e a Revista do TJAL (art. 299); o
+Tribunal mantém banco de precedentes e de teses de IRDR e IAC (arts. 297 e 298) e relação de
+súmulas (art. 300). Súmula do TJAL e tese de IRDR ou IAC autorizam o desprovimento monocrático
+(art. 62) — confira sempre a vigência no banco oficial.
 
 ## 4. Dispositivos legais — vigência e pertinência
 

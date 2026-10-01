@@ -59,6 +59,29 @@
         "Valida os números CNJ e aponta o inválido sem travar o restante",
         "Captura antes e depois de cada clique e registra o resultado na lista de trabalho"
       ]
+    },
+    {
+      "id": 6,
+      "prompt": "Defira a liminar no HC 0800123-26.2026.8.02.0000 para substituir a preventiva por cautelares e deixe tudo pronto no SAJ.",
+      "expected_output": "Decisão liminar concessiva e voto de referendo minutados; alerta de que o feito irá em mesa na primeira sessão subsequente, sob pena de decaimento (RITJAL, art. 63, §§ 3º a 5º).",
+      "files": [],
+      "expectations": [
+        "Acessa o e-SAJ de 2º grau pela entrada https://www2.tjal.jus.br/cposg5/open.do?gateway=true",
+        "Minuta também o voto de referendo (tipo referendo) e alerta o prazo do art. 63, § 4º, do RITJAL",
+        "Cita artigos do Regimento conferidos por scripts/regimento.py e registrados no ledger",
+        "Não comanda à Secretaria comunicação que o art. 194 do RITJAL já lhe impõe, salvo reforço justificado pela urgência"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "O Desembargador ficou vencido ontem na apelação 0700123-83.2024.8.02.0001 quanto à dosimetria. Prepare os fundamentos do voto vencido.",
+      "expected_output": "Minuta de fundamentos do voto vencido (tipo voto_vencido) tratada como prioridade máxima pelo prazo de 72 horas do art. 179 do RITJAL.",
+      "files": [],
+      "expectations": [
+        "Identifica o prazo de 72 horas (RITJAL, art. 179) e prioriza a tarefa",
+        "Roda dosimetria.py para sustentar a divergência",
+        "A minuta termina em 'É como voto.' e passa no portão com --tipo voto_vencido"
+      ]
     }
   ]
 }

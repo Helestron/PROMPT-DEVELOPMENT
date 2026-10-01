@@ -18,7 +18,7 @@ Skill do **Gabinete do Desembargador João Luiz de Azevedo Lessa — Câmara Cri
 
 Scripts (`scripts/`): `cnj.py`, `dosimetria.py`, `prescricao.py`, `montar_minuta.py`,
 `verificar_minuta.py`, `gerar_versoes.py` (com conversor DOCX→RTF nativo),
-`conferir_citacoes.py`, `inventario_votos.py`, `saj_sg5.ps1`.
+`conferir_citacoes.py`, `inventario_votos.py`, `regimento.py`, `gerar_mapa_regimento.py`, `saj_sg5.ps1`.
 
 ### Antes do primeiro uso
 
@@ -26,10 +26,18 @@ Scripts (`scripts/`): `cnj.py`, `dosimetria.py`, `prescricao.py`, `montar_minuta
    item 1): lotação, usuário, pastas, códigos de categoria/modelo, filas e movimentações do SG5.
    Os roteiros do SG5 derivam da técnica validada no PG5, mas **ainda não foram executados no
    SG5**; rode-os primeiro com `-Ensaio`.
-2. Obter o texto oficial vigente do Regimento Interno do TJAL e preencher
-   `referencias/regimento_tjal.md` (nenhum artigo regimental foi registrado de memória).
-3. Confirmar as rotas do e-SAJ de 2º grau (`cposg5`) e registrá-las em `config.esaj.rotas_validadas`.
-4. `pip install python-docx` (Python 3) e PowerShell 5.1 no Windows.
+2. e-SAJ de 2º grau: a entrada é `https://www2.tjal.jus.br/cposg5/open.do?gateway=true`; na
+   primeira execução, registrar em `config.esaj.rotas_validadas` a URL de pesquisa e o link da
+   pasta digital obtidos a partir dela.
+3. `pip install python-docx` (Python 3) e PowerShell 5.1 no Windows.
+
+### Regimento Interno do TJAL
+
+Incluído em texto integral (`referencias/ritjal_integral.txt` — aprovado em 20/08/2024, com as
+Emendas n.º 17/2025, 18/2026 e 19/2026), com mapa de uso em `referencias/regimento_tjal.md`.
+Consulta: `python scripts/regimento.py 63` (texto vigente, aplicando a redação emendada),
+`--buscar "termo"` e `--fila minuta.docx`. Nova emenda: substituir o texto integral e rodar
+`python scripts/gerar_mapa_regimento.py`.
 
 ### Testes
 

@@ -41,15 +41,17 @@ DIPLOMAS = [
     (r"C[óo]digo\s+Penal(?!\s+Militar)|CP(?![A-Z])", "CP"),
     (r"Constitui[çc][ãa]o(?:\s+Federal|\s+da\s+Rep[úu]blica)?|CF(?:/88)?|CRFB", "CF"),
     (r"Lei\s+de\s+Execu[çc][ãa]o\s+Penal|LEP", "LEP"),
-    (r"Regimento\s+Interno\s+do\s+(?:Tribunal\s+de\s+Justi[çc]a\s+(?:do\s+Estado\s+)?de\s+Alagoas|TJAL)|RITJAL|Regimento\s+Interno", "RITJAL"),
+    # Regimentos dos tribunais superiores antes do genérico "Regimento", que designa o RITJAL
+    # ("Regimento Interno deste Tribunal", "deste Regimento", "RITJAL").
     (r"Regimento\s+Interno\s+do\s+(?:STJ|Superior\s+Tribunal\s+de\s+Justi[çc]a)|RISTJ", "RISTJ"),
     (r"Regimento\s+Interno\s+do\s+(?:STF|Supremo\s+Tribunal\s+Federal)|RISTF", "RISTF"),
+    (r"RITJAL|Regimento(?:\s+Interno)?", "RITJAL"),
     (r"Lei\s+(?:Complementar\s+)?n\.?\s*º?\s*([\d\.]+)\s*/\s*(\d{2,4})", "LEI"),
     (r"Decreto-Lei\s+n\.?\s*º?\s*([\d\.]+)\s*/\s*(\d{2,4})", "DL"),
     (r"Resolu[çc][ãa]o\s+(CNJ|TJAL)\s+n\.?\s*º?\s*([\d\.]+)\s*/\s*(\d{4})", "RES"),
 ]
 NUMS = r"\d+(?:\.\d{3})*(?:-[A-Z])?"
-ART = re.compile(rf"\barts?\.\s*({NUMS}(?:\s*(?:,|e|a)\s*{NUMS})*)(.{{0,90}}?)\b(?:d[oa]s?)\s+", re.S)
+ART = re.compile(rf"\barts?\.\s*({NUMS}(?:\s*(?:,|e|a)\s*{NUMS})*)(.{{0,90}}?)\b(?:d[oa]s?|dest[ea])\s+", re.S)
 
 
 def texto_de(arq: Path) -> str:
