@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+# Artefatos de execução (dados de processos não vão ao repositório)
+_autos/
+_estado.json
+_verificacoes.json
+_calculos.json
+_inventario_revisao.json
+_dossie_*.json
+saj_log.jsonl
+autorizacao_nivel_b.json
+PARAR.txt

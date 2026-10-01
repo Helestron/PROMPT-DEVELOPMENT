@@ -1,0 +1,68 @@
+{
+  "_leia_me": "Configuração do gabinete. Campos com valor null ou 'A_CONFIRMAR' são preenchidos na Rodada de Descoberta (SKILL.md, item 5.1) a partir do que o próprio SAJ/SG5 exibir, e nunca por suposição. Não registre aqui senha, PIN, token nem dado de certificado.",
+  "gabinete": {
+    "tribunal": "Tribunal de Justiça do Estado de Alagoas",
+    "orgao_julgador": "Câmara Criminal",
+    "magistrado": "Desembargador João Luiz de Azevedo Lessa",
+    "lotacao_esperada_regex": "A_CONFIRMAR (trecho do título ou da barra de status do SG5 que identifica o gabinete)",
+    "usuario_saj": "A_CONFIRMAR (login do servidor; configuração, não credencial)",
+    "secretaria_destinataria": "Secretaria da Câmara Criminal",
+    "abertura_comandos_secretaria": "À Secretaria"
+  },
+  "pastas": {
+    "trabalho": "A_CONFIRMAR (ex.: C:\\Gabinete\\Lote)",
+    "modelos_gabinete": "A_CONFIRMAR (ex.: C:\\Gabinete\\Modelos)",
+    "votos_compartilhados": ["A_CONFIRMAR (ex.: G:\\Drives compartilhados\\Camara Criminal\\Votos)"],
+    "saida_revisao": "A_CONFIRMAR (pasta própria do gabinete; nunca a compartilhada)"
+  },
+  "esaj": {
+    "base": "https://www2.tjal.jus.br",
+    "consulta_2grau": "/cposg5/",
+    "consulta_1grau": "/cpopg/",
+    "rotas_validadas": {}
+  },
+  "saj_sg5": {
+    "processo_regex": "sajsg5*",
+    "janela_regex": "Sistema de Automa|SAJ",
+    "executavel": "A_CONFIRMAR",
+    "categorias": {"despacho": null, "decisao_monocratica": null, "relatorio": null, "voto": null, "ementa": null},
+    "modelos": {"despacho": null, "decisao_monocratica": null, "relatorio": null, "voto": null, "ementa": null, "voto_vogal": null},
+    "filas": {"conclusos": "A_CONFIRMAR", "em_elaboracao": "A_CONFIRMAR", "aguardando_assinatura": "A_CONFIRMAR"},
+    "movimentacoes_tpu": {
+      "_aviso": "Códigos preenchidos somente após conferência no campo Movimentação do SG5 e na TPU/CNJ.",
+      "provimento": null, "provimento_em_parte": null, "nao_provimento": null, "nao_conhecimento": null,
+      "concessao_hc": null, "concessao_parcial_hc": null, "denegacao_hc": null, "liminar_deferida": null,
+      "liminar_indeferida": null, "decisao_proferida": null, "despacho_mero_expediente": null
+    }
+  },
+  "operacoes": {
+    "nivel_a": ["consultar", "abrir_processo", "emitir_documento", "editar", "colar_minuta", "salvar",
+                "finalizar_sem_assinar", "mover_fila_interna", "anotar_pendencia_interna"],
+    "nivel_b": ["remessa_revisor", "vista_pgj", "pedido_inclusao_pauta", "retirada_pauta",
+                "encaminhar_secretaria", "lancar_movimentacao_nos_autos", "conversao_diligencia",
+                "redistribuicao_interna_gabinete"],
+    "nivel_c": ["assinar", "assinar_e_liberar", "liberar_nos_autos", "registrar_voto_sessao",
+                "excluir_documento", "cancelar_documento_alheio", "alterar_cadastro_partes",
+                "redistribuir_processo", "baixar_ou_arquivar", "certificar_transito", "digitar_credencial"]
+  },
+  "formatacao": {
+    "fonte": "Times New Roman",
+    "corpo_pt": 12,
+    "citacao_pt": 11,
+    "recuo_primeira_linha_cm": 2.0,
+    "entrelinhas": 1.5
+  },
+  "redacao": {
+    "ultima_linha": {
+      "despacho": "Publicações e intimações via DJEN",
+      "decisao": "Publicações e intimações via DJEN",
+      "voto": "É como voto.",
+      "voto_vogal": "É como voto."
+    },
+    "fecho_relatorio": {
+      "decisao": "Brevemente relatado, passo a decidir.",
+      "voto": "É o relatório."
+    },
+    "formulas_fixas": ["À douta revisão.", "É como voto.", "É o relatório."]
+  }
+}
