@@ -5,9 +5,10 @@ Formato: NNNNNNN-DD.AAAA.J.TR.OOOO (J = 8, Justiça Estadual; TR = 02, TJAL).
 Dígito verificador: módulo 97 (ISO 7064), calculado sobre NNNNNNN AAAA J TR OOOO 00.
 
 Uso:
-    python cnj.py 0700123-45.2024.8.02.0001 [...]
-    python cnj.py --completar 0700123-45.2024 --foro 0001
-Saída: uma linha JSON por número (valido, normalizado, sequencial, ano, foro, origem_2grau).
+    python cnj.py 0700123-83.2024.8.02.0001 [...]
+    python cnj.py --completar 0700123-83.2024 --foro 0001   (sem --foro, usa 0000)
+Saída: uma linha JSON por número (entrada, normalizado, treze_digitos, sequencial, digito, ano,
+segmento, tribunal, foro, originario_2grau, valido e, se inválido, motivo).
 """
 import json
 import re

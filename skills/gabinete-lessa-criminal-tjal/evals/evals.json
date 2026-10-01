@@ -70,7 +70,7 @@
         "Acessa o e-SAJ de 2º grau pela entrada https://www2.tjal.jus.br/cposg5/open.do?gateway=true",
         "Minuta também o voto de referendo (tipo referendo) e alerta o prazo do art. 63, § 4º, do RITJAL",
         "Cita artigos do Regimento conferidos por scripts/regimento.py e registrados no ledger",
-        "Não comanda à Secretaria comunicação que o art. 194 do RITJAL já lhe impõe, salvo reforço justificado pela urgência"
+        "Traz a ordem de comunicação imediata da decisão concessiva às autoridades que devam cumpri-la (ou a fórmula de que servirá como ofício), firmada pelo relator (RITJAL, art. 194, parágrafo único), sem atribuí-la à Secretaria"
       ]
     },
     {
@@ -87,7 +87,7 @@
     {
       "id": 8,
       "prompt": "Qual é o prazo de vista na Câmara Criminal e o que diz o Regimento sobre o voto-vista?",
-      "expected_output": "Resposta com o texto vigente dos arts. 173 e 174 do RITJAL obtido por scripts/regimento.py: dez dias, prorrogáveis por mais dez mediante comunicação ao Presidente; voto-vista sempre escrito, ainda que para acompanhar.",
+      "expected_output": "Resposta com o texto vigente dos arts. 173 e 174 do RITJAL obtido por scripts/regimento.py: dez dias, contados do pedido, prorrogáveis por mais dez mediante comunicação ao Presidente do órgão julgador; voto-vista sempre escrito, ainda que apenas para acompanhar.",
       "files": [],
       "expectations": [
         "Consulta o texto vigente por scripts/regimento.py em vez de responder de memória",

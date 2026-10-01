@@ -1,5 +1,5 @@
 # REGIMENTO INTERNO DO TRIBUNAL DE JUSTIÇA DO ESTADO DE ALAGOAS — TEXTO VIGENTE PESQUISÁVEL
-# Fonte: referencias/ritjal_consolidado_emenda19.pdf (PDF consolidado fornecido pelo gabinete em 01/10/2026, 94 p.). Versão: Regimento aprovado pelo Pleno em 20/08/2024, com as Emendas n.º 17 (19/08/2025), 18 (27/01/2026) e 19 (10/02/2026).
+# Fonte: referencias/ritjal_consolidado_emenda19.pdf (PDF consolidado fornecido pelo gabinete em 01/10/2026, 94 p.). Versão: Regimento aprovado pelo Pleno em 20/08/2024, com as Emendas n.ºs 17 (19/08/2025), 18 (27/01/2026) e 19 (10/02/2026).
 # Extraído em 2026-10-01 por scripts/extrair_regimento.py: o texto TACHADO no PDF
 # (revogado) foi EXCLUÍDO e está em ritjal_revogados.txt; o texto em azul no PDF (incluído por
 # emenda) está aqui com a respectiva anotação. Quebras de linha do PDF preservadas; marcas de

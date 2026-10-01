@@ -1,7 +1,7 @@
 ﻿# testar_acesso.ps1 — teste de acesso SOMENTE LEITURA ao SAJ/SG5 (Fase 0 do skill).
 # Não clica, não digita, não altera nada no sistema: apenas localiza o processo e a janela do SG5,
 # lista as janelas SAJ visíveis (modais pendentes), captura a tela principal e confere a lotação
-# contra config/gabinete.json. O teste do e-SAJ de 2º grau é feito pelo navegador (SKILL.md, 0.1).
+# contra config/gabinete.json. O teste do e-SAJ de 2º grau é feito pelo navegador (SKILL.md, Fase 0, item 0.1).
 # Uso: powershell -ExecutionPolicy Bypass -File scripts\testar_acesso.ps1
 param([string]$Saida = (Join-Path (Get-Location) '_teste_acesso.json'))
 

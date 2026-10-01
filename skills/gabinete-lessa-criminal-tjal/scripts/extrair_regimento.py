@@ -89,7 +89,7 @@ def main(argv):
     saida = Path(argv[argv.index("--saida") + 1]) if "--saida" in argv else \
         Path(__file__).resolve().parent.parent / "referencias"
     versao = argv[argv.index("--versao") + 1] if "--versao" in argv else \
-        "Regimento aprovado pelo Pleno em 20/08/2024, com as Emendas n.º 17 (19/08/2025), 18 (27/01/2026) e 19 (10/02/2026)"
+        "Regimento aprovado pelo Pleno em 20/08/2024, com as Emendas n.ºs 17 (19/08/2025), 18 (27/01/2026) e 19 (10/02/2026)"
     vigente, revogado, n = extrair(pdf_path)
     cab = [
         "# REGIMENTO INTERNO DO TRIBUNAL DE JUSTIÇA DO ESTADO DE ALAGOAS — TEXTO VIGENTE PESQUISÁVEL",

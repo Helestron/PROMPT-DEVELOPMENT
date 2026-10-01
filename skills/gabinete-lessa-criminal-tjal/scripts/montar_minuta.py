@@ -2,8 +2,11 @@
 """Monta a VERSÃO ANOTADA (.docx) de uma minuta a partir de texto com marcação leve.
 
 Marcação aceita (uma linha = um parágrafo; linha em branco é ignorada):
-    # TÍTULO                 epígrafe estrutural (DESPACHO, DECISÃO MONOCRÁTICA, RELATÓRIO,
-                             VOTO, EMENTA) — centralizada, negrito, caixa alta
+    # TÍTULO                 epígrafe estrutural — centralizada, negrito, caixa alta; só as
+                             admitidas pelo portão (verificar_minuta.py): DESPACHO, DECISÃO,
+                             DECISÃO MONOCRÁTICA, RELATÓRIO, VOTO, VOTO-VISTA, VOTO DIVERGENTE,
+                             VOTO VENCIDO, DECLARAÇÃO DE VOTO, VOTO (REFERENDO DE LIMINAR),
+                             EMENTA e NOTA DE REVISÃO
     > texto                  citação longa (recuo de 4 cm, espaçamento simples, fonte menor)
     **trecho**               negrito
     _trecho_                 itálico (só para estrangeirismos)

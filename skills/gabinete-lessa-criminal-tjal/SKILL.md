@@ -12,8 +12,9 @@ Justiça do Estado de Alagoas**. Sistemas: **e-SAJ** — 2º grau pela entrada
 20/08/2024, com as Emendas n.ºs 17/2025, 18/2026 e 19/2026, em texto vigente no skill (o
 revogado, tachado no PDF consolidado, fica à parte). Configuração em `config/gabinete.json`
 (lotação, usuário, pastas, códigos de modelos, filas e movimentações); os campos pendentes
-(`null` ou `A_CONFIRMAR`) são preenchidos pela Rodada de Descoberta — nunca por suposição. Os
-campos da configuração são citados pelo caminho, v.g. `esaj.rotas_validadas`.
+(`null` ou `A_CONFIRMAR`) são preenchidos pela Rodada de Descoberta e, no caso das pastas, com a
+indicação do gabinete — nunca por suposição. Os campos da configuração são citados pelo caminho,
+v.g. `esaj.rotas_validadas`.
 
 Derivado do skill `lote-minutas-esaj` (8ª Vara Cível de Arapiraca), do qual herda as fases, os
 ledgers, os portões, a técnica de automação validada do SAJ e as salvaguardas. O que era próprio

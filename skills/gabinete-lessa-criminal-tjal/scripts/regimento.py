@@ -27,7 +27,7 @@ REVOGADOS = BASE.with_name("ritjal_revogados.txt")
 HIFEN_FINAL = re.compile(r"[\w)]-$")
 INICIO = re.compile(r"^Art\.\s*(\d+)\s*[º°o]?\s*\.?\s*-?\s*(.*)$")
 MARCA = re.compile(r"\((?:Alterad[oa]|Incluíd[oa]|Redação dada)[^)]*Emenda[^)]*\)", re.I)
-VERSAO = "RITJAL aprovado em 20/08/2024, com as Emendas n.º 17/2025, 18/2026 e 19/2026"
+VERSAO = "RITJAL aprovado em 20/08/2024, com as Emendas n.ºs 17/2025, 18/2026 e 19/2026"
 
 
 def carregar(caminho=BASE):

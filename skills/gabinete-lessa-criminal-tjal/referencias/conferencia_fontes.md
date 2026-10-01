@@ -8,10 +8,10 @@ inteiras.
 ## 1. Ledger de verificações (`_verificacoes.json`)
 
 Uma entrada por citação candidata, no esquema documentado em `scripts/conferir_citacoes.py`:
-`id`, `tipo` (precedente, súmula, tema, dispositivo, regimento, doutrina), `chave`, órgão,
-relator, datas de julgamento e publicação, `fonte`, **`trecho_literal`**, para dispositivos e
-regimento a data `redacao_vigente_conferida_em`, e `status` (`VERIFIED`, `REJECTED`,
-`PENDENTE`). A minuta só pode citar entradas `VERIFIED`; `conferir_citacoes.py --ledger` é
+`id`, `tipo` (`precedente`, `sumula`, `tema`, `dispositivo`, `regimento` ou `doutrina`),
+`chave`, órgão, relator, datas de julgamento e publicação, `fonte`, **`trecho_literal`**, para
+dispositivos e regimento a data `redacao_vigente_conferida_em`, e `status` (`VERIFIED`,
+`REJECTED` ou `PENDENTE`). A minuta só pode citar entradas `VERIFIED`; `conferir_citacoes.py --ledger` é
 portão da Fase 4 — citação sem entrada, `REJECTED` ou `PENDENTE` bloqueia a versão limpa.
 
 O ledger é **por lote**, mas entradas `VERIFIED` podem ser reaproveitadas em lotes seguintes
@@ -43,8 +43,8 @@ JusBrasil (sessão autenticada) valem como comprovação, ao lado dos sítios of
 origem no ledger.
 
 **Pistas, nunca citação**: JusIA e qualquer assistente generativo, blogs, resumos e a própria
-memória do modelo — produzem ementa parafraseada, número trocado e precedente inexistente com
-frequência conhecida. Método: varredura nas pistas → confirmação de cada candidato na fonte
+memória do modelo produzem, com frequência conhecida, ementa parafraseada, número trocado e
+precedente inexistente. Método: varredura nas pistas → confirmação de cada candidato na fonte
 primária → transcrição literal e dados completos → só então a redação.
 
 **Delegação**: a verificação pode ser distribuída a subagentes, em consultas agrupadas por tema;
@@ -54,8 +54,9 @@ conferido por amostragem antes de virar `VERIFIED`.
 ## 3. Dispositivos regimentais — Regimento Interno do TJAL
 
 Texto vigente **disponível no skill**: `referencias/ritjal_integral.txt`, extraído do PDF
-consolidado fornecido pelo gabinete em 01/10/2026 (Regimento aprovado pelo Pleno em 20/08/2024,
-com as Emendas n.º 17/2025, 18/2026 e 19/2026). O PDF marca o texto revogado **por tachado**; a
+consolidado fornecido pelo gabinete em 01/10/2026 (`referencias/ritjal_consolidado_emenda19.pdf`;
+Regimento aprovado pelo Pleno em 20/08/2024, com as Emendas n.ºs 17/2025, 18/2026 e 19/2026),
+que prevalece em caso de dúvida sobre a extração. O PDF marca o texto revogado **por tachado**; a
 extração (`scripts/extrair_regimento.py`) o exclui do texto vigente e o guarda em
 `referencias/ritjal_revogados.txt` (antigos parágrafos únicos dos arts. 32 e 63 e redações
 anteriores dos arts. 93 e 99), apenas para consulta histórica. Mapa temático com transcrições:
@@ -71,19 +72,20 @@ anteriores dos arts. 93 e 99), apenas para consulta histórica. Mapa temático c
    status para `VERIFIED` ou `REJECTED` e só então rode `conferir_citacoes.py`.
 3. **Remissões externas do Regimento**: o RITJAL remete à Lei n.º 6.564/2005 (Código de
    Organização Judiciária) quanto ao quantitativo de Desembargadores (art. 2º), à composição e ao
-   quórum mínimo das Câmaras (art. 6º) e à eleição de sua presidência (art. 16) — o quórum da
-   Câmara Criminal está no próprio Regimento (art. 141) —, a
-   Resoluções do TJAL (lavratura de acórdãos — art. 181; sessões virtuais — art. 152; plantão —
-   art. 75) e ao Código de Normas da CGJ/AL (RESE com mais de um réu — arts. 322 e 327). O
-   Código de Normas está no skill (`referencias/cgj_normas_integral.txt`; arts. 797 e 798); a Lei
-   n.º 6.564/2005 e as Resoluções não estão — cite-as apenas depois de obtido o texto oficial.
+   quórum mínimo das Câmaras (art. 6º) e à eleição de sua presidência (art. 16); o quórum da
+   Câmara Criminal, porém, está no próprio Regimento (art. 141). Remete também a Resoluções do
+   TJAL (lavratura de acórdãos — art. 181; sessões virtuais — art. 152; plantão — art. 75) e ao
+   Código de Normas da CGJ/AL (RESE interposto por apenas um ou alguns dos réus, ou por um réu
+   enquanto outro apela — arts. 322 e 327). O Código de Normas está no skill
+   (`referencias/cgj_normas_integral.txt`; arts. 797 e 798); a Lei n.º 6.564/2005 e as Resoluções
+   não estão — cite-as apenas depois de obtido o texto oficial.
 4. **Casos omissos e dúvidas**: aplicam-se, no que couber, o RISTF e o RISTJ, nessa ordem
    (art. 392); havendo divergência de interpretação regimental ou ausência de previsão interna,
    qualquer Desembargador pode, antes de votar, pedir o pronunciamento prévio do Pleno (art. 389,
    I e II).
 5. **Atualização**: nova emenda → `python scripts/extrair_regimento.py <PDF consolidado>`
    (requer `pip install pdfplumber`), depois `python scripts/gerar_mapa_regimento.py`, e
-   reconferir as entradas `regimento` do ledger com mais de 30 dias.
+   reconferir todas as entradas `regimento` do ledger anteriores à emenda.
 
 **Jurisprudência do TJAL**: repositórios oficiais são o DJe e a Revista do TJAL (art. 299); o
 Tribunal mantém banco de precedentes e de teses de IRDR e IAC (arts. 297 e 298) e relação de
@@ -105,9 +107,9 @@ dictum); (iv) não foi superado (overruling), cancelado ou modulado; (v) se for 
 divergência entre as Turmas criminais do STJ (Quinta e Sexta)? Registre a divergência e a
 posição da Terceira Seção, se houver.
 
-**Precedentes qualificados** (súmula vinculante, repercussão geral, recursos repetitivos,
-IAC, IRDR do TJAL): analise sempre a adequação do caso; na minuta, só se trata do tema quando
-aplicado ou invocado por parte (`estilo_gabinete.md`, item 6.a). Suspensão nacional determinada em tema
+**Precedentes qualificados** (súmula vinculante, repercussão geral, recursos repetitivos, IAC e
+IRDR): analise sempre a adequação do caso; na minuta, só se trata do tema quando aplicado ou
+invocado por parte (`estilo_gabinete.md`, item 6.a). Suspensão nacional determinada em tema
 afetado alcança o processo? Decidir feito suspenso é risco de nulidade.
 
 **Prevalência**: divergência entre o STJ/STF e o entendimento da Câmara ou do próprio

@@ -41,7 +41,7 @@ S = []
 S.append("""# Regimento Interno do TJAL — mapa de uso do gabinete
 
 **Estado: PREENCHIDO** a partir do PDF consolidado fornecido pelo gabinete em 01/10/2026:
-Regimento aprovado pelo Pleno em 20/08/2024, com as Emendas n.º 17 (19/08/2025), 18 (27/01/2026)
+Regimento aprovado pelo Pleno em 20/08/2024, com as Emendas n.ºs 17 (19/08/2025), 18 (27/01/2026)
 e 19 (10/02/2026). O texto vigente (`referencias/ritjal_integral.txt`) foi extraído por
 `scripts/extrair_regimento.py`, que **exclui o texto tachado (revogado)** no PDF — guardado à parte
 em `referencias/ritjal_revogados.txt` — e preserva os hífens reais. As transcrições abaixo foram

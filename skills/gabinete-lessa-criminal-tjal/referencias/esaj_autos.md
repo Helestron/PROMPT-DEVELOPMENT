@@ -9,16 +9,17 @@ https://www2.tjal.jus.br/cposg5/open.do?gateway=true
 ```
 
 É a entrada do gabinete para a consulta de 2º grau. **Toda consulta de 2º grau começa por essa
-URL**, na sessão autenticada do Chrome. O parâmetro `gateway=true` indica o acesso pela porta de
-usuário interno; na primeira execução, confirme e registre no caderno de bordo o que ela libera
-em relação à consulta pública (`/cposg5/open.do` sem o parâmetro) — em especial a pasta digital
-e os feitos em segredo de justiça — e não troque de entrada no meio do lote.
+URL**, na sessão autenticada do Chrome. Presume-se que o parâmetro `gateway=true` encaminhe a
+consulta pelo portal de acesso autenticado do e-SAJ; na primeira execução, confirme-o e registre
+no caderno de bordo o que essa entrada libera em relação à consulta pública (`/cposg5/open.do`
+sem o parâmetro) — em especial a pasta digital e os feitos em segredo de justiça — e não troque
+de entrada no meio do lote.
 
 As rotas do 1º grau (`/cpopg/`) foram **validadas em execução real** no skill de origem
 (`lote-minutas-esaj`, 08–09/2026). As rotas internas do 2º grau a partir da entrada (URL de
-pesquisa e link da pasta digital) devem ser registradas em `config/gabinete.json >
-esaj.rotas_validadas` na primeira execução, com a data — descubra-as na própria página, nunca as
-monte de memória.
+pesquisa e link da pasta digital) devem ser registradas em `esaj.rotas_validadas`
+(`config/gabinete.json`) na primeira execução, com a data — descubra-as na própria página, nunca
+as monte de memória.
 
 ## 1. O que baixar em cada classe
 
@@ -47,24 +48,25 @@ https://www2.tjal.jus.br/cpopg/search.do?conversationId=&cbPesquisa=NUMPROC&dado
 2º grau: abra `https://www2.tjal.jus.br/cposg5/open.do?gateway=true`, confira que a sessão está
 autenticada (sem tela de login e com o usuário identificado), pesquise pelo número unificado na
 própria tela e **registre a URL de resultado efetivamente gerada** em
-`rotas_validadas.consulta_2grau_search` (e o link da pasta em `rotas_validadas.pasta_2grau`).
+`esaj.rotas_validadas.consulta_2grau_search` (e o link da pasta em
+`esaj.rotas_validadas.pasta_2grau`).
 Nas execuções seguintes, use as URLs registradas, sempre na sessão aberta pela entrada `gateway`.
 Se a pesquisa por URL direta perder a autenticação, volte à entrada e pesquise pela tela.
 
 Dados de cadastro úteis: nos processos criminais, o sistema registra a data da infração, do
 recebimento da denúncia ou queixa, da prisão e da sentença (RITJAL, art. 83, parágrafo único) —
-use-os para **pré-conferir** a prescrição, sempre confirmados nos autos antes de entrar no JSON
-de `prescricao.py`. A prioridade registrada no cadastro (art. 74, parágrafo único) orienta a
+use-os para **pré-conferir** a prescrição, sempre confirmados nos autos antes de entrarem no
+JSON de `prescricao.py`. A prioridade registrada no cadastro (art. 74, parágrafo único) orienta a
 ordem do lote.
 
-Com `get_page_text`, extraia da capa: classe, assunto, partes (réu preso? — a capa costuma sinalizar),
-relator, revisor, órgão julgador, movimentações, incidentes, processos apensos e vinculados,
-**situação de pauta** (incluído em pauta, sessão designada, adiado, retirado) e o `processo.codigo`.
-As movimentações são o mapa da fase: leia-as antes dos autos.
+Com `get_page_text`, extraia da capa: classe, assunto, partes (réu preso? — a capa costuma
+sinalizar), relator, revisor, órgão julgador, movimentações, incidentes, processos apensos e
+vinculados, **situação de pauta** (incluído em pauta, sessão designada, adiado, retirado) e o
+`processo.codigo`. As movimentações são o mapa da fase: leia-as antes dos autos.
 
 ## 3. Download da pasta digital — rota programática
 
-Na sessão autenticada (Chrome), via `javascript_tool`. **1º grau — rota validada:**
+Execute na sessão autenticada (Chrome), via `javascript_tool`. **1º grau — rota validada:**
 
 ```js
 // cd = processo.codigo, extraído da URL show.do da capa
@@ -89,13 +91,14 @@ for (const p of params) {
 // na página do processo aberta a partir da entrada gateway
 const links = [...document.querySelectorAll('a')].map(a => a.href)
         .filter(h => /pasta|abrirPasta/i.test(h));
-// abra o link encontrado (ou o equivalente /cposg5/... de rotas_validadas.pasta_2grau);
+// abra o link encontrado (ou o equivalente /cposg5/... de esaj.rotas_validadas.pasta_2grau);
 // se devolver a URL do visualizador como texto, siga o passo 1 acima; se devolver o próprio
 // visualizador, aplique diretamente os passos 2 e 3. Registre a rota confirmada.
 ```
 
 **Rotas mortas no 1º grau** (não insista): `salvarDocumentoPreparado.do` (HTTP 500) e
-`recuperaPdfsImpressao.action` (HTTP 404). Se o 2º grau revelar outras, registre-as aqui.
+`recuperaPdfsImpressao.action` (HTTP 404). Se o 2º grau revelar outras, registre-as no caderno
+de bordo, para proposta de atualização desta referência (SKILL.md, item 8).
 
 **Resiliência**: 4 retentativas por peça com espera progressiva; até 4 requisições simultâneas;
 teto de 40 s por espera assíncrona; quando a saída da ferramenta for o canal de transporte, blob
@@ -115,10 +118,11 @@ mídia, a minuta marca em vermelho `[Conferir: depoimento em mídia de fls. X n�
 
 ## 4. Texto e OCR
 
-`pdftotext -layout`; vazio (autos por imagem), `pdftoppm -r 150 -png` + `tesseract <img> stdout`
-— sem parâmetro de idioma quando o pacote `por` não estiver instalado (com o parâmetro ausente do
-sistema, o tesseract não produz saída alguma). Numere as fls. pela paginação da pasta digital, que
-é a que o magistrado vê.
+Extraia o texto com `pdftotext -layout`. Se vier vazio (autos digitalizados como imagem),
+rasterize com `pdftoppm -r 150 -png` e aplique `tesseract <img> stdout`, acrescentando `-l por`
+somente se o idioma português constar de `tesseract --list-langs`: pedido um idioma não
+instalado, o tesseract não produz saída alguma. Numere as fls. pela paginação da pasta digital,
+que é a que o magistrado vê.
 
 ## 5. Sessão do e-SAJ
 

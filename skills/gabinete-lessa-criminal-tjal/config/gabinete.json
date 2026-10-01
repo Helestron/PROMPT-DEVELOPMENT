@@ -1,5 +1,5 @@
 {
-  "_leia_me": "Configuração do gabinete. Campos com valor null ou 'A_CONFIRMAR' estão pendentes e são preenchidos na Rodada de Descoberta (referencias/saj_sg5_operacoes.md, item 1) a partir do que o próprio sistema exibir — nunca por suposição; a operação que dependa de campo pendente não se executa. As chaves de saj_sg5.categorias e saj_sg5.modelos coincidem com os tipos de minuta do portão (verificar_minuta.py). Não registre aqui senha, PIN, token nem dado de certificado.",
+  "_leia_me": "Configuração do gabinete. Campos com valor null ou 'A_CONFIRMAR' estão pendentes e são preenchidos na Rodada de Descoberta (referencias/saj_sg5_operacoes.md, item 1) a partir do que o próprio sistema exibir (as pastas, com a indicação do gabinete) — nunca por suposição; a operação que dependa de campo pendente não se executa. As chaves de saj_sg5.categorias e saj_sg5.modelos coincidem com os tipos de minuta do portão (verificar_minuta.py). Não registre aqui senha, PIN, token nem dado de certificado.",
   "gabinete": {
     "tribunal": "Tribunal de Justiça do Estado de Alagoas",
     "orgao_julgador": "Câmara Criminal",
