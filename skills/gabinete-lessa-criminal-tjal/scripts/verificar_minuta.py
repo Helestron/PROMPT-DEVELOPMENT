@@ -14,14 +14,21 @@ Código de saída: 0 aprovado; 1 há bloqueantes; 2 uso incorreto (tipo ou vers�
 
 As listas "linguagem_de_metodo", "termos_tema" e "termos_prazo" são expressões regulares, para
 não confundir linguagem de método com fatos do processo ("extração de dados do celular",
-"varredura policial no imóvel", "distância percorrida").
+"varredura policial no imóvel", "distância percorrida", "texto extraído do aparelho celular").
+
+O texto é lido em Unicode NFC. Tabela, caixa de texto, hiperlink, campo, controle de conteúdo e
+alteração controlada pendente bloqueiam: o portão e o conversor para RTF leem apenas parágrafos
+e runs simples, e o que estivesse nessas estruturas sumiria do documento enviado ao SAJ sem ter
+sido verificado.
 """
 import json
 import re
 import sys
+import unicodedata
 from pathlib import Path
 
 from docx import Document
+from docx.oxml.ns import qn
 
 PADRAO = {
     "titulos_admitidos": ["DESPACHO", "DECISÃO", "DECISÃO MONOCRÁTICA", "RELATÓRIO", "VOTO",
@@ -44,8 +51,10 @@ PADRAO = {
     },
     "expressoes_vedadas": ["publique-se", "intime-se", "intimem-se", "cumpra-se", "registre-se"],
     "linguagem_de_metodo": [r"varredura\s+(?:dos|das|do|da)\s+(?:autos|peças|processo|documentos)",
-                            r"camada de texto", r"extração\s+(?:de|do)\s+texto", r"texto\s+extraído",
-                            r"\bocr\b", r"renderiz", r"página a página", r"examinad[oa]s?\s+visualmente",
+                            r"camada de texto", r"extração\s+(?:de|do)\s+texto",
+                            r"texto\s+extraído\s+(?:dos\s+autos|da\s+pasta|do\s+pdf|das?\s+peças?|dos?\s+documentos?)",
+                            r"\bocr\b", r"renderiz", r"página a página",
+                            r"(?:páginas?|peças?|documentos?|folhas?)\s+(?:foram\s+)?examinad[oa]s?\s+visualmente",
                             r"percorrid[oa]s?\s+(?:tod[oa]s\s+)?(?:as|os|a)\s+(?:peças|autos|íntegra|documentos|páginas)",
                             r"leitura integral", r"confrontad[oa]s?\s+(?:com\s+)?o\s+(?:cposg|cpopg)",
                             r"linha a linha", r"inteligência artificial", r"modelo de linguagem"],
@@ -64,13 +73,24 @@ PADRAO = {
 }
 MARCA_RESSALVA = "Resolução CNJ n.º 615/2025"
 MARCA_ADVERTENCIA = "Os trechos em vermelho são apontamentos de conferência"
-DATA = re.compile(r"\b\d{1,2}/\d{1,2}/\d{2,4}\b|\b\d{1,2}º? de (janeiro|fevereiro|março|abril|maio|junho|julho|"
-                  r"agosto|setembro|outubro|novembro|dezembro) de \d{4}\b", re.I)
-HORA = re.compile(r"\b\d{1,2}:\d{2}\b|\b\d{1,2}h\d{2}\b", re.I)
+DATA = re.compile(r"\b\d{1,2}/\d{1,2}/\d{2,4}\b"
+                  r"|\b(?:0?[1-9]|[12]\d|3[01])\.(?:0?[1-9]|1[0-2])\.(?:19|20)\d{2}\b"
+                  r"|\b\d{1,2}\.?[º°]?\s+de\s+(?:janeiro|fevereiro|março|abril|maio|junho|julho|agosto|setembro|"
+                  r"outubro|novembro|dezembro)\b(?:\s+de\s+\d{4})?", re.I)
+HORA = re.compile(r"\b\d{1,2}:\d{2}\b|\b\d{1,2}h(?:\d{2})?(?:min)?\b|\bàs\s+\d{1,2}\s*horas?\b", re.I)
 ROMANO = re.compile(r"^\s*(?:[IVXL]+|\d+)\s*(?:[-–—.)]|\.\d)\s*")
-FECHO_ASSINATURA = re.compile(r"Macei[óo](/AL)?\s*,|Desembargador(a)?\s+Relator|Relator\(a\)\s*$", re.I)
+# Bloco de assinatura: linha de local e data, linha do nome do magistrado ou linha do cargo.
+FECHO_ASSINATURA = re.compile(r"^(?:Macei[óo](?:/AL)?\s*[,.]|(?:Des\.|Desembargador(?:a)?)\s+[^,;:]{0,80}$"
+                              r"|Relator(?:a|\(a\))?\.?$)", re.I)
+# "P. R. I." (publique-se, registre-se, intime-se) como fecho; no meio do texto, pode ser iniciais de parte.
+PRI = re.compile(r"\bP\.\s*R\.\s*I\.(?:\s*C\.)?\s*$|\bP\.\s*I\.(?:\s*C\.)?\s*$")
 # Colchetes legítimos em citações: supressão e anotações usuais; qualquer outro é campo pendente.
-COLCHETE_ADMITIDO = re.compile(r"\[(?:\.\.\.|…|sic|grifo nosso|grifos nossos|grifei|g\.n\.)\]", re.I)
+COLCHETE_ADMITIDO = re.compile(
+    r"\[(?:\.\.\.|…|sic!?|grifei|destaquei|negritei|g\.\s*n\.|n\.\s*g\.|"
+    r"(?:grifos?|destaques?)\s+(?:nossos?|meus?|do\s+original|no\s+original|acrescidos?))\]", re.I)
+NAO_SUPORTADO = {"w:tbl": "tabela", "w:txbxContent": "caixa de texto", "w:ins": "alteração controlada pendente",
+                 "w:del": "alteração controlada pendente", "w:moveFrom": "alteração controlada pendente",
+                 "w:moveTo": "alteração controlada pendente"}
 TIPOS = {"despacho", "decisao", "relatorio", "voto", "voto_vogal", "voto_vista", "voto_vencido",
          "declaracao_voto", "referendo", "ementa", "nota_revisao"}
 
@@ -92,23 +112,51 @@ def vermelho(run):
     return c is not None and c.type is not None and c.rgb is not None and str(c.rgb).upper() == "FF0000"
 
 
+def nfc(texto):
+    return unicodedata.normalize("NFC", texto)
+
+
+def estruturas_nao_suportadas(doc) -> list:
+    """Estruturas cujo texto o portão e o conversor RTF não leem (o texto se perderia)."""
+    corpo = doc.element.body
+    achados = {nome for tag, nome in NAO_SUPORTADO.items() if corpo.find(".//" + qn(tag)) is not None}
+    for p in corpo.iterchildren(qn("w:p")):
+        diretos = set(p.iterchildren(qn("w:r")))
+        if any(r not in diretos and r.find(qn("w:t")) is not None for r in p.iter(qn("w:r"))):
+            achados.add("texto em hiperlink, campo ou controle de conteúdo")
+    return sorted(achados)
+
+
 def ler(arquivo):
     doc = Document(arquivo)
     pars = []
     for p in doc.paragraphs:
-        texto = p.text.strip()
+        texto = nfc(p.text).strip()
         if not texto:
             continue
-        runs = [r for r in p.runs if r.text.strip()]
+        todos = [r for r in p.runs if r.text]
+        runs = [r for r in todos if r.text.strip()]
+        # Trechos em negrito contíguos (o Word fragmenta runs), com o texto que os antecede e segue.
+        negritos, i = [], 0
+        while i < len(todos):
+            if not todos[i].bold:
+                i += 1
+                continue
+            j = i
+            while j < len(todos) and (todos[j].bold or not todos[j].text.strip()):
+                j += 1
+            negritos.append((nfc("".join(r.text for r in todos[i:j])).strip(),
+                             nfc("".join(r.text for r in todos[:i])), nfc("".join(r.text for r in todos[j:]))))
+            i = j
         pars.append({
             "texto": texto,
             "todo_vermelho": bool(runs) and all(vermelho(r) for r in runs),
             "tem_vermelho": any(vermelho(r) for r in runs),
             "todo_negrito": bool(runs) and all(r.bold for r in runs),
-            "negritos": [r.text.strip() for r in runs if r.bold],
+            "negritos": negritos,
             "recuo_cm": (p.paragraph_format.left_indent.cm if p.paragraph_format.left_indent else 0),
         })
-    return pars
+    return pars, estruturas_nao_suportadas(doc)
 
 
 def palavras(t):
@@ -117,7 +165,7 @@ def palavras(t):
 
 def verificar(arquivo, tipo, versao, config=None):
     cfg = carregar(config or Path(__file__).resolve().parent.parent / "config" / "gabinete.json")
-    pars = ler(arquivo)
+    pars, estruturas = ler(arquivo)
     B, A = [], []
     titulos = {t.upper() for t in cfg["titulos_admitidos"]}
     corpo = [p for p in pars if not p["todo_vermelho"]]
@@ -145,6 +193,10 @@ def verificar(arquivo, tipo, versao, config=None):
     if tipo == "nota_revisao":  # documento interno: só as marcas acima importam
         return {"arquivo": str(arquivo), "tipo": tipo, "versao": versao, "bloqueantes": B, "apontamentos": A}
 
+    for nome in estruturas:
+        B.append(f"estrutura não suportada pelo portão e pelo conversor RTF ({nome}): converta em texto "
+                 "corrido ou, nas alterações controladas, aceite ou rejeite todas antes de verificar")
+
     # 2. Expressões vedadas e fecho com local/data/assinatura
     for exp in cfg["expressoes_vedadas"]:
         if re.search(rf"\b{re.escape(exp)}\b", baixo):
@@ -153,6 +205,14 @@ def verificar(arquivo, tipo, versao, config=None):
         # Bloco de assinatura é curto; menção ao "Desembargador Relator" no corpo do voto não é fecho.
         if palavras(t) <= 12 and (FECHO_ASSINATURA.search(t) or DATA.search(t)):
             B.append(f"fecho com local, data ou identificação do magistrado: {t[:80]!r}")
+    for t in textos:
+        if PRI.search(t):
+            B.append(f"expressão vedada: fórmula abreviada de publicação e intimação em {t[-60:]!r}")
+    # Linguagem de método é vedada em toda peça que vai aos autos, inclusive na ementa.
+    for termo in cfg["linguagem_de_metodo"]:
+        m = re.search(rf"(?<!\w)(?:{termo})", baixo)
+        if m:
+            B.append(f"linguagem de método: {m.group(0)!r}")
 
     # 3. Última linha
     ult = cfg["ultima_linha"].get(tipo)
@@ -166,7 +226,7 @@ def verificar(arquivo, tipo, versao, config=None):
         if len(idx) != 1:
             B.append(f"o relatório deve encerrar-se, uma única vez, com {fecho!r} (ocorrências: {len(idx)})")
         else:
-            inicio = next((i for i, t in enumerate(textos) if t.upper() in titulos), 0)
+            inicio = next((i for i, t in enumerate(textos) if t.upper() in titulos), -1)
             for t in textos[inicio + 1:idx[0]]:
                 if DATA.search(t) or HORA.search(t):
                     B.append(f"data ou horário no relatório: {t[:80]!r}")
@@ -186,7 +246,7 @@ def verificar(arquivo, tipo, versao, config=None):
         # 5. Epígrafes internas
         if p["todo_negrito"] and not citacao:
             B.append(f"parágrafo inteiro em negrito (epígrafe disfarçada): {t[:70]!r}")
-        if ROMANO.match(t) and palavras(t) <= 15:
+        if ROMANO.match(t) and palavras(t) <= 15 and not citacao:
             B.append(f"numeração de seção encabeçando bloco: {t[:70]!r}")
         if re.match(r"^(Da|Do|Das|Dos)\s", t) and palavras(t) <= 10 and not t.endswith("."):
             B.append(f"epígrafe interna: {t[:70]!r}")
@@ -199,11 +259,13 @@ def verificar(arquivo, tipo, versao, config=None):
         for s in re.split(r"(?<=[.!?])\s+", t):
             w = s.split()
             curto = palavras(s) <= 6 or (palavras(s) <= 12 and "," not in s)
-            if w and curto and w[0].lower().strip(",") in cfg["verbos_fragmento"]:
+            # Ênclise ("Nego-lhe provimento.") não disfarça o fragmento.
+            if w and curto and w[0].lower().strip(",").split("-")[0] in cfg["verbos_fragmento"]:
                 B.append(f"período fragmentado sem transição: {s!r}")
-        # 7. Negrito de período inteiro
-        for n in p["negritos"]:
-            if palavras(n) >= 10 and n.endswith("."):
+        # 7. Negrito de período inteiro (com o ponto dentro ou logo depois do negrito)
+        for n, antes, depois in p["negritos"]:
+            abre_periodo = not antes.strip() or re.search(r"[.!?:]\s*$", antes)
+            if palavras(n) >= 10 and (n.endswith(".") or (abre_periodo and re.match(r"\s*[.!?]", depois))):
                 B.append(f"negrito aplicado a período inteiro: {n[:70]!r}")
         # 8. Apontamentos de revisão
         if ":" in t and not citacao:
@@ -215,10 +277,6 @@ def verificar(arquivo, tipo, versao, config=None):
         if palavras(t) > cfg["max_palavras_paragrafo"] and not citacao:
             A.append(f"parágrafo com {palavras(t)} palavras: {t[:50]!r}")
 
-    for termo in cfg["linguagem_de_metodo"]:
-        m = re.search(rf"(?<!\w)(?:{termo})", baixo)
-        if m:
-            B.append(f"linguagem de método: {m.group(0)!r}")
     for termo in cfg["termos_tema"]:
         m = re.search(termo, baixo)
         if m:

@@ -74,8 +74,9 @@ def main(argv):
         return 2
     if argv[0] == "--completar":
         foro = argv[argv.index("--foro") + 1] if "--foro" in argv else "0000"
-        print(json.dumps(analisar(completar(argv[1], foro)), ensure_ascii=False))
-        return 0
+        r = analisar(completar(argv[1], foro))
+        print(json.dumps(r, ensure_ascii=False))
+        return 0 if r["valido"] else 1
     falhou = False
     for n in argv:
         r = analisar(n)

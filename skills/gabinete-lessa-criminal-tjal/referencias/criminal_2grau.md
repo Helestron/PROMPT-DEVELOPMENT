@@ -88,7 +88,10 @@ Nesses feitos, o voto é proferido no Pleno; ajuste o cabeçalho e o modelo do S
 ## 3. Dosimetria — conferência obrigatória por script
 
 Para cada réu e cada crime, preencha o JSON de `scripts/dosimetria.py` com os critérios **que a
-sentença ou o voto declararam** e rode o script: a conta deve fechar. Pontos de controle:
+sentença ou o voto declararam** e rode o script: a conta deve fechar. O script despreza a fração
+de dia ao fim de cada etapa (pena-base, cada incidência da 2ª fase, cada causa da 3ª fase), como
+a decisão faz ao exprimir em dias cada pena intermediária, e recusa causa da 3ª fase que não seja
+`aumento` ou `diminuicao`, ou diminuição com fração igual ou superior a 1. Pontos de controle:
 
 - **1ª fase (art. 59)**: cada circunstância desfavorável com fundamento concreto, não inerente ao
   tipo; vedado usar inquéritos e ações em curso para exasperar (pista: Súmula 444/STJ); vedado
@@ -103,7 +106,8 @@ sentença ou o voto declararam** e rode o script: a conta deve fechar. Pontos de
   não pelo simples número delas (pista: Súmula 443/STJ); tráfico privilegiado (art. 33, § 4º, da
   Lei n.º 11.343/2006 — requisitos e vedações; pista: Tema 1.139/STJ sobre ações penais em curso).
 - **Multa** proporcional à privativa (arts. 49 e 60 do CP).
-- **Regime e substituição**: o script devolve o quadro legal (art. 33, § 2º; art. 44); a
+- **Regime e substituição**: o script devolve o quadro legal (art. 33, § 2º; art. 44 — no crime
+  culposo, informe `"culposo": true`, pois a substituição cabe qualquer que seja a pena); a
   imposição de regime mais gravoso do que o permitido pelo quantum exige fundamentação concreta
   (pistas: Súmulas 440/STJ, 718 e 719/STF; reincidente com pena de até quatro anos — pista:
   Súmula 269/STJ).
@@ -118,6 +122,11 @@ crime isoladamente** (art. 119 do CP; sem o acréscimo da continuidade — pista
 Marcos interruptivos (art. 117 do CP), redução etária (art. 115), causas suspensivas (art. 116
 do CP; art. 366 do CPP) e a vedação de termo inicial anterior à denúncia para fatos posteriores à
 Lei n.º 12.234/2010 (art. 110, § 1º) são juízos do julgador; o script os aplica conforme o JSON.
+Informe sempre `data_fato` e `modalidade`: pena máxima inferior a um ano prescreve em dois anos
+para fato anterior a 06/05/2010 (redação original do art. 109, VI) e em três para o posterior.
+Prazo iniciado em dia que não existe no mês final (29, 30 ou 31) termina no último dia desse
+mês; suspensões sobrepostas contam uma só vez, e a iniciada depois de esgotado o prazo não o
+reabre.
 Acórdão confirmatório da condenação como marco interruptivo: conferir a orientação vigente do
 STF e do STJ. Prescrição consumada → a minuta a reconhece de ofício, antes do mérito.
 

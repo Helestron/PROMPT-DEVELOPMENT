@@ -12,7 +12,10 @@ Uma entrada por citação candidata, no esquema documentado em `scripts/conferir
 `chave`, órgão, relator, datas de julgamento e publicação, `fonte`, **`trecho_literal`**, para
 dispositivos e regimento a data `redacao_vigente_conferida_em`, e `status` (`VERIFIED`,
 `REJECTED` ou `PENDENTE`). A minuta só pode citar entradas `VERIFIED`; `conferir_citacoes.py --ledger` é
-portão da Fase 4 — citação sem entrada, `REJECTED` ou `PENDENTE` bloqueia a versão limpa.
+portão da Fase 4 — citação sem entrada, `REJECTED` ou `PENDENTE` bloqueia a versão limpa, e,
+havendo duas entradas para a mesma citação, prevalece a mais restritiva. Precedente do TJAL
+citado pelo número CNJ entra no ledger como `precedente`, com o próprio número na chave; passe
+`--processo <número>` para que o número do feito não seja tomado por citação.
 
 O ledger é **por lote**, mas entradas `VERIFIED` podem ser reaproveitadas em lotes seguintes
 quando a conferência tiver menos de 30 dias e a fonte não indicar alteração (súmula, tese ou

@@ -8,7 +8,8 @@ Descoberta (item 1), com `-Ensaio` antes da primeira execução real de cada rot
 ## 1. Rodada de Descoberta (primeira execução no gabinete, e a cada nova versão do SG5)
 
 Objetivo: substituir todo `null`/`A_CONFIRMAR` de `config/gabinete.json` pelo que o próprio
-sistema exibe. Somente leitura — nenhum documento é criado nesta rodada.
+sistema exibe. Somente leitura — nenhum documento é criado nesta rodada; os cliques de navegação
+usam `-Operacao consultar`.
 
 1. `saj_sg5.ps1 -Modo Verificar` → confirma o nome do processo (`sajsg5*`; se diferir, a saída
    lista os processos `saj*` ativos) e o caminho do executável.
@@ -56,7 +57,9 @@ ou, na falta, a pasta `scripts/`; SKILL.md, Fase 0, item 4):
  "processos": ["0700123-83.2024.8.02.0001"]}
 ```
 
-Sem arquivo válido, o script recusa a ação; operação fora da matriz também é recusada até ser
+Datas em ISO 8601 (`AAAA-MM-DDTHH:MM:SS`). Sem arquivo válido, o script recusa a ação — e
+também a autorização concedida em outro dia, com validade além do dia da concessão, com data em
+formato ambíguo (dd/mm) ou sem o texto literal; operação fora da matriz também é recusada até ser
 classificada em `config/gabinete.json`. Autorização não se presume, não se estende a outro lote e
 não se reutiliza depois de expirada.
 
@@ -84,10 +87,14 @@ não se reutiliza depois de expirada.
   -Saida fila.txt` — somente leitura; o clipboard é limpo ao final.
 
 Salvaguardas do script (não as contorne): identity gate (`-Processo sajsg5*`); kill switch
-(`PARAR.txt` ao lado do script ou na pasta de estado, conferido antes de qualquer ação — avise o
-usuário de que pode criá-lo a qualquer momento); log de auditoria `saj_log.jsonl` na pasta de
-estado (ação, janela, operação, processo, horário); `-Ensaio`; clipboard higienizado; termos
-vedados bloqueados, inclusive pelo nome real do controle clicado; matriz A/B/C.
+(`PARAR.txt` — ou qualquer arquivo iniciado por `PARAR`, como o `PARAR.txt.txt` que o Explorer
+gera com extensões ocultas — ao lado do script ou na pasta de estado, conferido antes de
+qualquer ação; avise o usuário de que pode criá-lo a qualquer momento); `-Operacao` obrigatório
+em todo modo que age sobre o SG5 (`Clique`, `CliqueXY`, `Rolar`, `Texto`, `Teclas`, `ColarRtf`,
+`CopiarSelecao`); log de auditoria `saj_log.jsonl` na pasta de estado (ação, janela, operação,
+processo, horário); `-Ensaio`; clipboard higienizado; termos vedados bloqueados, inclusive pelo
+nome real do controle clicado e, no `CliqueXY`, pelo nome do controle sob o ponto quando a UI
+Automation o expõe; matriz A/B/C.
 
 ## 4. Roteiros (receitas a validar no SG5; passos herdados do PG5 marcados ★)
 

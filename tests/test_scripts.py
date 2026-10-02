@@ -330,3 +330,235 @@ def test_prescricao_recusa_datas_fora_de_ordem():
         prescricao.calcular({"pena": "2a", "modalidade": "abstrato", "data_fato": "2020-01-10",
                              "marcos": [{"evento": "recebimento da denúncia", "data": "2019-01-01"}],
                              "data_referencia": "2026-10-01"})
+
+
+# ---------- revisão adversarial dos scripts: regressões ----------
+def test_prescricao_art109_vi_fato_anterior_a_lei_12234():
+    e = {"pena": "6m", "modalidade": "concreto", "transito_acusacao": True, "data_fato": "2009-03-01",
+         "marcos": [{"evento": "recebimento da denúncia", "data": "2009-06-01"},
+                    {"evento": "publicação da sentença condenatória", "data": "2011-08-01"}],
+         "data_referencia": "2011-09-01"}
+    r = prescricao.calcular(e)
+    assert r["prazo_anos"] == 2 and r["conclusao"] == "PRESCRICAO_CONSUMADA"
+    from datetime import date
+    seis_meses = prescricao.pena_exata("6m")
+    assert prescricao.prazo_art109(seis_meses, date(2010, 5, 5)) == 2
+    assert prescricao.prazo_art109(seis_meses, date(2010, 5, 6)) == 3  # vigência da Lei n.º 12.234/2010
+
+
+def test_prescricao_termo_no_dia_inexistente_vai_ao_fim_do_mes():
+    e = {"pena": "1a4m", "modalidade": "concreto", "transito_acusacao": True, "menor_21_no_fato": True,
+         "marcos": [{"evento": "recebimento da denúncia", "data": "2016-02-29"},
+                    {"evento": "publicação da sentença condenatória", "data": "2018-02-28"}],
+         "data_referencia": "2018-02-28"}
+    r = prescricao.calcular(e)
+    assert r["intervalos"][0]["termo_final_prazo"] == "2018-02-28" and r["conclusao"] == "NAO_CONSUMADA"
+
+
+def test_prescricao_suspensoes_sobrepostas_e_posteriores_ao_termo():
+    base = {"pena": "4a", "modalidade": "abstrato", "data_referencia": "2019-03-01",
+            "marcos": [{"evento": "recebimento da denúncia", "data": "2010-01-01"}]}
+    sobrepostas = prescricao.calcular({**base, "suspensoes": [{"inicio": "2012-01-01", "fim": "2012-12-31"},
+                                                              {"inicio": "2012-06-01", "fim": "2012-12-31"}]})
+    assert sobrepostas["intervalos"][0]["dias_suspensos"] == 366
+    assert sobrepostas["conclusao"] == "PRESCRICAO_CONSUMADA"
+    # suspensão iniciada no dia seguinte ao esgotamento do prazo não o reabre
+    tardia = prescricao.calcular({**base, "data_referencia": "2018-12-31",
+                                  "suspensoes": [{"inicio": "2018-01-01", "fim": "2018-12-31"}]})
+    assert tardia["conclusao"] == "PRESCRICAO_CONSUMADA"
+
+
+def test_prescricao_modalidade_ausente_equivale_a_concreto():
+    e = {"pena": "6m", "transito_acusacao": True, "data_fato": "2015-01-01",
+         "marcos": [{"evento": "recebimento da denúncia", "data": "2019-01-01"}], "data_referencia": "2020-01-01"}
+    sem = prescricao.calcular(e)
+    com = prescricao.calcular({**e, "modalidade": "concreto"})
+    assert sem["conclusao"] == com["conclusao"] == "NAO_CONSUMADA"
+    assert any("não informada" in o for o in sem["observacoes"])
+    with pytest.raises(ValueError):
+        prescricao.calcular({**e, "modalidade": "retroativa"})
+
+
+def test_dosimetria_valida_tipo_e_fracao_da_terceira_fase():
+    base = {"pena_min": "5a", "pena_max": "15a"}
+    assert dosimetria.calcular({**base, "fase3": [{"tipo": "Aumento", "fracao": "1/3"}]})["pena_final"] == \
+        "6 anos e 8 meses"
+    assert dosimetria.calcular({**base, "fase3": [{"tipo": "diminuição", "fracao": "1/3"}]})["pena_final"] == \
+        "3 anos e 4 meses"
+    for ruim in ({"tipo": "majorante", "fracao": "1/3"}, {"tipo": "diminuicao", "fracao": "3/2"}):
+        with pytest.raises(ValueError):
+            dosimetria.calcular({**base, "fase3": [ruim]})
+    with pytest.raises(ValueError):
+        dosimetria.calcular({**base, "multa_min": 10})
+
+
+def test_dosimetria_despreza_fracao_de_dia_em_cada_fase():
+    e = {"pena_min": "1a", "pena_max": "4a", "fase1": {"desfavoraveis": 1},
+         "fase2": {"agravantes": 0, "atenuantes": 1, "fracao": "1/6"},
+         "fase3": [{"tipo": "aumento", "fracao": "1/3"}], "afirmado": {"pena_final": "1a6m9d"}}
+    r = dosimetria.calcular(e)
+    assert r["pena_final"] == "1 ano, 6 meses e 9 dias" and r["conclusao"] == "CONFERE"
+
+
+def test_dosimetria_art44_crime_culposo():
+    r = dosimetria.calcular({"pena_min": "5a", "pena_max": "5a", "culposo": True})
+    assert "culposo" in r["quadro_art44"] and "incabível" not in r["quadro_art44"]
+
+
+def test_citacoes_formas_plurais_grau_cnj_e_inversa():
+    t = ("Nos termos das Súmulas 718 e 719 do STF, do HC n.° 598.051/SP, do RESP 1.234.567/SP e dos Temas "
+         "1.139 e 1.140/STJ (CF, art. 93, IX), esta Câmara Criminal, na Apelação Criminal n.º "
+         "0700123-83.2024.8.02.0001, Rel. Des. Fulano, decidiu no mesmo sentido.")
+    chaves = {a["chave_norm"]: a["tipo"] for a in conferir_citacoes.extrair(t)}
+    for k in ("SUMULA STF 718", "SUMULA STF 719", "HC 598051", "RESP 1234567", "TEMA STJ 1139",
+              "TEMA STJ 1140", "CF ART 93", "CNJ 0700123-83.2024.8.02.0001"):
+        assert k in chaves, k
+    assert chaves["CNJ 0700123-83.2024.8.02.0001"] == "precedente"
+    origem = conferir_citacoes.extrair("nos autos da ação penal n.º 0700456-12.2023.8.02.0058, a defesa requereu")
+    assert [a["tipo"] for a in origem] == ["processo"]
+    assert conferir_citacoes.extrair(t, processo="0700123-83.2024.8.02.0001") and \
+        "CNJ 0700123-83.2024.8.02.0001" not in {a["chave_norm"] for a in conferir_citacoes.extrair(
+            t, processo="0700123-83.2024.8.02.0001")}
+
+
+def test_citacoes_artigo_sem_diploma_nao_e_atribuido_ao_seguinte():
+    chaves = {a["chave_norm"] for a in conferir_citacoes.extrair("art. 5º, LVII, e o art. 386, VII, do CPP")}
+    assert chaves == {"CPP ART 386", "? ART 5"}
+
+
+def test_ledger_usa_chave_norm_e_o_status_mais_restritivo(tmp_path):
+    minuta = tmp_path / "m.txt"
+    minuta.write_text("A pena observa o art. 33 da Lei n.º 11.343/2006 e o art. 59 do CP.", encoding="utf-8")
+    fila = [{"id": "P001", "chave": "art. 33 da Lei n.º 11.343/2006 e o art. 59 do CP",
+             "chave_norm": "Lei 11343/2006 ART 33", "status": "VERIFIED"},
+            {"id": "P002", "chave": "art. 59 do CP", "chave_norm": "CP ART 59", "status": "PENDENTE"}]
+    ledger = tmp_path / "l.json"
+    ledger.write_text(json.dumps(fila), encoding="utf-8")
+    r = conferir_citacoes.conferir(minuta, ledger)
+    assert not r["aprovada"] and [b["chave_norm"] for b in r["bloqueantes"]] == ["CP ART 59"]
+    m3 = tmp_path / "m3.txt"
+    m3.write_text("Aplica-se a Súmula 231/STJ.", encoding="utf-8")
+    ledger.write_text(json.dumps([{"id": "V010", "chave": "Súmula 231/STJ", "status": "REJECTED"},
+                                  {"id": "V001", "chave": "Súmula 231/STJ", "status": "VERIFIED"}]), encoding="utf-8")
+    assert not conferir_citacoes.conferir(m3, ledger)["aprovada"]
+
+
+def _docx_com_hiperlink_e_tabela(tmp_path):
+    from docx.oxml import OxmlElement
+    from docx.oxml.ns import qn
+    out = _minuta(tmp_path, "hl", "# VOTO\nCom a devida vênia, divirjo, porque a jurisprudência é firme, como se vê "
+                  "do PRECEDENTE, no sentido de que a minorante deve ser aplicada ao caso concreto dos autos.\n"
+                  "Ante o exposto, voto no sentido de dar provimento ao recurso, nos termos da fundamentação.\n"
+                  "É como voto.\n{{ressalva}}\n{{advertencia}}\n")
+    doc = __import__("docx").Document(out)
+    p = [p for p in doc.paragraphs if "PRECEDENTE" in p.text][0]
+    r = [r for r in p.runs if "PRECEDENTE" in r.text][0]
+    antes, depois = r.text.split("PRECEDENTE")
+    r.text = antes
+    h = OxmlElement("w:hyperlink")
+    hr = OxmlElement("w:r")
+    t = OxmlElement("w:t")
+    t.text = "AgRg no HC 598.051/SP"
+    hr.append(t)
+    h.append(hr)
+    r._r.addnext(h)
+    resto = OxmlElement("w:r")
+    t2 = OxmlElement("w:t")
+    t2.text = depois
+    t2.set(qn("xml:space"), "preserve")
+    resto.append(t2)
+    h.addnext(resto)
+    doc.add_table(rows=1, cols=1).cell(0, 0).text = "Publique-se. Súmula 444/STJ."
+    doc.save(out)
+    return out
+
+
+def test_estruturas_nao_suportadas_bloqueiam_e_citacoes_sao_lidas(tmp_path):
+    out = _docx_com_hiperlink_e_tabela(tmp_path)
+    b = " | ".join(verificar_minuta.verificar(out, "voto", "anotada")["bloqueantes"])
+    assert "tabela" in b and "hiperlink" in b
+    chaves = {a["chave_norm"] for a in conferir_citacoes.extrair(conferir_citacoes.texto_de(out))}
+    assert {"AGRG NO HC 598051", "SUMULA STJ 444"} <= chaves
+    assert gerar_versoes.main([str(out), "--tipo", "voto"]) == 1  # nada vai ao RTF
+
+
+def test_portao_regressoes_de_falso_negativo(tmp_path):
+    casos = {
+        ("ementa", "linguagem de método"): "# EMENTA\nDIREITO PENAL. APELAÇÃO CRIMINAL. Após leitura integral dos "
+                                           "autos e extração do texto por OCR, verificou-se a ausência de prova.\n",
+        ("relatorio", "data ou horário"): "# RELATÓRIO\nTrata-se de apelação criminal interposta por J. S. contra a "
+                                          "sentença de fls. 210/218, publicada em 1.º de outubro de 2025.\nA audiência "
+                                          "realizou-se às 14h, conforme termo de fls. 120/125, com a oitiva de três "
+                                          "testemunhas arroladas pela acusação.\nÉ o relatório.\n",
+        ("voto_vogal", "período fragmentado"): "# VOTO DIVERGENTE\nCom a devida vênia ao eminente relator, divirjo "
+                                               "quanto à dosimetria, porque a fração aplicada carece de fundamentação "
+                                               "concreta, como demonstram as fls. 210.\nNego-lhe provimento.\n"
+                                               "É como voto.\n",
+        ("voto_vogal", "negrito aplicado"): "# VOTO DIVERGENTE\nCom a devida vênia ao eminente relator, divirjo, como "
+                                            "demonstram as fls. 210. **O réu deve ser absolvido por insuficiência de "
+                                            "provas, nos termos do art. 386, VII, do CPP**.\nÉ como voto.\n",
+        ("despacho", "abreviada"): "# DESPACHO\nConsiderando a renúncia do único defensor constituído, intime-se o "
+                                   "réu pessoalmente para constituir novo advogado no prazo legal. P. R. I.\n"
+                                   "Publicações e intimações via DJEN\n",
+    }
+    for (tipo, esperado), texto in casos.items():
+        b = " | ".join(verificar_minuta.verificar(_minuta(tmp_path, tipo, texto), tipo, "anotada")["bloqueantes"])
+        assert esperado in b, (tipo, esperado, b)
+    sem_titulo = _minuta(tmp_path, "st", "Trata-se de habeas corpus impetrado em 12/03/2026 em favor de A. B.\n"
+                         "Brevemente relatado, passo a decidir.\nPublicações e intimações via DJEN\n")
+    assert any("data ou horário" in b for b in verificar_minuta.verificar(sem_titulo, "decisao", "anotada")["bloqueantes"])
+
+
+def test_portao_regressoes_de_falso_positivo(tmp_path):
+    import unicodedata
+    texto = ("# VOTO DIVERGENTE\nCom a devida vênia, divirjo, porque o texto extraído do aparelho celular e a mídia "
+             "examinada visualmente pelo perito, às fls. 40, não comprovam a autoria [grifo meu], nem o laudo [sic!].\n"
+             "> II – o réu não for reincidente em crime doloso;\n"
+             "Ante o exposto, acompanho o eminente Desembargador Relator e nego provimento ao recurso.\n"
+             "É como voto.\n")
+    b = verificar_minuta.verificar(_minuta(tmp_path, "fp", unicodedata.normalize("NFD", texto)),
+                                   "voto_vogal", "anotada")["bloqueantes"]
+    assert not [x for x in b if "ressalva" not in x and "advertência" not in x and "vermelha" not in x], b
+    limpa = tmp_path / "fp_LIMPA.docx"
+    gerar_versoes.limpar(_minuta(tmp_path, "fp2", texto), limpa)
+    assert not any("colchete" in x for x in verificar_minuta.verificar(limpa, "voto_vogal", "limpa")["bloqueantes"])
+
+
+def test_versao_limpa_sem_espaco_residual(voto_anotado):
+    assert gerar_versoes.main([str(voto_anotado), "--tipo", "voto"]) == 0
+    texto = "\n".join(p.text for p in __import__("docx").Document(
+        voto_anotado.with_name("Minuta_voto_LIMPA.docx")).paragraphs)
+    assert "privilegiado, à luz" in texto and " ," not in texto and "  " not in texto
+
+
+def test_inventario_protege_a_pasta_e_preserva_o_estado(tmp_path):
+    pasta = tmp_path / "compartilhada"
+    pasta.mkdir()
+    (pasta / "voto.txt").write_text("VOTO\nRelator: Des. Fulano de Tal\n0700123-83.2024.8.02.0001\n", encoding="utf-8")
+    script = [sys.executable, str(SKILL / "scripts" / "inventario_votos.py")]
+    assert subprocess.run(script + [str(pasta)], capture_output=True, cwd=pasta).returncode == 2
+    assert subprocess.run(script + [str(pasta), "--saida", str(pasta / "x.json")], capture_output=True).returncode == 2
+    assert sorted(p.name for p in pasta.iterdir()) == ["voto.txt"]
+    saida = tmp_path / "inv.json"
+
+    def rodada(alvo=pasta):
+        subprocess.run(script + [str(alvo), "--saida", str(saida)], check=True, capture_output=True)
+        return json.loads(saida.read_text(encoding="utf-8"))["itens"][0]
+    assert rodada()["situacao"] == "NOVO"
+    assert rodada(pasta.resolve())["situacao"] == "NOVO"  # caminho absoluto não apaga o histórico
+    inv = json.loads(saida.read_text(encoding="utf-8"))
+    inv["itens"][0].update(revisado_em="2026-10-01", nota="Revisao_0700123.docx")
+    saida.write_text(json.dumps(inv), encoding="utf-8")
+    item = rodada()
+    assert item["situacao"] == "INALTERADO" and item["nota"] == "Revisao_0700123.docx"
+    with open(pasta / "voto.txt", "a", encoding="utf-8") as f:
+        f.write("acréscimo\n")
+    item = rodada()
+    assert item["situacao"] == "ALTERADO" and item["revisao_anterior"] == "2026-10-01" and not item["revisado_em"]
+    assert rodada()["situacao"] == "ALTERADO"  # persiste até nova revisão
+
+
+def test_regimento_e_cnj_sinalizam_entrada_invalida():
+    assert regimento.main(["63-A"]) == 1
+    assert cnj.main(["--completar", "0700123-00.2024", "--foro", "0001"]) == 1
+    assert cnj.main(["--completar", "0700123-83.2024", "--foro", "0001"]) == 0

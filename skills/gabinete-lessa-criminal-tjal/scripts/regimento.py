@@ -107,19 +107,28 @@ def buscar(termo, artigos=None):
 def fila(arquivo):
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     from conferir_citacoes import extrair, texto_de
-    nums = []
+    nums, com_letra = [], []
     for a in extrair(texto_de(Path(arquivo))):
-        m = re.fullmatch(r"RITJAL ART (\d+)", a["chave_norm"])
-        if m and int(m.group(1)) not in nums:
+        m = re.fullmatch(r"RITJAL ART (\d+)(-[A-Z])?", a["chave_norm"])
+        if m and m.group(2):
+            com_letra.append(m.group(1) + m.group(2))  # o RITJAL não tem artigos com letra
+        elif m and int(m.group(1)) not in nums:
             nums.append(int(m.group(1)))
     entradas = []
     for r in consultar(nums):
         entradas.append({
             "id": f"R{r['artigo']:03d}", "tipo": "regimento",
-            "chave": f"art. {r['artigo']} do Regimento Interno do TJAL",
+            "chave": f"art. {r['artigo']} do Regimento Interno do TJAL", "chave_norm": f"RITJAL ART {r['artigo']}",
             "fonte": "referencias/ritjal_integral.txt (" + VERSAO + ")",
             "trecho_literal": r.get("texto", ""), "observacao": "; ".join(r.get("avisos", [])) or r.get("erro", ""),
             "status": "PENDENTE" if "texto" in r else "REJECTED",
+        })
+    for art in com_letra:
+        entradas.append({
+            "id": f"R{art}", "tipo": "regimento", "chave": f"art. {art} do Regimento Interno do TJAL",
+            "chave_norm": f"RITJAL ART {art}", "fonte": "referencias/ritjal_integral.txt (" + VERSAO + ")",
+            "trecho_literal": "", "observacao": "artigo inexistente: o RITJAL não tem artigos com letra",
+            "status": "REJECTED",
         })
     return entradas
 
@@ -134,7 +143,10 @@ def main(argv):
     if argv[0] == "--revogados":
         print(REVOGADOS.read_text(encoding="utf-8") if REVOGADOS.exists() else "Arquivo de revogados ausente.")
         return 0
-    r = consultar([a for a in argv if a.isdigit()])
+    pedidos = [a.strip().rstrip("º°") for a in argv]
+    r = consultar([a for a in pedidos if a.isdigit()])
+    r += [{"artigo": a, "erro": "artigo inválido: informe só o número (o RITJAL não tem artigos com letra)"}
+          for a in pedidos if not a.isdigit()]
     print(json.dumps(r, ensure_ascii=False, indent=2))
     return 1 if any("erro" in x for x in r) else 0
 

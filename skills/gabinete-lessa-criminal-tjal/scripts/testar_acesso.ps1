@@ -42,7 +42,7 @@ $r.chrome_em_execucao = [bool](Get-Process -Name chrome -ErrorAction SilentlyCon
 $r.esaj_2grau_entrada = $cfg.esaj.entrada_2grau
 $TRABALHO = if ($env:GABINETE_TRABALHO) { $env:GABINETE_TRABALHO } else { $BASE }
 $r.pasta_de_estado = $TRABALHO
-$r.kill_switch_ativo = (Test-Path (Join-Path $BASE 'PARAR.txt')) -or (Test-Path (Join-Path $TRABALHO 'PARAR.txt'))
+$r.kill_switch_ativo = [bool](Get-ChildItem -Path @($BASE, $TRABALHO) -Filter 'PARAR*' -File -ErrorAction SilentlyContinue)
 
 ($r | ConvertTo-Json -Depth 4) | Out-File -FilePath $Saida -Encoding utf8
 $r.GetEnumerator() | ForEach-Object { '{0,-22} {1}' -f $_.Key, $_.Value }

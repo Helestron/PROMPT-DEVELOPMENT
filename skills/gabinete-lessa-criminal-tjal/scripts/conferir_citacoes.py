@@ -3,10 +3,19 @@
 
 Extrai de uma minuta (ou de voto de outro gabinete) todas as citações e as confronta com o
 ledger de verificações (_verificacoes.json). Citação sem entrada VERIFIED é pendência
-bloqueante; citação de entrada REJECTED também.
+bloqueante; citação de entrada REJECTED ou PENDENTE também — havendo mais de uma entrada para a
+mesma citação, prevalece a mais restritiva (REJECTED, depois PENDENTE, depois VERIFIED).
+
+Reconhece precedentes pela sigla ou pelo nome da classe (inclusive com "n.°"), súmulas e temas
+no singular ou em lista ("Súmulas 718 e 719 do STF"), dispositivos nas formas "art. 59 do CP" e
+"CP, art. 59" e precedentes do TJAL pelo número CNJ, quando o contexto indica julgado (TJAL,
+"Rel.", "julgado em", "DJe", "desta Câmara", "orientação", "entendimento"); outro número CNJ,
+salvo o do próprio processo (--processo), vira apontamento. Dispositivo cujo diploma não se identifica também vira apontamento. No .docx,
+lê também tabelas, hiperlinks e inserções controladas; ignora texto excluído e runs vermelhos.
 
 Uso:
     python conferir_citacoes.py arquivo.(docx|rtf|odt|pdf|txt|doc) --ledger _verificacoes.json
+                                [--processo NNNNNNN-DD.AAAA.8.02.OOOO]
         (.docx, .rtf, .odt e .txt são lidos sem dependências externas; .pdf usa pdftotext ou
          pdfplumber; .doc exige LibreOffice ou conversão prévia para .docx)
     python conferir_citacoes.py arquivo --listar [--saida fila.json]
@@ -27,16 +36,48 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import unicodedata
 from pathlib import Path
 
+NO = r"(?:n\.?\s*[º°]?s?\s*)?"  # "n.º", "nº", "n.°", "n.ºs", "n." — opcional
+# Classes por extenso, das mais longas às mais curtas, com a sigla normalizada.
+CLASSES_EXTENSO = [
+    (r"Recurso\s+(?:Ordin[áa]rio\s+)?em\s+Habeas\s+Corpus", "RHC"),
+    (r"Habeas\s+Corpus", "HC"),
+    (r"Agravo\s+em\s+Recurso\s+Especial", "ARESP"),
+    (r"Embargos\s+de\s+Diverg[êe]ncia\s+em\s+Recurso\s+Especial", "ERESP"),
+    (r"Recurso\s+Especial", "RESP"),
+    (r"Agravo\s+em\s+Recurso\s+Extraordin[áa]rio", "ARE"),
+    (r"Recurso\s+Extraordin[áa]rio", "RE"),
+    (r"Recurso\s+(?:Ordin[áa]rio\s+)?em\s+Mandado\s+de\s+Seguran[çc]a", "RMS"),
+    (r"Reclama[çc][ãa]o", "RCL"),
+]
+PREFIXOS_EXTENSO = [(r"Agravo\s+Regimental", "AGRG"), (r"Agravo\s+Interno", "AGINT"),
+                    (r"Embargos\s+de\s+Declara[çc][ãa]o", "EDCL")]
+_SIGLAS = r"HC|RHC|REsp|RESP|AREsp|ARESP|EREsp|ERESP|EAREsp|EARESP|RE|ARE|ADI|ADC|ADPF|Rcl|RCL|RMS|MS|AP|Inq|INQ|CC|RvCr"
+_PREF = r"AgRg|AGRG|AgInt|AGINT|EDcl|EDCL|EAREsp|ED"
 PREC = re.compile(
-    r"\b((?:(?:AgRg|AgInt|EDcl|EAREsp|ED)\s+n[oa]s?\s+(?:(?:AgRg|EDcl)\s+n[oa]s?\s+)?)?"
-    r"(?:HC|RHC|REsp|AREsp|EREsp|RE|ARE|ADI|ADC|ADPF|Rcl|RMS|MS|AP|Inq|CC|RvCr))"
-    r"\s*(?:n\.?\s*º?\s*)?(\d{1,3}(?:\.\d{3})+|\d{2,7})(?:\s*/\s*([A-Z]{2}))?")
+    rf"\b((?:(?:{_PREF})\s+n[oa]s?\s+(?:(?:{_PREF})\s+n[oa]s?\s+)?)?(?:{_SIGLAS}))"
+    rf"\s*{NO}(\d{{1,3}}(?:\.\d{{3}})+|\d{{2,7}})(?![\d-])(?:\s*/\s*([A-Z]{{2}}))?")
+PREC_EXTENSO = re.compile(
+    rf"\b((?:(?:{'|'.join(x for x, _ in PREFIXOS_EXTENSO)})\s+n[oa]s?\s+)?"
+    rf"(?:{'|'.join(x for x, _ in CLASSES_EXTENSO)}))"
+    rf"\s*{NO}(\d{{1,3}}(?:\.\d{{3}})+|\d{{2,7}})(?![\d-])(?:\s*/\s*([A-Z]{{2}}))?", re.I)
+CNJ = re.compile(r"\b\d{7}-\d{2}\.\d{4}\.\d\.\d{2}\.\d{4}\b")
+INDICIO_JULGADO = re.compile(r"\bTJ[A-Z]{2}\b|\bRel(?:\.|ator|atora)\b|\bjulgad[oa]\b|\bj\.\s*\d|\bDJ[eE]?\b|"
+                             r"\bDJAL\b|\bac[óo]rd[ãa]o\b|\bprecedente|\bdesta\s+(?:Câmara|Corte)\b|"
+                             r"\bdeste\s+Tribunal\b|\bCâmara\s+Criminal\b|\borienta[çc][ãa]o\b|\bentendimento\b|"
+                             r"\bjurisprud", re.I)
+TRIB = r"STF|STJ|TJAL|TFR|Supremo\s+Tribunal\s+Federal|Superior\s+Tribunal\s+de\s+Justi[çc]a"
+ITEM_SUM = rf"{NO}\d{{1,4}}(?:\s*/\s*(?:STF|STJ|TJAL|TFR))?"
 SUM = re.compile(
-    r"\bS[úu]mula\s+(Vinculante\s+)?(?:n\.?\s*º?\s*)?(\d{1,4})(?:\s*(?:/|d[oa])\s*(STF|STJ|TJAL|TFR))?", re.I)
-SUM_ENUNC = re.compile(r"\benunciado\s+(?:n\.?\s*º?\s*)?(\d{1,4})\s+da\s+S[úu]mula\s+(Vinculante\s+)?d[oa]\s+(STF|STJ|TJAL)", re.I)
-TEMA = re.compile(r"\bTema\s+(?:n\.?\s*º?\s*)?(\d{1,2}\.?\d{3}|\d{1,4})(?:\s*(?:/|d[oa])\s*(STF|STJ))?", re.I)
+    rf"\bS[úu]mulas?\s+(Vinculantes?\s+)?({ITEM_SUM}(?:(?:\s*,\s*|\s+e\s+){ITEM_SUM})*)"
+    rf"(?:\s*(?:/|d[oa])\s*({TRIB}))?", re.I)
+SUM_ENUNC = re.compile(rf"\benunciados?\s+{NO}(\d{{1,4}})\s+da\s+S[úu]mula\s+(Vinculante\s+)?d[oa]\s+({TRIB})", re.I)
+ITEM_TEMA = rf"{NO}(?:\d{{1,2}}\.\d{{3}}|\d{{1,4}})(?:\s*/\s*(?:STF|STJ))?"
+TEMA = re.compile(
+    rf"\bTemas?\s+({ITEM_TEMA}(?:(?:\s*,\s*|\s+e\s+){ITEM_TEMA})*)"
+    rf"(?:\s*(?:/|d[oa])\s*({TRIB})|\s+da\s+(repercuss[ãa]o\s+geral)|\s+dos\s+(?:recursos\s+)?(repetitivos))?", re.I)
 DIPLOMAS = [
     (r"C[óo]digo\s+de\s+Processo\s+Penal|CPP", "CPP"),
     (r"C[óo]digo\s+de\s+Processo\s+Civil|CPC", "CPC"),
@@ -48,13 +89,23 @@ DIPLOMAS = [
     (r"Regimento\s+Interno\s+do\s+(?:STJ|Superior\s+Tribunal\s+de\s+Justi[çc]a)|RISTJ", "RISTJ"),
     (r"Regimento\s+Interno\s+do\s+(?:STF|Supremo\s+Tribunal\s+Federal)|RISTF", "RISTF"),
     (r"RITJAL|Regimento(?:\s+Interno)?", "RITJAL"),
-    (r"Lei\s+(?:Complementar\s+)?n\.?\s*º?\s*([\d\.]+)\s*/\s*(\d{2,4})", "LEI"),
-    (r"Decreto-Lei\s+n\.?\s*º?\s*([\d\.]+)\s*/\s*(\d{2,4})", "DL"),
-    (r"Resolu[çc][ãa]o\s+(CNJ|TJAL)\s+n\.?\s*º?\s*([\d\.]+)\s*/\s*(\d{4})", "RES"),
+    (r"Lei\s+(?:Complementar\s+)?(?:n\.?\s*[º°]?\s*)?(\d[\d\.]*)\s*/\s*(\d{2,4})", "LEI"),
+    (r"Decreto-Lei\s+(?:n\.?\s*[º°]?\s*)?(\d[\d\.]*)\s*/\s*(\d{2,4})", "DL"),
+    (r"Resolu[çc][ãa]o\s+(CNJ|TJAL)\s+(?:n\.?\s*[º°]?\s*)?(\d[\d\.]*)\s*/\s*(\d{4})", "RES"),
 ]
 NUMS = r"\d+(?:\.\d{3})*(?:-[A-Z])?"
-ART = re.compile(rf"\barts?\.\s*({NUMS}(?:\s*(?:,|e|a)\s*{NUMS})*)(.{{0,90}}?)\b(?:d[oa]s?|dest[ea])\s+",
+LISTA_ARTS = rf"({NUMS}(?:\s*(?:,|e|a)\s*{NUMS})*)"
+# "art. 59 do CP": o diploma vem até 90 caracteres depois, sem atravessar outro "art." — em
+# "art. 5º, LVII, e o art. 386 do CPP", o art. 5º fica sem diploma (apontamento), não vira CPP.
+ART = re.compile(rf"\barts?\.\s*{LISTA_ARTS}((?:(?!\barts?\.).){{0,90}}?)\b(?:d[oa]s?|dest[ea])\s+",
                  re.S | re.I)
+ART_SOLTO = re.compile(rf"\barts?\.\s*{LISTA_ARTS}", re.I)
+# Forma inversa: "(CF, art. 93, IX)", "Lei n.º 11.343/2006, art. 33".
+ART_INVERSO = re.compile(
+    r"\b(CPP|CPC|CP|CF(?:/88)?|CRFB|LEP|RITJAL|RISTJ|RISTF"
+    r"|Lei\s+(?:Complementar\s+)?(?:n\.?\s*[º°]?\s*)?\d[\d\.]*\s*/\s*\d{2,4}"
+    r"|Decreto-Lei\s+(?:n\.?\s*[º°]?\s*)?\d[\d\.]*\s*/\s*\d{2,4})"
+    rf"\s*,\s*(arts?\.\s*{LISTA_ARTS})")
 # Destinos RTF que não contêm texto do documento (tabelas de fontes, cores, estilos, metadados,
 # imagens, cabeçalhos e rodapés).
 RTF_IGNORAR = {"fonttbl", "colortbl", "stylesheet", "info", "pict", "object", "header", "footer",
@@ -135,7 +186,49 @@ def odt_para_texto(arq: Path) -> str:
     return html.unescape(re.sub(r"<[^>]+>", "", xml))
 
 
+def docx_para_texto(arq: Path) -> str:
+    """Texto de todos os parágrafos do .docx — inclusive em tabelas, hiperlinks, campos e
+    inserções controladas —, exceto o texto excluído (w:del, w:moveFrom) e os runs em vermelho,
+    que são apontamentos internos da versão anotada e não irão aos autos."""
+    from docx import Document
+    from docx.oxml.ns import qn
+    W_R, W_T, W_TAB, W_BR = qn("w:r"), qn("w:t"), qn("w:tab"), qn("w:br")
+    EXCLUIDO = {qn("w:del"), qn("w:moveFrom")}
+
+    def vermelho(r):
+        cor = r.find(f"{qn('w:rPr')}/{qn('w:color')}")
+        return cor is not None and (cor.get(qn("w:val")) or "").upper() == "FF0000"
+
+    def excluido(el):
+        pai = el.getparent()
+        while pai is not None:
+            if pai.tag in EXCLUIDO:
+                return True
+            pai = pai.getparent()
+        return False
+
+    linhas = []
+    for p in Document(arq).element.body.iter(qn("w:p")):
+        partes = []
+        for r in p.iter(W_R):
+            if vermelho(r) or excluido(r):
+                continue
+            for el in r:
+                if el.tag == W_T:
+                    partes.append(el.text or "")
+                elif el.tag == W_TAB:
+                    partes.append("\t")
+                elif el.tag == W_BR:
+                    partes.append("\n")
+        linhas.append("".join(partes))
+    return "\n".join(linhas)
+
+
 def texto_de(arq: Path) -> str:
+    return unicodedata.normalize("NFC", _texto_bruto(arq))
+
+
+def _texto_bruto(arq: Path) -> str:
     suf = arq.suffix.lower()
     if suf == ".txt":
         return arq.read_text(encoding="utf-8", errors="replace")
@@ -144,14 +237,7 @@ def texto_de(arq: Path) -> str:
     if suf == ".odt":
         return odt_para_texto(arq)
     if suf == ".docx":
-        # Runs em vermelho são apontamentos internos da versão anotada (ressalva, conferências)
-        # e não integram o texto que irá aos autos: ficam fora da conferência.
-        from docx import Document
-
-        def vermelho(r):
-            c = r.font.color
-            return c is not None and c.type is not None and c.rgb is not None and str(c.rgb).upper() == "FF0000"
-        return "\n".join("".join(r.text for r in p.runs if not vermelho(r)) for p in Document(arq).paragraphs)
+        return docx_para_texto(arq)
     if suf == ".pdf":
         if shutil.which("pdftotext"):
             return subprocess.run(["pdftotext", "-layout", str(arq), "-"], capture_output=True, text=True).stdout
@@ -188,7 +274,50 @@ def diploma(cauda: str):
     return None
 
 
-def extrair(texto: str) -> list:
+def tribunal(txt):
+    """Sigla do tribunal a partir da sigla ou do nome por extenso."""
+    if not txt:
+        return None
+    t = re.sub(r"\s+", " ", txt).lower()
+    if t.startswith("supremo"):
+        return "STF"
+    if t.startswith("superior"):
+        return "STJ"
+    return txt.upper()
+
+
+def itens(lista: str, padrao_trib: str, final):
+    """Números de uma lista ("440/STJ, 718 e 719/STF"); o tribunal escrito depois de um número
+    vale para os anteriores que não tenham o seu, como na escrita forense."""
+    achados = re.findall(rf"(\d{{1,2}}\.\d{{3}}|\d{{1,4}})(?:\s*/\s*({padrao_trib}))?", lista, re.I)
+    saida, prox = [], final
+    for n, trib in reversed(achados):
+        prox = trib.upper() if trib else prox
+        saida.append((n, prox))
+    return list(reversed(saida))
+
+
+def classe_extenso(txt: str) -> str:
+    t = re.sub(r"\s+", " ", txt)
+    pref = ""
+    for padrao, sigla in PREFIXOS_EXTENSO:
+        m = re.match(rf"{padrao}\s+n[oa]s?\s+", t, re.I)
+        if m:
+            pref, t = f"{sigla} NO ", t[m.end():]
+            break
+    for padrao, sigla in CLASSES_EXTENSO:
+        if re.fullmatch(padrao, t, re.I):
+            return pref + sigla
+    return pref + t.upper()
+
+
+def dispositivo(dip, n):
+    tipo = "regimento" if dip in ("RITJAL", "RISTJ", "RISTF") else "dispositivo"
+    base, _, letra = n.partition("-")
+    return tipo, f"{dip or '?'} ART {num(base)}{('-' + letra) if letra else ''}"
+
+
+def extrair(texto: str, processo: str = None) -> list:
     t = re.sub(r"\s+", " ", texto)
     achados = []
 
@@ -199,42 +328,71 @@ def extrair(texto: str) -> list:
     for m in PREC.finditer(t):
         classe = re.sub(r"\s+", " ", m.group(1)).replace(" na ", " no ").replace(" nos ", " no ")
         add("precedente", f"{classe.upper()} {num(m.group(2))}", m.group(0))
+    for m in PREC_EXTENSO.finditer(t):
+        add("precedente", f"{classe_extenso(m.group(1))} {num(m.group(2))}", m.group(0))
+    for m in CNJ.finditer(t):
+        if processo and m.group(0) == processo:
+            continue  # o próprio processo
+        janela = t[max(0, m.start() - 150):m.end() + 150]
+        tipo = "precedente" if INDICIO_JULGADO.search(janela) else "processo"
+        add(tipo, f"CNJ {m.group(0)}", t[max(0, m.start() - 60):m.end() + 20])
     for m in SUM.finditer(t):
         vinc = bool(m.group(1))
-        trib = "STF" if vinc else (m.group(3) or "?").upper()
-        add("sumula", f"SUMULA{' VINCULANTE' if vinc else ''} {trib} {num(m.group(2))}", m.group(0))
+        for n, trib in itens(m.group(2), "STF|STJ|TJAL|TFR", tribunal(m.group(3))):
+            trib = "STF" if vinc else (trib or "?")
+            add("sumula", f"SUMULA{' VINCULANTE' if vinc else ''} {trib} {num(n)}", m.group(0))
     for m in SUM_ENUNC.finditer(t):
         vinc = bool(m.group(2))
-        add("sumula", f"SUMULA{' VINCULANTE' if vinc else ''} {m.group(3).upper()} {num(m.group(1))}", m.group(0))
+        add("sumula", f"SUMULA{' VINCULANTE' if vinc else ''} {tribunal(m.group(3))} {num(m.group(1))}", m.group(0))
     for m in TEMA.finditer(t):
-        add("tema", f"TEMA {(m.group(2) or '?').upper()} {num(m.group(1))}", m.group(0))
+        final = tribunal(m.group(2)) or ("STF" if m.group(3) else "STJ" if m.group(4) else None)
+        for n, trib in itens(m.group(1), "STF|STJ", final):
+            add("tema", f"TEMA {trib or '?'} {num(n)}", m.group(0))
+    resolvidos = set()
     for m in ART.finditer(t):
         resto = t[m.end():m.end() + 140]
         dip = diploma(resto)
-        nums = re.findall(NUMS, m.group(1))
-        for n in nums:
-            tipo = "regimento" if dip in ("RITJAL", "RISTJ", "RISTF") else "dispositivo"
-            add(tipo, f"{dip or '?'} ART {num(n.split('-')[0])}{('-' + n.split('-')[1]) if '-' in n else ''}",
-                m.group(0) + resto[:40])
+        resolvidos.add(m.start())
+        for n in re.findall(NUMS, m.group(1)):
+            add(*dispositivo(dip, n), m.group(0) + resto[:40])
+    for m in ART_INVERSO.finditer(t):
+        dip = diploma(m.group(1))
+        resolvidos.add(m.start(2))
+        for n in re.findall(NUMS, m.group(3)):
+            add(*dispositivo(dip, n), m.group(0))
+    for m in ART_SOLTO.finditer(t):  # dispositivo sem diploma identificável
+        if m.start() not in resolvidos:
+            for n in re.findall(NUMS, m.group(1)):
+                add(*dispositivo(None, n), t[m.start():m.end() + 60])
     return achados
 
 
 def norm_ledger(entrada: dict):
-    chaves = [a["chave_norm"] for a in extrair(entrada.get("chave", ""))]
-    return chaves
+    """Chave normalizada de uma entrada do ledger: a `chave_norm` gravada pela fila (--listar) ou,
+    na falta, a primeira citação reconhecida na `chave` — uma entrada confere uma única citação."""
+    if entrada.get("chave_norm"):
+        return [entrada["chave_norm"]]
+    return [a["chave_norm"] for a in extrair(entrada.get("chave", ""))][:1]
 
 
-def conferir(arq: Path, ledger: Path):
-    achados = extrair(texto_de(arq))
+RIGOR = {"REJECTED": 0, "VERIFIED": 2}  # qualquer outro status (PENDENTE etc.) = 1
+
+
+def conferir(arq: Path, ledger: Path, processo: str = None):
+    achados = extrair(texto_de(arq), processo)
     entradas = json.loads(ledger.read_text(encoding="utf-8")) if ledger.exists() else []
     indice = {}
     for e in entradas:
         for k in norm_ledger(e):
-            # VERIFIED prevalece sobre qualquer outra entrada da mesma chave
-            if indice.get(k, {}).get("status") != "VERIFIED":
+            # Havendo mais de uma entrada para a mesma citação, prevalece a mais restritiva.
+            if k not in indice or RIGOR.get(e.get("status"), 1) < RIGOR.get(indice[k].get("status"), 1):
                 indice[k] = e
     bloq, apont, ok = [], [], []
     for a in achados:
+        if a["tipo"] == "processo":
+            apont.append({**a, "problema": "número CNJ citado sem indício de julgado — se for precedente, "
+                                           "registre-o no ledger; se for processo do caso, nada a fazer"})
+            continue
         if "?" in a["chave_norm"]:
             apont.append({**a, "problema": "fonte/diploma não identificado — conferir manualmente"})
             continue
@@ -255,8 +413,9 @@ def main(argv):
     if not argv:
         print(__doc__); return 2
     arq = Path(argv[0])
+    processo = argv[argv.index("--processo") + 1] if "--processo" in argv else None
     if "--listar" in argv:
-        achados = extrair(texto_de(arq))
+        achados = [a for a in extrair(texto_de(arq), processo) if a["tipo"] != "processo"]
         fila = [{"id": f"P{i + 1:03d}", "tipo": a["tipo"], "chave": a["trecho"], "chave_norm": a["chave_norm"],
                  "status": "PENDENTE", "orgao": "", "relator": "", "julgamento": "", "publicacao": "",
                  "fonte": "", "trecho_literal": "", "observacao": ""} for i, a in enumerate(achados)]
@@ -266,7 +425,7 @@ def main(argv):
         print(out)
         return 0
     ledger = Path(argv[argv.index("--ledger") + 1]) if "--ledger" in argv else arq.parent / "_verificacoes.json"
-    r = conferir(arq, ledger)
+    r = conferir(arq, ledger, processo)
     print(json.dumps(r, ensure_ascii=False, indent=2))
     return 0 if r["aprovada"] else 1
 

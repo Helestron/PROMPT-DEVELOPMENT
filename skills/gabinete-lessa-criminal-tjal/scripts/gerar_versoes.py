@@ -2,7 +2,8 @@
 """Gera a VERSÃO LIMPA (.docx e .rtf) a partir da versão anotada, sob o portão de verificação.
 
 Passos:
-  1. remove todo run em vermelho (FF0000) — apontamentos de conferência, ressalva e advertência;
+  1. remove todo run em vermelho (FF0000) — apontamentos de conferência, ressalva e advertência —
+     e desfaz, nas emendas, o espaço duplo e o espaço antes de pontuação que a remoção deixar;
   2. remove parágrafos que fiquem vazios após a remoção;
   3. grava <base>_LIMPA.docx e roda verificar_minuta.py --versao limpa sobre ele;
   4. só havendo aprovação (sem pendência bloqueante), converte para .rtf — motor nativo
@@ -13,7 +14,9 @@ Uso:
     python gerar_versoes.py Minuta_<numero>_<ato>.docx --tipo despacho|decisao|relatorio|voto|
                             voto_vogal|voto_vista|voto_vencido|declaracao_voto|referendo|ementa
                             [--motor nativo|soffice]
-Saída: caminho do .rtf aprovado, ou relatório de pendências (código de saída 1).
+Saída: caminho do .rtf aprovado, ou relatório de pendências (código de saída 1). Documento com
+tabela, hiperlink, caixa de texto, campo ou alteração controlada pendente é recusado pelo portão:
+o conversor lê só parágrafos e runs simples, e esse texto se perderia no SAJ.
 """
 import json
 import shutil
@@ -32,12 +35,32 @@ def eh_vermelho(run) -> bool:
     return cor is not None and cor.type is not None and cor.rgb is not None and str(cor.rgb).upper() == "FF0000"
 
 
+PONTUACAO = tuple(",.;:!?)")
+
+
+def ajustar_espacos(p):
+    """Depois de removidos os apontamentos, desfaz o espaço duplo, o espaço antes de pontuação e o
+    espaço nas pontas do parágrafo, nas emendas entre runs."""
+    runs = [r for r in p.runs if r.text]
+    for a, b in zip(runs, runs[1:]):
+        if a.text.endswith(" ") and (b.text.startswith(PONTUACAO) or b.text.startswith(" ")):
+            a.text = a.text.rstrip(" ")
+    runs = [r for r in p.runs if r.text]
+    if runs:
+        runs[0].text = runs[0].text.lstrip(" ")
+        runs[-1].text = runs[-1].text.rstrip(" ")
+
+
 def limpar(origem: Path, destino: Path):
     doc = Document(origem)
     for p in list(doc.paragraphs):
+        removeu = False
         for r in list(p.runs):
             if eh_vermelho(r):
                 r._element.getparent().remove(r._element)
+                removeu = True
+        if removeu:
+            ajustar_espacos(p)
         if not p.text.strip():
             p._element.getparent().remove(p._element)
     doc.save(destino)
@@ -74,6 +97,9 @@ def docx_para_rtf(docx: Path, destino: Path) -> Path:
     """Conversor nativo DOCX -> RTF (parágrafos, alinhamento, recuos, entrelinhas, negrito,
     itálico, sublinhado, tamanho e cor). Basta ao emissor do SAJ, que recebe texto formatado."""
     doc = Document(docx)
+    estruturas = verificar_minuta.estruturas_nao_suportadas(doc)
+    if estruturas:
+        raise ValueError(f"estrutura não suportada pelo conversor RTF: {', '.join(estruturas)}")
     fonte = doc.styles["Normal"].font.name or "Times New Roman"
     tam_padrao = doc.styles["Normal"].font.size.pt if doc.styles["Normal"].font.size else 12
     partes = ["{\\rtf1\\ansi\\ansicpg1252\\deff0\\uc1",

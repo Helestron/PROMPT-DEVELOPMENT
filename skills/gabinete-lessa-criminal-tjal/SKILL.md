@@ -268,14 +268,17 @@ Nenhuma minuta vai ao SG5 sem passar, em ordem, por todos os portões. Falhando 
    `python scripts/verificar_minuta.py Minuta_….docx --tipo <tipo> --versao anotada`.
    Bloqueantes: expressões vedadas; fecho com local, data ou nome; última linha diversa da fixa;
    fecho do relatório ausente ou repetido; datas e horários no relatório; epígrafes internas;
-   frases fragmentadas; negrito de período ou parágrafo; linguagem de método; ausência de
-   ressalva, advertência ou cor na anotada. Apontamentos (dois-pontos, travessões, parágrafos
+   frases fragmentadas; negrito de período ou parágrafo; linguagem de método (também na
+   ementa); tabela, hiperlink, caixa de texto ou alteração controlada pendente, que o conversor
+   para RTF não transporta; ausência de ressalva, advertência ou cor na anotada. Apontamentos (dois-pontos, travessões, parágrafos
    longos, menção a tema, passagens de prazo): cada um reexaminado e justificado na lista de
    trabalho; o não justificado torna-se bloqueante.
 2. **Portão de citações** — primeiro `python scripts/regimento.py --fila Minuta_….docx` (artigos
    do RITJAL citados, com o texto vigente, para conferência de pertinência e registro no ledger);
-   depois `python scripts/conferir_citacoes.py Minuta_….docx --ledger _verificacoes.json`: toda
-   citação com entrada `VERIFIED`; diploma não identificado conferido manualmente.
+   depois `python scripts/conferir_citacoes.py Minuta_….docx --ledger _verificacoes.json
+   --processo <número>`: toda citação com entrada `VERIFIED` (entre entradas conflitantes,
+   prevalece a mais restritiva); diploma não identificado e número CNJ sem indício de julgado
+   conferidos manualmente.
 3. **Portão aritmético** — penas, frações, multa, prazos prescricionais e datas da minuta
    conferidos contra `_calculos.json` e a saída dos scripts.
 4. **Controle de completude** sobre a matriz da Fase 2: toda tese enfrentada; toda prova
@@ -317,7 +320,8 @@ Roteiros em `referencias/saj_sg5_operacoes.md`; todas as chamadas do script com
    tarefa e lançamento de movimentação (sequências regimentais em `saj_sg5_operacoes.md`, 4.3):
    somente depois que o usuário as autorizar no chat. Grave então `autorizacao_nivel_b.json`, na
    pasta de estado, com o **texto literal** da ordem, as operações, os processos e a validade (no
-   máximo o dia). Ordem genérica ("faça o que for preciso") não basta: peça, em uma linha, a
+   máximo o dia), datas em ISO (`AAAA-MM-DDTHH:MM:SS`) — o script recusa autorização de outro
+   dia, com validade além dele ou sem o texto literal. Ordem genérica ("faça o que for preciso") não basta: peça, em uma linha, a
    lista de operações e processos a autorizar.
 4. Processo baixado ou arquivado: responda **Não** ao aviso do sistema, não insira, alerte.
 5. Três falhas no mesmo passo: mude de caminho ou registre e siga. Ao final, informe quantos
@@ -455,8 +459,21 @@ depende não se executa.
   `saj_sg5.ps1` com auditoria, ensaio e bloqueio pelo nome real do controle; pasta de estado
   configurável (`GABINETE_TRABALHO`); operação `redistribuicao_interna_gabinete` renomeada para
   `transferir_tarefa_interna`; chaves de modelos e categorias para todos os tipos de minuta.
-  (4) Revisão de redação, remissões e coerência em todos os arquivos. Nenhuma salvaguarda foi
-  alterada.
+  (4) Revisão de redação, remissões e coerência em todos os arquivos. (5) Revisão adversarial
+  independente dos scripts, com cada achado reproduzido antes da correção e coberto por teste
+  (46 testes): prescrição — art. 109, VI, em dois anos para fato anterior à Lei n.º
+  12.234/2010, termo em dia inexistente no mês final, suspensões sobrepostas e modalidade
+  ausente; dosimetria — tipo e fração da 3ª fase validados, fração de dia desprezada em cada
+  etapa, multa incompleta recusada e art. 44 no crime culposo; citações — súmulas e temas em
+  lista, "n.°", classes por extenso, precedentes do TJAL pelo número CNJ, forma "CF, art. 93",
+  leitura de tabelas e hiperlinks, e o ledger sem desvio por `PENDENTE` ou `REJECTED`; portão —
+  linguagem de método na ementa, datas e horas em mais formatos, ênclise, negrito com ponto fora,
+  "P. R. I.", texto em Unicode decomposto e estruturas que o RTF perderia; versão limpa sem espaço
+  residual; inventário sem gravação na pasta compartilhada e com histórico preservado. As
+  salvaguardas do `saj_sg5.ps1` foram **reforçadas**: `-Operacao` obrigatório nos modos de ação,
+  termos vedados ampliados (sem bloquear a vista à PGJ, a baixa para retratação nem o botão
+  Cancelar), nome do controle sob o ponto no `CliqueXY`, autorização só do dia e em data ISO, e
+  kill switch que reconhece `PARAR.txt.txt`. Nenhuma salvaguarda foi afrouxada.
 - **01/10/2026 (3.ª entrada) — Teste de acesso.** Item 0.1 da Fase 0 — teste do e-SAJ de 2º
   grau pelo navegador e do SG5 pelo script `testar_acesso.ps1`, ambos somente leitura, na
   máquina do gabinete; registrado que sessão em nuvem não alcança o SG5 local nem a sessão

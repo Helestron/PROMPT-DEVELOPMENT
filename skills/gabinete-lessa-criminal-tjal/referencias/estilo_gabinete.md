@@ -119,7 +119,8 @@ d. Decisões e despachos encerram-se em "Publicações e intimações via DJEN",
 
 a. **Texto corrido, sem tópicos na fundamentação**: nada de "I — Da preliminar", "Do mérito",
 "Da dosimetria" no interior da peça. A passagem de um tema ao outro faz-se por período de
-transição que feche o ponto decidido e anuncie o seguinte.
+transição que feche o ponto decidido e anuncie o seguinte. Sem tabelas, caixas de texto ou
+hiperlinks: o portão os recusa, porque o conversor para RTF não os leva ao SAJ.
 
 b. **Parágrafos curtos, um por questão** (em regra até cinco ou seis períodos, ~120 palavras),
 ligados por transições variadas ("Com efeito", "Nesse passo", "Por outro lado", "Superada essa

@@ -55,8 +55,11 @@ python scripts/inventario_votos.py "<pasta compartilhada>" --saida "<saida_revis
 ```
 
 O inventário aponta **NOVO**, **ALTERADO** (o relator reescreveu depois da última revisão — a
-nota anterior perde validade e a revisão se refaz sobre a diferença) e **INALTERADO**, com
-número CNJ (validado pelo dígito), relator, tipo de peça e sessão. Ordem de trabalho: (1) prazos
+nota anterior perde validade e a revisão se refaz sobre a diferença), **INALTERADO** e
+**REMOVIDO** (saiu da pasta: confira retirada de pauta), com número CNJ (validado pelo dígito),
+relator, tipo de peça e sessão. NOVO e ALTERADO persistem nas rodadas seguintes até que a revisão
+seja registrada no item (R7). O `--saida` é obrigatório e recusado se apontar para dentro da
+pasta compartilhada. Ordem de trabalho: (1) prazos
 regimentais correndo contra o gabinete — fundamentos de voto vencido (72 horas, art. 179), voto
 de referendo de liminar concessiva na próxima sessão (art. 63, § 4º), vista (dez dias, art. 173),
 revisão (dez dias, art. 50); (2) sessão mais próxima; (3) dentro dela, HC e réu preso
@@ -161,5 +164,6 @@ SG5 e finalização sem assinar). **Registrar voto em sessão e pedir vista são
 
 No chat, uma linha por voto: número + relator (abreviado) + posição sugerida + situação (nota
 pronta / minuta de voto pronta / inserida). Segunda linha só para ponto bloqueante (prescrição,
-nulidade, conta errada, citação inexistente). Atualize `_inventario_revisao.json` com
-`revisado_em` e o caminho da nota, para que a próxima rodada detecte alterações posteriores.
+nulidade, conta errada, citação inexistente). Atualize, no item do voto em
+`_inventario_revisao.json`, os campos `revisado_em` (AAAA-MM-DD) e `nota` (caminho da nota de
+revisão), para que a próxima rodada detecte alterações posteriores.

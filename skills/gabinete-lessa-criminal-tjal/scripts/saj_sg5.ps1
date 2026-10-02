@@ -2,8 +2,9 @@
 # gabinete-lessa-criminal-tjal. Derivado do saj_auto.ps1 (SAJ/PG5, validado em 23-24/08/2026).
 # PowerShell 5.1. O script NUNCA digita senha e NUNCA aciona controles de assinatura, de
 # liberação nos autos ou de registro de voto em sessão: os termos vedados são bloqueados
-# mesmo que solicitados. Operações de nível B (movimentação visível nos autos) exigem
-# autorização de lote registrada em autorizacao_nivel_b.json; as de nível C são recusadas.
+# mesmo que solicitados. Todo modo que age sobre o SG5 exige -Operacao (matriz A/B/C).
+# Operações de nível B (movimentação visível nos autos) exigem autorização de lote do dia,
+# registrada em autorizacao_nivel_b.json; as de nível C são recusadas.
 param(
   [Parameter(Mandatory=$true)][ValidateSet('Verificar','Ativar','Arvore','Clique','CliqueXY','Rolar','Texto','Teclas','ColarRtf','Captura','ConverterRtf','Janelas','Esperar','CopiarSelecao')]
   [string]$Modo,
@@ -28,7 +29,15 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$VEDADOS = 'assinar|assinatura|liberar|libera nos autos|certificado|senha|token|\bpin\b|registrar voto|proferir voto|excluir|redistribu'
+# Termos de controles e textos vedados (nível C e credenciais). Específicos de propósito: "vista",
+# "baixa" e "cancelar" isolados bloqueariam a vista à PGJ e a baixa para retratação (nível B) e o
+# botão Cancelar dos diálogos, que é saída segura.
+$VEDADOS = 'assin|liberar|libera nos autos|certific|senha|token|\bpin\b|\bvotar\b|registrar voto|proferir voto|' +
+           'confirmar voto|lan[çc]ar voto|pedir vista|pedido de vista|suspei[çc]|impediment|excluir|remover documento|' +
+           'apagar|deletar|cancelar documento|redistribu|arquivar|arquivamento|baixa definitiva|baixar (o )?processo|' +
+           'baixar (os )?autos|dar baixa|tr[âa]nsito em julgado|alterar (o )?cadastro|alterar partes'
+# Modos que agem sobre o SG5 (clique, tecla, texto, cópia): sempre com -Operacao da matriz.
+$MODOS_ACAO = @('Clique','CliqueXY','Rolar','Texto','Teclas','ColarRtf','CopiarSelecao')
 $BASE = Split-Path -Parent $MyInvocation.MyCommand.Path
 $CONFIG = Join-Path (Split-Path -Parent $BASE) 'config\gabinete.json'
 # Pasta de estado (log, autorizacao de nivel B, PARAR.txt): por padrao, a do script; se a pasta do
@@ -36,8 +45,25 @@ $CONFIG = Join-Path (Split-Path -Parent $BASE) 'config\gabinete.json'
 $TRABALHO = if ($env:GABINETE_TRABALHO) { $env:GABINETE_TRABALHO } else { $BASE }
 
 # Kill switch: PARAR.txt ao lado do script ou na pasta de trabalho suspende toda a automacao.
-if ((Test-Path (Join-Path $BASE 'PARAR.txt')) -or (Test-Path (Join-Path $TRABALHO 'PARAR.txt'))) {
+# 'PARAR*' alcança também 'PARAR.txt.txt', nome que o Explorer gera com extensões ocultas.
+if (Get-ChildItem -Path @($BASE, $TRABALHO) -Filter 'PARAR*' -File -ErrorAction SilentlyContinue) {
   throw 'Kill switch ativo (PARAR.txt): automacao suspensa pelo usuario.'
+}
+
+if ($MODOS_ACAO -contains $Modo -and -not $Operacao) {
+  throw "BLOQUEADO: -Modo $Modo exige -Operacao <rotulo da matriz> (config/gabinete.json > operacoes)."
+}
+
+# Data ISO 8601 da autorização (AAAA-MM-DDTHH:MM:SS); formato ambíguo (dd/mm x mm/dd) é recusado.
+function Ler-DataIso($v, [string]$campo) {
+  if ($v -is [datetime]) { return $v }   # PowerShell 7 já converte datas ISO do JSON
+  $d = [datetime]::MinValue
+  $formatos = [string[]]@('yyyy-MM-ddTHH:mm:ss', 'yyyy-MM-ddTHH:mm', 'yyyy-MM-dd')
+  if (-not [datetime]::TryParseExact([string]$v, $formatos, [Globalization.CultureInfo]::InvariantCulture,
+      [Globalization.DateTimeStyles]::None, [ref]$d)) {
+    throw "BLOQUEADO: '$campo' da autorizacao deve estar em ISO (AAAA-MM-DDTHH:MM:SS): '$v'."
+  }
+  return $d
 }
 
 # Matriz de operações: nível A (automático), B (exige autorização de lote), C (vedado).
@@ -51,7 +77,14 @@ if ($Operacao) {
     $aut = Join-Path $TRABALHO 'autorizacao_nivel_b.json'
     if (-not (Test-Path $aut)) { throw "BLOQUEADO: '$Operacao' (nivel B) sem autorizacao_nivel_b.json." }
     $a = Get-Content $aut -Raw -Encoding UTF8 | ConvertFrom-Json
-    if ((Get-Date) -gt [datetime]$a.valida_ate) { throw "BLOQUEADO: autorizacao de nivel B expirada em $($a.valida_ate)." }
+    if (-not $a.texto_literal) { throw 'BLOQUEADO: autorizacao de nivel B sem o texto literal da ordem do usuario.' }
+    $concedida = Ler-DataIso $a.concedida_em 'concedida_em'
+    $validade = Ler-DataIso $a.valida_ate 'valida_ate'
+    $agora = Get-Date
+    # A autorização vale, no máximo, até o fim do dia em que foi concedida (SKILL.md, Fase 5).
+    if ($concedida.Date -ne $agora.Date) { throw "BLOQUEADO: autorizacao de nivel B concedida em outro dia ($($a.concedida_em))." }
+    if ($validade -gt $concedida.Date.AddDays(1)) { throw "BLOQUEADO: validade alem do dia da concessao ($($a.valida_ate))." }
+    if ($agora -gt $validade) { throw "BLOQUEADO: autorizacao de nivel B expirada em $($a.valida_ate)." }
     if (-not ($a.operacoes -contains $Operacao)) { throw "BLOQUEADO: '$Operacao' nao consta da autorizacao do lote." }
     if (-not $NumeroProcesso -or -not ($a.processos -contains $NumeroProcesso)) {
       throw "BLOQUEADO: processo '$NumeroProcesso' nao consta da autorizacao do lote para '$Operacao'."
@@ -71,6 +104,7 @@ function Registrar([hashtable]$d) {
 
 Add-Type -AssemblyName UIAutomationClient
 Add-Type -AssemblyName UIAutomationTypes
+Add-Type -AssemblyName WindowsBase
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 Add-Type @"
@@ -156,7 +190,13 @@ function Get-ElementoRaiz([string]$rx) {
   $p = Get-JanelaSaj $rx
   return [System.Windows.Automation.AutomationElement]::FromHandle($p.Handle)
 }
+function Nome-SobPonto([int]$x, [int]$y) {
+  # Nome UIA do controle sob o ponto de tela; vazio quando o controle Delphi não se expõe.
+  try { return [string][System.Windows.Automation.AutomationElement]::FromPoint((New-Object System.Windows.Point($x, $y))).Current.Name }
+  catch { return '' }
+}
 function Find-Controle($raiz, [string]$nome) {
+  if ([string]::IsNullOrWhiteSpace($nome)) { throw 'Informe -Nome (nome exato do controle; rode -Modo Arvore).' }
   $cond = New-Object System.Windows.Automation.PropertyCondition([System.Windows.Automation.AutomationElement]::NameProperty, $nome)
   $el = $raiz.FindFirst([System.Windows.Automation.TreeScope]::Descendants, $cond)
   if (-not $el) {
@@ -181,6 +221,8 @@ switch ($Modo) {
   }
   'Ativar' {
     $p = Get-JanelaSaj $Janela
+    Registrar @{ janela = $p.Titulo }
+    if ($Ensaio) { Write-Output ('ENSAIO: ativacao de {0} nao executada' -f $p.Titulo); break }
     [Win32Saj]::ShowWindow($p.Handle, 9) | Out-Null   # SW_RESTORE
     [Win32Saj]::SetForegroundWindow($p.Handle) | Out-Null
     Write-Output "Ativada: $($p.Titulo)"
@@ -188,11 +230,15 @@ switch ($Modo) {
   'CliqueXY' {
     if ($X -lt 0 -or $Y -lt 0) { throw 'Informe -X e -Y (coordenadas relativas a janela).' }
     $p = Get-JanelaSaj $Janela
-    Registrar @{ janela = $p.Titulo; x = $X; y = $Y; duplo = [bool]$Duplo; direito = [bool]$Direito; shift = [bool]$Shift }
-    if ($Ensaio) { Write-Output ('ENSAIO: clique em ({0},{1}) rel. a {2} nao executado' -f $X, $Y, $p.Titulo); break }
-    Ativar-EGarantirFoco $p.Handle
+    if (-not $Ensaio) { Ativar-EGarantirFoco $p.Handle }
     $r = New-Object Win32Saj+RECT; [Win32Saj]::GetWindowRect($p.Handle, [ref]$r) | Out-Null
     $ax = $r.Left + $X; $ay = $r.Top + $Y
+    # Se a UI Automation der nome ao controle sob o ponto, o nome passa pelo bloqueio; controles
+    # Delphi sem nome dependem da captura conferida antes do clique (saj_sg5_operacoes.md, item 3).
+    $sob = Nome-SobPonto $ax $ay
+    if ($sob -match $VEDADOS) { throw "BLOQUEADO: o controle sob o ponto ('$sob') e vedado." }
+    Registrar @{ janela = $p.Titulo; x = $X; y = $Y; controle = $sob; duplo = [bool]$Duplo; direito = [bool]$Direito; shift = [bool]$Shift }
+    if ($Ensaio) { Write-Output ('ENSAIO: clique em ({0},{1}) rel. a {2} [{3}] nao executado' -f $X, $Y, $p.Titulo, $sob); break }
     [Win32Saj]::SetCursorPos($ax, $ay) | Out-Null; Start-Sleep -Milliseconds 250
     if ($Shift) { [Win32Saj]::keybd_event(0x10,0,0,0); Start-Sleep -Milliseconds 80 }
     $down = 2; $up = 4
@@ -268,7 +314,8 @@ switch ($Modo) {
     else {
       $el.SetFocus(); Start-Sleep -Milliseconds 300
       Ativar-EGarantirFoco $p.Handle
-      [System.Windows.Forms.SendKeys]::SendWait($Valor)
+      # Literal para o SendKeys: + ^ % ~ ( ) { } [ ] entre chaves ("50%" não vira Alt+5+0).
+      [System.Windows.Forms.SendKeys]::SendWait([regex]::Replace($Valor, '[+^%~(){}\[\]]', '{$0}'))
     }
     Write-Output "Texto inserido em '$($el.Current.Name)'"
   }

@@ -6,12 +6,16 @@ a sentença ou o voto afirma ter feito, a partir dos critérios declarados no te
 divergências. A escolha e a fundamentação dos critérios são do julgador.
 
 Entrada: JSON (arquivo ou stdin) no formato abaixo. Penas em dias (1 ano = 360 dias e
-1 mês = 30 dias, convenção da prática forense; frações de dia desprezadas — art. 11 do CP).
+1 mês = 30 dias, convenção da prática forense). As frações de dia são desprezadas (art. 11 do
+CP) ao fim de cada etapa — pena-base, cada incidência da 2ª fase e cada causa da 3ª fase —,
+como a decisão faz ao exprimir cada pena intermediária em dias; o mesmo vale para a multa.
+Na 3ª fase, "tipo" é "aumento" ou "diminuicao"; a fração de diminuição é menor que 1.
 
 {
   "processo": "0000000-00.0000.8.02.0000",
   "reu": "J. S.",
   "crime": "art. 33, caput, da Lei n.º 11.343/2006",
+  "culposo": false,
   "pena_min": "5a", "pena_max": "15a",
   "multa_min": 500, "multa_max": 1500,
   "fase1": {"criterio": "1/8_intervalo" | "1/6_minimo" | "fixo",
@@ -69,6 +73,22 @@ def fr(txt) -> Fraction:
     return Fraction(str(txt))
 
 
+def inteiro(q: Fraction) -> Fraction:
+    """Despreza a fração de dia (art. 11 do CP) ou de dia-multa."""
+    return Fraction(int(q))
+
+
+def causa_fase3(c: dict):
+    """Valida a causa da 3ª fase e devolve (tipo normalizado, fração)."""
+    tipo = str(c.get("tipo", "")).strip().lower().replace("ç", "c").replace("ã", "a")
+    if tipo not in ("aumento", "diminuicao"):
+        raise ValueError(f"tipo da 3ª fase inválido: {c.get('tipo')!r} (use 'aumento' ou 'diminuicao')")
+    f = fr(c["fracao"])
+    if f <= 0 or (tipo == "diminuicao" and f >= 1):
+        raise ValueError(f"fração inválida para {tipo}: {c['fracao']} (diminuição exige 0 < fração < 1)")
+    return tipo, f
+
+
 def calcular(e: dict) -> dict:
     memoria = []
     pmin, pmax = dias(e["pena_min"]), dias(e["pena_max"])
@@ -89,7 +109,7 @@ def calcular(e: dict) -> dict:
         desc = f"acréscimo fixo declarado de {fmt(passo)} por circunstância"
     else:
         raise ValueError(f"critério da 1ª fase desconhecido: {crit}")
-    base = min(pmin + passo * n, pmax)
+    base = inteiro(min(pmin + passo * n, pmax))
     memoria.append(f"1ª fase: mínima {fmt(pmin)}; {n} circunstância(s) desfavorável(is); {desc}; pena-base {fmt(base)}")
 
     # 2ª fase — arts. 61 a 66 (compensação simples: diferença entre agravantes e atenuantes).
@@ -105,8 +125,11 @@ def calcular(e: dict) -> dict:
 
     def segunda_fase(valor):
         if modo == "somado":
-            return valor * (1 + fr2 * saldo)
-        return valor * (1 + fr2) ** saldo if saldo >= 0 else valor * (1 - fr2) ** (-saldo)
+            return inteiro(valor * (1 + fr2 * saldo))
+        fator = 1 + fr2 if saldo >= 0 else 1 - fr2
+        for _ in range(abs(saldo)):
+            valor = inteiro(valor * fator)
+        return valor
 
     inter = segunda_fase(base)
     nota = ""
@@ -119,28 +142,29 @@ def calcular(e: dict) -> dict:
 
     # 3ª fase — causas de aumento e diminuição, em cascata (art. 68 do CP)
     pena = inter
-    for c in e.get("fase3", []):
-        f = fr(c["fracao"])
+    causas = [causa_fase3(c) for c in e.get("fase3", [])]
+    for c, (tipo, f) in zip(e.get("fase3", []), causas):
         antes = pena
-        pena = pena * (1 + f) if c["tipo"] == "aumento" else pena * (1 - f)
-        memoria.append(f"3ª fase: {c['tipo']} de {f} ({c.get('fundamento', 's/ fundamento')}) sobre {fmt(antes)} = {fmt(pena)}")
+        pena = inteiro(pena * (1 + f) if tipo == "aumento" else pena * (1 - f))
+        memoria.append(f"3ª fase: {tipo} de {f} ({c.get('fundamento', 's/ fundamento')}) sobre {fmt(antes)} = {fmt(pena)}")
     memoria.append(f"Pena definitiva calculada: {fmt(pena)}")
 
     # Multa — proporcional à privativa: a pena-base ocupa no intervalo de dias-multa a mesma
     # posição relativa que ocupa no intervalo da privativa; 2ª e 3ª fases pelas mesmas frações.
     r = {"memoria": memoria, "pena_final_dias": int(pena), "pena_final": fmt(pena)}
-    if "multa_min" in e:
+    if "multa_min" in e or "multa_max" in e:
+        if "multa_min" not in e or "multa_max" not in e:
+            raise ValueError("informe multa_min e multa_max (ou nenhum dos dois)")
         mmin, mmax = Fraction(e["multa_min"]), Fraction(e["multa_max"])
         posicao = (base - pmin) / intervalo if intervalo else Fraction(0)
-        mb = mmin + (mmax - mmin) * posicao
+        mb = inteiro(mmin + (mmax - mmin) * posicao)
         mi = segunda_fase(mb)
         if f2.get("sumula231", True):
             mi = max(mi, mmin)
         mi = min(mi, mmax)
         mf = mi
-        for c in e.get("fase3", []):
-            f = fr(c["fracao"])
-            mf = mf * (1 + f) if c["tipo"] == "aumento" else mf * (1 - f)
+        for tipo, f in causas:
+            mf = inteiro(mf * (1 + f) if tipo == "aumento" else mf * (1 - f))
         r["multa_final"] = int(mf)
         memoria.append(f"Multa proporcional: base {int(mb)}, intermediária {int(mi)}, definitiva {int(mf)} dias-multa")
 
@@ -166,10 +190,14 @@ def calcular(e: dict) -> dict:
     if not e.get("circunstancias_favoraveis", True):
         regime += "; circunstâncias judiciais desfavoráveis podem justificar regime mais gravoso (art. 33, § 3º) — fundamentar"
     r["quadro_regime"] = regime
-    r["quadro_art44"] = (
-        "quantum compatível com substituição (≤ 4 anos) — conferir violência/grave ameaça, reincidência e art. 44, III"
-        if anos <= 4 else "quantum superior a 4 anos — substituição incabível (art. 44, I)"
-    )
+    if e.get("culposo"):
+        r["quadro_art44"] = ("crime culposo: substituição cabível qualquer que seja a pena (art. 44, I) — "
+                             "conferir art. 44, II e III")
+    elif anos <= 4:
+        r["quadro_art44"] = ("quantum compatível com substituição (≤ 4 anos) — conferir violência ou grave "
+                             "ameaça, reincidência e art. 44, III")
+    else:
+        r["quadro_art44"] = "quantum superior a 4 anos — substituição incabível em crime doloso (art. 44, I)"
     r["aviso"] = "Apoio aritmético. Frações, valoração e regime exigem fundamentação concreta do julgador."
     return r
 

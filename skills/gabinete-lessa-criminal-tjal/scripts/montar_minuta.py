@@ -24,6 +24,7 @@ A ressalva e a advertência são acrescentadas automaticamente ao fim, se o text
 import json
 import re
 import sys
+import unicodedata
 from pathlib import Path
 
 from docx import Document
@@ -79,6 +80,7 @@ def montar(linhas, saida, cfg):
     estilo.font.name = cfg["fonte"]; estilo.font.size = Pt(cfg["corpo_pt"])
     tem_ressalva = tem_adv = False
     for bruta in linhas:
+        bruta = unicodedata.normalize("NFC", bruta)
         linha = bruta.rstrip("\n")
         if not linha.strip():
             continue
